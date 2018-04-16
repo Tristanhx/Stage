@@ -1,0 +1,1 @@
+const gfx = new Graphics(), io = new IO(), LC = new LevelCreator();

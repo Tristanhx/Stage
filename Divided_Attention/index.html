@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="icon" href="/cropped-Favicon_512x512-32x32.png" sizes="32x32">
+    <title>Divided Attention</title>
+</head>
+<body>
+    <h1>Divided Attention</h1>
+    <form id="myForm" action="javascript:void(0);" method="post">
+        Name: <input type="text" name="name" id="name"/><br />
+        <button id="sub">Save</button>
+    </form>
+    <div style="position:relative">
+        <div id="topArea" style="position:absolute; top:0px; left:275px;">
+        </div>
+    </div>
+    <div style="position:relative">
+        <div id="livesArea" style="position:absolute; top:100px; left:100px">
+        </div>
+    </div>
+    <div style="position:relative">
+        <div id="bottomArea" style="position:absolute; top:120px; left:0px">
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="clickButton.js"></script>
+    <script src="Player.js"></script>
+    <script src="GameObject.js"></script>
+    <script src="LivesArea.js"></script>
+    <script src="TopArea.js"></script>
+    <script src="BottomArea.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

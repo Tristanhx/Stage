@@ -1,0 +1,227 @@
+let realWords =
+`car
+eat
+put
+nun
+jet
+boy
+die
+act
+kid
+oil
+run
+ash
+fat
+gas
+tip
+end
+lip
+due
+fox
+van
+vat
+age
+hen
+hay
+sea
+pit
+can
+law
+fun
+mix
+cry
+gem
+cow
+leg
+bay
+bed
+top
+egg
+rib
+kit
+few
+bar
+row
+war
+rub
+gun
+ask
+cut
+key
+tin
+nit
+bur`;
+const fakeWords =
+`yek
+tuc
+ksa
+nug
+riw
+wor
+rab
+wef
+txk
+bir
+gge
+pyt
+deb
+yab
+gel
+woc
+meg
+yrc
+xim
+nuf
+wal
+nac
+typ
+aes
+yah
+neh
+ega
+tav
+nav
+xof
+eud
+pil
+dne
+pyt
+syg
+taf
+hsa
+nur
+lio
+dik
+tca
+eid
+yob
+tej
+nyn
+tup
+rac
+nep
+tra
+yap
+deb
+sig
+naf
+nug
+ruf
+nni
+dab
+tis
+tav
+pam
+taf
+ega
+tib
+niw
+nac
+pyt
+bor
+tes
+pag
+gge
+tik
+wol
+tac
+dil
+nav
+eit
+kao
+pyt
+ulf
+wos
+mra
+gip
+bir
+yob
+pyp
+meg
+gam
+yah
+nan
+neh
+gof
+oge
+pis
+yad
+tip
+yab
+wob
+sog
+wol
+naf
+tup
+yhs
+tac
+waj
+esu
+yps
+rab
+kao
+dag
+wor
+ksa
+wob
+gip
+yap
+der
+teb
+gol
+wos
+tol
+tej
+boj
+pil
+eeb
+yrc
+pjt
+mra
+pih
+tun
+pac
+yal
+woc
+ylf
+yad
+dea
+tuc
+tjp
+nni
+yub
+eud
+yas
+gam
+tuh
+ria
+puc
+ulf
+nin
+yrd
+
+`;
+let realWordList;
+let fakeWordList;
+let wordList;
+const gfx = new Graphics();
+const io = new IO();
+const gm = new Game();
+
+function startGame(){
+    console.log('Start!');
+    document.getElementById("myForm").style.display = "none";
+    realWordList = realWords.split("\n").filter(e=>e);
+    fakeWordList = fakeWords.split("\n").filter(e=>e);
+    wordList = shuffle(realWordList.concat(fakeWordList));
+    gameArea.start();
+    gm.practiceLevelLoop();
+}
+
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}

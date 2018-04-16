@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Whack A Mole 2</title>
+    <link href="./style.css" type="text/css" rel="stylesheet">
+    <!--<script src="../JQUERY/jquery-1.9.1.min.js"></script>-->
+    <script src="../JQUERY/jquery-1.12.4.js"></script>
+    <script src="../JQUERY/jquery-ui.js"></script>
+    <script src="js/CountDownObject.js"></script>
+    <script src="js/gameArea.js"></script>
+    <script src="js/clickButton.js"></script>
+    <script src="js/Renderer.js"></script>
+    <script src="js/IO.js"></script>
+    <script src="js/Game.js"></script>
+    <script src="js/GlobalVariables.js"></script>
+    <script src="js/main.js"></script>
+</head>
+
+<body>
+    <div id="overlay">
+        <div id="button-mapping-text" class="message">
+            Place your middle finger of your left hand on the 1 key and your index finger of your left hand on wherever. Press down your left index finger.
+        </div>
+        <div id="follow-up-question" class="message">
+            Did you notice a pattern?
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        </div>
+    </div>
+    <form id="myForm" action="javascript:void(0);" method="post">
+        Name: <input type="text" name="name" id="name"/><br />
+        <button id="sub">Save</button>
+    </form>
+    <div id="molefield">
+    </div>
+    </body>
+</html>
