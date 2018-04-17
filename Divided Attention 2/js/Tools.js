@@ -211,7 +211,21 @@ class Tools{
         $.ajax({
             url: "getLevel.php",
             success: function(response) {
-                levelString = response;
+                let levelArray = response.split(',');
+                console.log(levelArray);
+                for (let i = 0 ; i < levelArray.length ; i += 5){
+                    gm.framesArray.push(parseInt(levelArray[i]));
+                    gm.xPosArray.push(parseInt(levelArray[i+1]));
+                    gm.h_speedArray.push(parseInt(levelArray[i+2]));
+                    gm.v_speedArray.push(parseInt(levelArray[i+3]));
+                    gm.gapArray.push(parseInt(levelArray[i+4]));
+                }
+                gm.framesArray.shift();
+                gm.xPosArray.shift();
+                gm.h_speedArray.shift();
+                gm.v_speedArray.shift();
+                gm.gapArray.shift();
+                console.log(gm.framesArray, gm.xPosArray, gm.h_speedArray, gm.v_speedArray, gm.gapArray);
                 startGame();
             },
             error: () => {alert("Connection failed, please press F5 to try again")}
@@ -220,10 +234,10 @@ class Tools{
 
     static saveScore(){
         console.log("Saving result");
-        let csv = "[Frames], [Level], [Speed], [Lives], [Player X], [X Left], [X Right], [Screen-width]\r\n";
+        let csv = "[Frames], [Level], [Speed], [Lives], [Player X], [X Left], [X Right], [Screen-width]\r\n,";
         gm.data.forEach(function(data){
             let row = data.join(",");
-            csv += row + "\r\n";
+            csv += row + "\r\n,";
         });
 
         console.log(csv.length);

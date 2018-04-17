@@ -13,6 +13,11 @@ class GameLoop {
         this.maxLives = 4;
         this.lives = this.maxLives;
         this.data = [];
+        this.framesArray = [];
+        this.xPosArray = [];
+        this.h_speedArray = [];
+        this.v_speedArray = [];
+        this.gapArray = [];
 
         //__TopArea__\\
         this.blockCount = 0;
@@ -163,7 +168,7 @@ class GameLoop {
     }
 
     moreObstacles(){
-        Tools.changeBlockLoc(this.currentPath);
+        //Tools.changeBlockLoc(this.currentPath);
         gfx.placeObjects("pathParts", this.gap - this.obstacleSize, this.obstacleSize * this.speed * 2, '#FFAA00', this.blockLoc +
             this.obstacleSize, gameArea.canvas.height, gameArea.context, 1, this.gap);
         gfx.placeObjects("obstacles", this.obstacleSize, this.obstacleSize * this.speed, "#00FF00", this.blockLoc,
@@ -173,6 +178,10 @@ class GameLoop {
 
     logData(){
         this.data.push([this.frames, this.level, this.speed, this.lives, Math.round(this.player.xPos), Math.round(this.blockLoc), Math.round(this.blockLoc + this.gap), gameArea.canvas.style.width]);
+    }
+
+    fetchValues(frame){
+
     }
 
     gameLoop(){
@@ -211,13 +220,13 @@ class GameLoop {
             if ((this.frames / 10) % 1 === 0) {
                 this.logData();
             }
-            //__Pick Path__\\
-            if (this.pathDurationCounter === this.pathDuration) {
-                this.pathDuration = Tools.pathDurationSetter();
-                this.pathPicker = Tools.pathPickerSetter();
-                this.pathDurationCounter = 0;
-            }
-            this.currentPath = this.pathDir[this.pathPicker];
+            // //__Pick Path__\\
+            // if (this.pathDurationCounter === this.pathDuration) {
+            //     this.pathDuration = Tools.pathDurationSetter();
+            //     this.pathPicker = Tools.pathPickerSetter();
+            //     this.pathDurationCounter = 0;
+            // }
+            // this.currentPath = this.pathDir[this.pathPicker];
 
             //__Check lives__\\
             if (this.lives <= 0 && this.game) {
@@ -268,6 +277,7 @@ class GameLoop {
 
                 //adding new objects according to obstacleSize
                 if (this.frames > 0 && this.frames % this.obstacleSize === 0 && !this.finish) {
+                    this.fetchValues(this.frames);
                     this.moreObstacles();
                 }
 

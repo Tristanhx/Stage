@@ -32,10 +32,10 @@ class Tools{
 
     static saveLevel(){
         console.log("Saving result");
-        let csv = "[Frames], [X] [H_Speed], [V_Speed], [Gap]\r\n";
+        let csv = "[Frames], [X], [H_Speed], [V_Speed], [Gap]\r\n,";
         LC.data.forEach(function(data){
             let row = data.join(",");
-            csv += row + "\r\n";
+            csv += row + "\r\n,";
         });
 
         console.log(csv.length);
