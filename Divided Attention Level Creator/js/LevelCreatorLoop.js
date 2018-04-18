@@ -22,6 +22,7 @@ class LevelCreator{
         context.fillText("V_Speed: " + this.v_speed.toString(), 10, 110);
         context.fillText("H_Speed: " + this.h_speed.toString(), 10, 170);
         context.fillText("Gap: " + this.indicator.gap.toString(), 10, 240);
+        context.fillStyle = this.start ? "green" : "red";
         context.fillText("Start: " + this.start.toString(), 10, 300);
 
     }
@@ -38,16 +39,31 @@ class LevelCreator{
         Tools.handleObjects(gfx.objects['obstacles'], true);
 
         if (this.start){
-            gfx.placeObjects("obstacles", this.indicator.width, this.indicator.height * this.v_speed, this.indicator.xPos, this.indicator.yPos, this.indicator.gap);
-            this.logData(this.indicator.xPos);
-            this.frames++;
+            if(gfx.lag >= gfx.frameDuration) {
+                gfx.placeObjects("obstacles", this.indicator.width, this.indicator.height * this.v_speed, this.indicator.xPos, this.indicator.yPos, this.indicator.gap);
+                this.logData(this.indicator.xPos);
+                this.frames++;
+                gfx.lag -= gfx.frameDuration;
+            }
         }
 
         if (gameArea.context) {
             this.displayInfo(gameArea.context);
         }
 
+        //___FPS Control___\\
+        gfx.now = window.performance.now();
+        gfx.delta = gfx.now - gfx.previous;
 
+        if (gfx.delta > gfx.frameDuration){
+            gfx.delta = gfx.frameDuration;
+        }
 
-    }
+        gfx.lag += gfx.delta;
+
+        gfx.fps = 1/ (gfx.delta/1000);
+        gfx.displayFPS(gameArea.context, gameArea.canvas);
+
+        gfx.previous = gfx.now;
+    };
 }

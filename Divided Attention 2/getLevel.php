@@ -10,7 +10,7 @@
 $con = mysqli_connect('localhost', 'root', '');
 $db = mysqli_select_db($con, 'test');
 
-$result = mysqli_query($con, "SELECT data FROM divided_attention_level_creator WHERE id=5");
+$result = mysqli_query($con, "SELECT data FROM divided_attention_level_creator WHERE id=6");
 
 while ($row = $result->fetch_assoc())
 {

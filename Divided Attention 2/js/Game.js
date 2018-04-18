@@ -31,18 +31,21 @@ class GameLoop {
         this.speed = this.speedSetting;
         this.breakException = {};
         this.immunity = false;
-        //obstacles
+
+        //_obstacles_\\
         this.collisionBlock = null;
         this.obstacleSize = 2;
-        this.gap = 100;
-        this.blockLoc = gameArea.canvas.width / 3;
-        //paths
+        this.gap = null;
+        this.blockLoc = null;
+
+        //__paths__\\
         this.pathDir = ['Left', 'Right', 'Straight'];
         this.pathDuration = Tools.pathDurationSetter();
         this.pathDurationCounter = 0;
         this.pathPicker = Tools.pathPickerSetter();
-        //levels and finish
-        this.levelDuration = 1000;
+
+        //__levels and finish__\\
+        //this.levelDuration = 1000;
         this.finish = false;
         this.finishArea = false;
         this.interLevelTimeSetting = 100;
@@ -65,13 +68,14 @@ class GameLoop {
         this.run1.src = './img/runningdown1.png';
         this.run2.src = './img/runningdown2.png';
         this.imgFrame = 0;
-        this.player = new Player(this.playerDim, this.playerDim, 'blue', gameArea.canvas.width / 2, 500);
+        this.player = new Player(this.playerDim, this.playerDim, 'blue', this.xPosArray[0]+(this.gapArray[0]/2), 500);
     }
 
     resetValues(){
         //__Game__\\
         this.immunityTimer = this.immunityTime;
         this.lives = this.maxLives;
+        this.frames = 1;
 
         //__TopArea__\\
         this.blockCount = 0;
@@ -86,8 +90,8 @@ class GameLoop {
         //obstacles
         this.collisionBlock = null;
         this.obstacleSize = 2;
-        this.gap = 100;
-        this.blockLoc = gameArea.canvas.width / 3;
+        this.gap = this.gapArray[0];
+        this.blockLoc = this.xPosArray[0];
         //levels and finish
         this.finish = false;
         this.finishArea = false;
@@ -169,11 +173,12 @@ class GameLoop {
 
     moreObstacles(){
         //Tools.changeBlockLoc(this.currentPath);
+        this.fetchValues(this.frames);
         gfx.placeObjects("pathParts", this.gap - this.obstacleSize, this.obstacleSize * this.speed * 2, '#FFAA00', this.blockLoc +
             this.obstacleSize, gameArea.canvas.height, gameArea.context, 1, this.gap);
         gfx.placeObjects("obstacles", this.obstacleSize, this.obstacleSize * this.speed, "#00FF00", this.blockLoc,
             gameArea.canvas.height, gameArea.context, 2, this.gap);
-        this.pathDurationCounter++;
+        //this.pathDurationCounter++;
     }
 
     logData(){
@@ -181,7 +186,10 @@ class GameLoop {
     }
 
     fetchValues(frame){
-
+        if (frame < this.framesArray.length) {
+            this.blockLoc = this.xPosArray[frame];
+            this.gap = this.gapArray[frame];
+        }
     }
 
     gameLoop(){
@@ -277,11 +285,10 @@ class GameLoop {
 
                 //adding new objects according to obstacleSize
                 if (this.frames > 0 && this.frames % this.obstacleSize === 0 && !this.finish) {
-                    this.fetchValues(this.frames);
                     this.moreObstacles();
                 }
 
-                if (this.frames % this.levelDuration === 0 && !this.finish) {
+                if (this.frames === this.framesArray.length) {
                     this.createFinishLine();
                     this.finish = true;
                 }

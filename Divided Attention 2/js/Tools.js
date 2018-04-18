@@ -225,6 +225,9 @@ class Tools{
                 gm.h_speedArray.shift();
                 gm.v_speedArray.shift();
                 gm.gapArray.shift();
+
+                gm.blockLoc = gm.xPosArray[0];
+                gm.gap = gm.gapArray[0];
                 console.log(gm.framesArray, gm.xPosArray, gm.h_speedArray, gm.v_speedArray, gm.gapArray);
                 startGame();
             },
