@@ -25,13 +25,16 @@ class IO{
 
     handleArrowKeyPress(){
         if (this.keys && this.keys[37]){
+            gm.speed = 1;
             gm.player.xDir = -gm.speed;
         }
         if (this.keys && this.keys[39]){
+            gm.speed = 1;
             gm.player.xDir = gm.speed;
         }
         if (this.keys && (!this.keys[37] && !this.keys[39])){
             gm.player.xDir = 0;
+            gm.speed = gm.speedSetting;
         }
     }
 

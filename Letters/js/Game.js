@@ -46,7 +46,7 @@ class Game{
                         things[i].color = 'black';
                         things[i].target = false;
                     }
-                    things[i].y += things[i].d;
+                    things[i].y += things[i].d * this.speed;
                     things[i].update();
                 }
                 // if it is something else
@@ -91,9 +91,9 @@ class Game{
     // }
 
     createLetters(){
-        this.letters.push(new Letter(this.letterSize, -this.letterSize, this.letterSize, wordList[this.wordNumber][0], this.speed));
-        this.letters.push(new Letter(this.letterSize * 2, gameArea.canvas.height + this.letterSize, this.letterSize, wordList[this.wordNumber][1], -this.speed));
-        this.letters.push(new Letter(this.letterSize * 3, -this.letterSize, this.letterSize, wordList[this.wordNumber][2], this.speed));
+        this.letters.push(new Letter(this.letterSize, -this.letterSize, this.letterSize, wordList[this.wordNumber][0], 1));
+        this.letters.push(new Letter(this.letterSize * 2, gameArea.canvas.height + this.letterSize, this.letterSize, wordList[this.wordNumber][1], -1));
+        this.letters.push(new Letter(this.letterSize * 3, -this.letterSize, this.letterSize, wordList[this.wordNumber][2], 1));
     }
 
     updateElements(){
@@ -213,7 +213,7 @@ class Game{
             gameArea.clear();
             // gameArea.context.fillStyle = 'black';
             // gameArea.context.fillRect(0, gameArea.canvas.height/2, gameArea.canvas.width, 10);
-            if ((this.frames / 100) % 1 === 0 && this.wordNumber < wordList.length) {
+            if ((this.frames / (100/this.speed)) % 1 === 0 && this.wordNumber < wordList.length) {
                 this.createLetters();
                 this.wordNumber++;
             } else if (this.wordNumber >= wordList.length) {

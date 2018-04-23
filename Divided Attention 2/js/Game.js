@@ -27,7 +27,7 @@ class GameLoop {
         this.blockPresentationTime = this.blockPresentationTimeSetter;
 
         //__BottomArea__\\
-        this.speedSetting = 1;
+        this.speedSetting = 1.4;
         this.speed = this.speedSetting;
         this.breakException = {};
         this.immunity = false;
@@ -103,6 +103,7 @@ class GameLoop {
     }
 
     prepareForNextLevel(){
+        console.log("levelduration in frames: ", this.frames);
         if(this.lives === this.maxLives) {
             this.speedSetting += 1;
             this.maxLives -= 1;
