@@ -25,6 +25,9 @@ class GameLoop {
         this.match = null;
         this.blockPresentationTimeSetter = 200;
         this.blockPresentationTime = this.blockPresentationTimeSetter;
+        this.blockPresentationTimer = 0;
+        this.showBlocks = false;
+        this.firstBlocks = true;
 
         //__BottomArea__\\
         this.speedSetting = 1.4;
@@ -76,12 +79,14 @@ class GameLoop {
         this.immunityTimer = this.immunityTime;
         this.lives = this.maxLives;
         this.frames = 1;
+        this.showBlocks = false;
 
         //__TopArea__\\
         this.blockCount = 0;
         this.makeNew = true;
         this.match = null;
         this.blockPresentationTime = this.blockPresentationTimeSetter;
+        this.firstBlocks = true;
 
         //__BottomArea__\\
         this.speed = this.speedSetting;
@@ -124,6 +129,8 @@ class GameLoop {
         gameArea.fillBorders();
 
         gameArea.clearBottom();
+        gfx.objects["leftBlocks"] = [];
+        gfx.objects["rightBlocks"] = [];
         gameArea.clearTop();
         gameArea.clearLives();
         this.countDown = true;
@@ -259,19 +266,30 @@ class GameLoop {
                 }
 
                 //__Top Area__\\
-                if (this.speed !== 0) {
-                    if (this.blockCount < 4) {
-                        if (this.blockCount === 0) {
-                            this.match = Math.random() < .25;
-                        }
-                        Tools.blockBuilder(this.match);
-                    } else if (this.makeNew) {
-                        Tools.makeNewBlocks();
-                    } else {
-                        if (this.frames % this.blockPresentationTime === 0) {
-                            Tools.clearBlocks(true);
+                if(this.showBlocks) {
+                    if (this.speed !== 0) {
+                        if (this.blockCount < 4) {
+                            if (this.blockCount === 0 && !this.firstBlocks) {
+                                this.match = Math.random() < .25;
+                            }
+                            else{
+                                this.match = false;
+                                this.firstBlocks = false;
+                            }
+                            Tools.blockBuilder(this.match);
+                        } else if (this.makeNew) {
+                            Tools.makeNewBlocks();
+                        } else {
+                            if (this.blockPresentationTimer === this.blockPresentationTime) {
+                                Tools.clearBlocks(true);
+                                this.blockPresentationTimer = 0;
+                            }
                         }
                     }
+                    this.blockPresentationTimer++;
+                }
+                if (this.frames >= (gameArea.canvas.height - this.player.yPos)/this.speed){
+                    this.showBlocks = true;
                 }
 
                 //__Bottom Area__\\
