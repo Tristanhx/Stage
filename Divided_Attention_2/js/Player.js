@@ -30,8 +30,6 @@ function Player(width, height, color, xPos, yPos) {
     this.newPos = function(){
         this.hitEdge();
         this.xPos += this.xDir;
-        this.yPos += this.yDir;
-
     };
     this.hitEdge = function(){
         let bottom = gameArea.canvas.height - this.height;

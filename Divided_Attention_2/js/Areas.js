@@ -3,12 +3,12 @@ const gameArea = {
     canvas: document.createElement("canvas"),
     start: function(){
         this.canvas.width = 800;
-        this.canvas.height = 1000;
+        this.canvas.height = 1300;
         this.topBorder = 100;
         this.topLeft = 275;
         this.livesBorder = this.topBorder + 20;
 
-        this.canvas.style.border = "1px solid #00FF00";
+        //this.canvas.style.border = "1px solid #00FF00";
         this.canvas.style.backgroundColor = "#000000";
         this.context = this.canvas.getContext("2d");
 
@@ -25,6 +25,7 @@ const gameArea = {
         this.div.appendChild(this.canvas);
         resize();
         window.addEventListener('resize', resize, false);
+        window.addEventListener('load', resize, false);
     },
     clearTop: function(){
         this.context.clearRect(0, 0, 200, 100);
@@ -43,16 +44,26 @@ const gameArea = {
 
 
 function resize(){
-    console.log('resizing bottom');
-    let ratio = gameArea.canvas.height / gameArea.canvas.width;
-    let width = window.innerWidth;
-    let height = width * ratio;
+    console.log('resizing');
+    let ratio;
+    let width;
+    let height;
+    // when innerWidth is smaller than innerHeight restrict height
+    // when innerHeight is smaller than innerWidth restrict width
+    if (window.innerWidth <= window.innerHeight){
+        ratio = gameArea.canvas.height / gameArea.canvas.width;
+        width = window.innerWidth;
+        height = width * ratio;
+    } else{
+        ratio = gameArea.canvas.width / gameArea.canvas.height;
+        height = window.innerHeight;
+        width = height * ratio;
+    }
     console.log(ratio);
 
-    gameArea.canvas.style.width = Math.floor(width/2)+'px';
-    gameArea.canvas.style.height = Math.floor(height/2)+'px';
+    gameArea.canvas.style.width = (width) + "px";
+    gameArea.canvas.style.height = (height) + "px";
 }
-
 
 
 

@@ -100,6 +100,10 @@ class Tools{
 
         // make sure that no two same blockSets follow each other
         while(gfx.objects["leftBlocks"].length === 4 && (gfx.objects["leftBlocks"] === gfx.objects["previousLeftBlocks"]) && (gfx.objects["rightBlocks"] === gfx.objects["previousRightBlocks"])){
+            if (Tools.allValuesSame(gfx.objects["leftBlocks"])){
+                gfx.objects["leftBlocks"][0] =  gfx.objects["leftBlocks"][0] === 'yellow' ? 'blue' : 'yellow';
+            }
+
             gfx.objects["leftBlocks"] = Tools.shuffle(gfx.objects["leftBlocks"]);
             if (match) {
                 gfx.objects["rightBlocks"] = gfx.objects["leftBlocks"];
@@ -114,8 +118,18 @@ class Tools{
         gm.blockCount++;
     }
 
+    static allValuesSame(array){
+        for(let i = 1; i < array.length; i++)
+        {
+            if(array[i] !== array[0])
+                return false;
+        }
+
+        return true;
+    }
+
     static ensureDifference(){
-        gfx.objects["rightBlocks"][0] = 'yellow' ? 'blue' : 'yellow';
+        gfx.objects["rightBlocks"][0] = gfx.objects["rightBlocks"][0] === 'yellow' ? 'blue' : 'yellow';
         gfx.objects["rightBlocks"] = Tools.shuffle(gfx.objects["rightBlocks"]);
     }
 

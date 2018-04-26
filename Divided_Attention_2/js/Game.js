@@ -71,7 +71,7 @@ class GameLoop {
         this.run1.src = './img/runningdown1.png';
         this.run2.src = './img/runningdown2.png';
         this.imgFrame = 0;
-        this.player = new Player(this.playerDim, this.playerDim, 'blue', this.xPosArray[0]+(this.gapArray[0]/2), 500);
+        this.player = new Player(this.playerDim, this.playerDim, 'blue', this.xPosArray[0]+(this.gapArray[0]/2), 800);
     }
 
     resetValues(){
@@ -122,7 +122,6 @@ class GameLoop {
         this.resetValues();
         console.log(this.lives, "/", this.maxLives);
         console.log("Culminative score: ", this.score);
-        this.player.xPos = gameArea.canvas.width / 2;
         this.level++;
 
         gameArea.lifeMeterBorders = [];
