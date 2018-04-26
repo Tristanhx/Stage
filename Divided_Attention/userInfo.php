@@ -20,4 +20,4 @@
 
     // here we make the query
     // mysqli requires the first parameter to be the connection, the second is the query
-    mysqli_query($con, "INSERT INTO divided_attention (name, score, ip_address, date) VALUES('$name', '$score', '$ip_address', NOW())");
+    mysqli_query($con, "INSERT INTO thx_prototype_divided_attention (name, score, ip_address, date) VALUES('$name', '$score', '$ip_address', NOW())");

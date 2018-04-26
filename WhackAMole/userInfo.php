@@ -21,4 +21,4 @@
 
     // here we make the query
     // mysqli requires the first parameter to be the connection, the second is the query
-    mysqli_query($con, "INSERT INTO whackamole (name, score, ip_address,noticed_sequence, date) VALUES('$name', '$score', '$ip_address','$noticed_sequence', NOW())");
+    mysqli_query($con, "INSERT INTO thx_prototype_whackamole (name, score, ip_address,noticed_sequence, date) VALUES('$name', '$score', '$ip_address','$noticed_sequence', NOW())");

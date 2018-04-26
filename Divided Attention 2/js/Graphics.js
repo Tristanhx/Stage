@@ -10,11 +10,29 @@ class Graphics{
         this.delta = 0;
     }
 
-    placeObjects(array, w, h, c, x, y, context, amount, gap){
+    placeObjects(array, w, h, c, x, y, context, amount, gap) {
         this.createArrayInObjects(array);
+        let pathDirection = "";
+        if (array === "obstacles") {
+            try {
+                if (this.objects[array][-1].blockLoc === gm.blockLoc) {
+                    pathDirection = "Straight";
+                } else if (this.objects[array][-1].blockLoc < gm.blockLoc) {
+                    pathDirection = "Left";
+                } else if (this.objects[array][-1].blockLoc > gm.blockLoc) {
+                    pathDirection = "Right";
+                }
+            } catch(e){
+                pathDirection = "Straight";
+            }
+            for (let i = 0 ; i < amount; i++){
+                this.objects[array].push(new GameObject(w, h, c, x+gap*i, y, context, false, pathDirection, gap));
+            }
+        } else {
 
-        for (let i = 0 ; i < amount; i++){
-            this.objects[array].push(new GameObject(w, h, c, x+gap*i, y, context));
+            for (let i = 0; i < amount; i++) {
+                this.objects[array].push(new GameObject(w, h, c, x+gap*i, y, context));
+            }
         }
 
     }

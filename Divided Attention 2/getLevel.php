@@ -6,11 +6,12 @@
  * Time: 13:32
  */
 
+include("../conf/db_info.php");
 // include the database
-$con = mysqli_connect('localhost', 'root', '');
-$db = mysqli_select_db($con, 'test');
+$con = mysqli_connect($servername, $username, $password, $dbname);
+#$db = mysqli_select_db($con, 'test');
 
-$result = mysqli_query($con, "SELECT data FROM divided_attention_level_creator WHERE id=18");
+$result = mysqli_query($con, "SELECT data FROM thx_prototype_divided_attention_level_creator WHERE id=18");
 
 while ($row = $result->fetch_assoc())
 {

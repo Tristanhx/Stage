@@ -1,11 +1,12 @@
-function GameObject(width, height, color, xPos, yPos, type, stroke) {
+function GameObject(width, height, color, xPos, yPos, type, stroke, path, gap) {
     this.width = width;
     this.height = height;
     this.color = color;
     this.xPos = xPos;
     this.yPos = yPos;
     this.blockLoc = gm.blockLoc;
-    this.path = gm.currentPath;
+    this.path = path;
+    this.gap = gap;
     this.context = gameArea.context;
     this.type = type;
     this.update = function () {

@@ -23,7 +23,7 @@ class GameLoop {
         this.blockCount = 0;
         this.makeNew = true;
         this.match = null;
-        this.blockPresentationTimeSetter = 200;
+        this.blockPresentationTimeSetter = 100;
         this.blockPresentationTime = this.blockPresentationTimeSetter;
         this.blockPresentationTimer = 0;
         this.showBlocks = false;
@@ -37,7 +37,7 @@ class GameLoop {
 
         //_obstacles_\\
         this.collisionBlock = null;
-        this.obstacleSize = 2;
+        this.obstacleSize = 5;
         this.gap = null;
         this.blockLoc = null;
 
@@ -86,6 +86,7 @@ class GameLoop {
         this.makeNew = true;
         this.match = null;
         this.blockPresentationTime = this.blockPresentationTimeSetter;
+        this.blockPresentationTimer = 0;
         this.firstBlocks = true;
 
         //__BottomArea__\\
@@ -94,7 +95,6 @@ class GameLoop {
         this.immunity = false;
         //obstacles
         this.collisionBlock = null;
-        this.obstacleSize = 2;
         this.gap = this.gapArray[0];
         this.blockLoc = this.xPosArray[0];
         //levels and finish
@@ -132,6 +132,7 @@ class GameLoop {
         gfx.objects["leftBlocks"] = [];
         gfx.objects["rightBlocks"] = [];
         gameArea.clearTop();
+        gameArea.clearTopBlocks();
         gameArea.clearLives();
         this.countDown = true;
 
@@ -149,18 +150,18 @@ class GameLoop {
     }
 
     relocatePlayer(){
-        this.offset = this.gap / 4;
+        this.offset = this.collisionBlock.gap / 4;
         switch (this.collisionBlock.path){
             case "Left":
-                this.player.xPos = this.collisionBlock.blockLoc + (this.gap / 2) - this.offset;
+                this.player.xPos = this.collisionBlock.blockLoc + (this.collisionBlock.gap / 2) - this.offset;
                 break;
             case "Right":
-                this.player.xPos = this.collisionBlock.blockLoc + (this.gap / 2) + this.offset;
+                this.player.xPos = this.collisionBlock.blockLoc + (this.collisionBlock.gap / 2) + this.offset;
                 break;
             case "Straight":
-                this.player.xPos = this.collisionBlock.blockLoc + (this.gap / 2);
+                this.player.xPos = this.collisionBlock.blockLoc + (this.collisionBlock.gap / 2);
         }
-        this.currentPath = 'Straight';
+        //this.currentPath = 'Straight';
     }
 
     maybeResetBackground(){
@@ -269,10 +270,10 @@ class GameLoop {
                 if(this.showBlocks) {
                     if (this.speed !== 0) {
                         if (this.blockCount < 4) {
-                            if (this.blockCount === 0 && !this.firstBlocks) {
+                            if (this.blockCount === 0) {
                                 this.match = Math.random() < .25;
                             }
-                            else{
+                            if(this.firstBlocks){
                                 this.match = false;
                                 this.firstBlocks = false;
                             }

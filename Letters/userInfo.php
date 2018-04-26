@@ -20,7 +20,7 @@
 
     // here we make the query
     // mysqli requires the first parameter to be the connection, the second is the query
-    if(mysqli_query($con, "INSERT INTO letters (name, score, ip, date) VALUES('$name', '$score', '$ip_address', NOW())"))
+    if(mysqli_query($con, "INSERT INTO thx_prototype_letters (name, score, ip, date) VALUES('$name', '$score', '$ip_address', NOW())"))
         echo "Succesfull " . $name . $score;
     else
         echo "Failed";

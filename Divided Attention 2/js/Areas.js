@@ -30,6 +30,9 @@ const gameArea = {
         this.context.clearRect(0, 0, 200, 100);
         this.context.clearRect(this.canvas.width - 200, 0, 200, 100);
     },
+    clearTopBlocks: function(){
+        this.context.clearRect(200, 0, this.canvas.width - 200, 100);
+    },
     clearLives: function(){
         this.context.clearRect(0, this.topBorder, this.canvas.width, this.livesBorder);
     },
