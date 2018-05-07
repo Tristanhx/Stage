@@ -28,6 +28,9 @@ class GameLoop {
         this.blockPresentationTimer = 0;
         this.showBlocks = false;
         this.firstBlocks = true;
+        this.messageDisplayTime = 100;
+        this.messageDisplayTimer = 0;
+        this.message = false;
 
         //__BottomArea__\\
         this.speedSetting = 1.4;
@@ -200,6 +203,22 @@ class GameLoop {
         }
     }
 
+    showReactionTime(rt){
+        if(typeof rt === 'string'){
+            gameArea.context.fillStyle = "red";
+        } else {
+            gameArea.context.fillStyle = "green";
+        }
+        gameArea.context.textAlign = "center";
+        gameArea.context.font = "Georgia 40px";
+        gameArea.context.fillText(rt, gameArea.canvas.width/2, 75);
+    }
+
+    removeReactionTime(){
+        gameArea.clearTopBlocks();
+        gameArea.clearReactionTime();
+    }
+
     gameLoop(){
         //__RAF__\\
         if (this.game) {
@@ -266,7 +285,7 @@ class GameLoop {
                 }
 
                 //__Top Area__\\
-                if(this.showBlocks) {
+                if(this.showBlocks && !this.message) {
                     if (this.speed !== 0) {
                         if (this.blockCount < 4) {
                             if (this.blockCount === 0) {
@@ -287,6 +306,13 @@ class GameLoop {
                         }
                     }
                     this.blockPresentationTimer++;
+                } else if(this.message){
+                    this.messageDisplayTimer++
+                }
+                if(this.messageDisplayTimer === this.messageDisplayTime){
+                    this.message = false;
+                    this.messageDisplayTimer = 0;
+                    this.removeReactionTime();
                 }
                 if (this.frames >= (gameArea.canvas.height - this.player.yPos)/this.speed){
                     this.showBlocks = true;

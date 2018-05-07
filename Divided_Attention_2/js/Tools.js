@@ -209,7 +209,11 @@ class Tools{
             for (let i = 0; i < objects.length; i++) {
                 if(moving) {
                     if (objects[i].yPos <= gameArea.livesBorder) {
-                        objects.splice(i, 1);
+                        if (objects[i].height > 0){
+                            objects[i].height -= gm.speed;
+                        } else {
+                            objects.splice(i, 1);
+                        }
                     } else {
                         objects[i].yPos -= gm.speed;
                     }

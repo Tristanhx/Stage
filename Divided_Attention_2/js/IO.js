@@ -43,19 +43,26 @@ class IO{
     handleSpaceBar(){
 
         if (this.spaceKey === 32 && gfx.objects["leftBlocks"].length === 4){
-            if (gm.lives > 0){
-                if (!gm.match && !this.pressed){
+            let message;
+            if (gm.lives > 0 && !this.pressed){
+                if (!gm.match){
                     gm.lives--;
                     gm.immunity = true;
                     gameArea.canvas.style.backgroundColor = 'red';
-                } else if (gm.match && !this.pressed){
+                    message = 'WRONG'
+                } else if (gm.match){
                     gameArea.canvas.style.backgroundColor = 'green';
                     gm.blockResponseNow = window.performance.now();
                     gm.delta = gm.blockResponseNow - gm.blockNow;
                     let addedScore = ((gm.blockPresentationTimeSetter * gfx.frameDuration) / gm.delta) * 10;
                     gm.score += addedScore;
                     console.log("Delta: ", gm.delta, " Added score: ", addedScore);
+                    message = Math.round(gm.delta);
                 }
+                console.log("SPACE");
+                gm.message = true;
+                gameArea.clearTopBlocks();
+                gm.showReactionTime(message);
                 Tools.livesChange();
                 Tools.handleObjects(gameArea.lifeMeterBorders);
             }

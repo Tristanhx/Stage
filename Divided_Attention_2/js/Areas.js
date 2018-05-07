@@ -29,10 +29,14 @@ const gameArea = {
     },
     clearTop: function(){
         this.context.clearRect(0, 0, 200, 100);
-        this.context.clearRect(this.canvas.width - 200, 0, 200, 100);
+        this.context.clearRect(this.canvas.width - 200, 0, 200, this.topBorder);
     },
     clearTopBlocks: function(){
-        this.context.clearRect(200, 0, this.canvas.width - 200, 100);
+        this.context.clearRect(this.topLeft, 0, gm.blockSize * 2, this.topBorder);
+        this.context.clearRect(this.topLeft + gm.blockSize * 3, 0, gm.blockSize * 2, this.topBorder);
+    },
+    clearReactionTime: function(){
+        this.context.clearRect(this.topLeft + gm.blockSize * 2, 0, gm.blockSize, this.topBorder);
     },
     clearLives: function(){
         this.context.clearRect(0, this.topBorder, this.canvas.width, this.livesBorder);
