@@ -8,7 +8,10 @@ class GameLoop {
         this.immunityTimer = this.immunityTime;
         this.userName = null;
         this.game = true;
+        this.ready = false;
+        this.overlay = false;
         this.level = 1;
+        this.levelTime = 0;
         this.maxLevels = 2;
         this.maxLives = 4;
         this.lives = this.maxLives;
@@ -208,6 +211,11 @@ class GameLoop {
             gameArea.context.fillStyle = "red";
         } else {
             gameArea.context.fillStyle = "green";
+            let width = -0.14*rt + 228.57;
+            if(rt < 200 || rt > 1600){
+                width = 0;
+            }
+            gameArea.context.fillRect(300, 10, width, 10);
         }
         gameArea.context.textAlign = "center";
         gameArea.context.font = "Georgia 40px";
@@ -219,186 +227,214 @@ class GameLoop {
         gameArea.clearReactionTime();
     }
 
+    overlayToggle(state, type){
+        if (state) {
+            document.getElementById('overlay').style.display = "block";
+            console.log('overlay on!');
+        }
+        else{
+            document.getElementById('overlay').style.display = "none";
+            console.log('overlay off!');
+        }
+        this.showMessage(state, type);
+    }
+
+    showMessage(state, type){
+        if (type === "instructions"){
+            document.getElementById("instructions").style.display = state ? "block" : "none";
+            document.getElementById("end").style.display = state ? "none" : "block";
+        } else if(type === "end"){
+            document.getElementById("end").style.display = state ? "block" : "none";
+            document.getElementById("instructions").style.display = state ? "none" : "block";
+        }
+    }
+
     gameLoop(){
         //__RAF__\\
         if (this.game) {
             requestAnimationFrame(() => {this.gameLoop()});
         }
 
-        if(!gfx.objects["previousLeftBlocks"]){
-            gfx.objects["previousLeftBlocks"] = [];
-            gfx.objects["previousRightBlocks"] = [];
+        if (!this.ready && !this.overlay) {
+            this.overlayToggle(true, "instructions");
+            this.overlay = true;
         }
-
-        if (this.countDown){
-            gameArea.clearBottom();
-            gameArea.clearTop();
-            if(this.countDownTimer === this.countDownTime){
-                this.countDown = false;
-            } else{
-                if(!gfx.objects['pathParts'] || gfx.objects['pathParts'] === []) {
-                    //initial objects
-                    this.createStart();
-                }
-
-                Tools.handleObjects(gfx.objects["pathParts"]);
-                this.player.update();
-                if (this.countDownTimer % gfx.tfps === 0){
-                    this.countDownObject.text = this.countDownArray[this.countDownSeconds -1].toString();
-                    this.countDownObject.context = gameArea.context;
-                    this.countDownSeconds--;
-                }
-                this.countDownObject.update();
-                this.countDownTimer++;
-            }
-        } else{
-            if ((this.frames / 10) % 1 === 0) {
-                this.logData();
-            }
-            // //__Pick Path__\\
-            // if (this.pathDurationCounter === this.pathDuration) {
-            //     this.pathDuration = Tools.pathDurationSetter();
-            //     this.pathPicker = Tools.pathPickerSetter();
-            //     this.pathDurationCounter = 0;
-            // }
-            // this.currentPath = this.pathDir[this.pathPicker];
-
-            //__Check lives__\\
-            if (this.lives <= 0 && this.game) {
-                this.game = false;
-                Tools.saveScore();
+        if(this.ready) {
+            if (!gfx.objects["previousLeftBlocks"]) {
+                gfx.objects["previousLeftBlocks"] = [];
+                gfx.objects["previousRightBlocks"] = [];
             }
 
-            if (this.speed === 0){
-                this.player.xDir = 0;
-            }
-
-            if (gfx.lag >= gfx.frameDuration) {
-                //____Areas____\\
+            if (this.countDown) {
                 gameArea.clearBottom();
                 gameArea.clearTop();
-
-                //__IO__\\
-                if (this.speed !== 0) {
-                    io.handleArrowKeyPress();
-                    io.handleSpaceBar();
-                }
-
-                //__Top Area__\\
-                if(this.showBlocks && !this.message) {
-                    if (this.speed !== 0) {
-                        if (this.blockCount < 4) {
-                            if (this.blockCount === 0) {
-                                this.match = Math.random() < .25;
-                            }
-                            if(this.firstBlocks){
-                                this.match = false;
-                                this.firstBlocks = false;
-                            }
-                            Tools.blockBuilder(this.match);
-                        } else if (this.makeNew) {
-                            Tools.makeNewBlocks();
-                        } else {
-                            if (this.blockPresentationTimer === this.blockPresentationTime) {
-                                Tools.clearBlocks(true);
-                                this.blockPresentationTimer = 0;
-                            }
-                        }
+                if (this.countDownTimer === this.countDownTime) {
+                    this.countDown = false;
+                } else {
+                    if (!gfx.objects['pathParts'] || gfx.objects['pathParts'] === []) {
+                        //initial objects
+                        this.createStart();
                     }
-                    this.blockPresentationTimer++;
-                } else if(this.message){
-                    this.messageDisplayTimer++
-                }
-                if(this.messageDisplayTimer === this.messageDisplayTime){
-                    this.message = false;
-                    this.messageDisplayTimer = 0;
-                    this.removeReactionTime();
-                }
-                if (this.frames >= (gameArea.canvas.height - this.player.yPos)/this.speed){
-                    this.showBlocks = true;
-                }
 
-                //__Bottom Area__\\
-                if (this.frames === 0){
-                    this.createStart();
-                    console.log('start!');
-                }
-               if (this.speed !== 0) {
-                    this.score += 1 + (this.speed);
-                    this.frames +=1;
-                }
-
-                //adding new objects according to obstacleSize
-                if (this.frames > 0 && this.frames % this.obstacleSize === 0 && !this.finish) {
-                    this.moreObstacles();
-                }
-
-                if (this.frames === this.framesArray.length) {
-                    this.createFinishLine();
-                    this.finish = true;
-                }
-
-                //update all objects
-                Tools.handleObjects(gfx.objects["obstacles"], true);
-                Tools.handleObjects(gfx.objects["pathParts"], true);
-                this.countDownObject.update();
-
-
-                //__Other Things__\\
-                if (this.finish && this.finishArea) {
-                    this.finishArea.yPos -= this.speed;
-                    this.finishArea.update();
-                    this.speed = this.finishArea.yPos <= this.player.yPos ? 0 : this.speed;
-                    if (this.interLevelTime === 0) {
-                        if (this.level <= this.maxLevels) {
-                            this.prepareForNextLevel();
-                            console.log('next level!')
-                        }
-                    } else if (this.speed === 0) {
-                        this.interLevelTime--;
+                    Tools.handleObjects(gfx.objects["pathParts"]);
+                    this.player.update();
+                    if (this.countDownTimer % gfx.tfps === 0) {
+                        this.countDownObject.text = this.countDownArray[this.countDownSeconds - 1].toString();
+                        this.countDownObject.context = gameArea.context;
+                        this.countDownSeconds--;
                     }
-                    if (this.speed === 0 && this.level > this.maxLevels && this.game) {
-                        Tools.saveScore();
-                        this.game = false;
-                    }
+                    this.countDownObject.update();
+                    this.countDownTimer++;
                 }
-                if (gfx.objects["finishline"]) {
-                    Tools.handleObjects(gfx.objects["finishline"], true);
+            } else {
+                if ((this.frames / 10) % 1 === 0) {
+                    this.logData();
                 }
-                this.player.newPos();
-                this.player.update();
-
-                // check for collisions
-                let result = Tools.checkCollision("obstacles", this.player);
-                this.collisionBlock = result[0];
-                this.collision = result[1];
-
-                // relocate player to center of path when collision
-                if (this.collision && this.collisionBlock) {
-                    this.relocatePlayer();
-                }
-
-                // switch(collision){
-                //     case 'Right' :
-                //         player.xPos += -20;
-                //         player.yPos += -10;
-                //         break;
-                //     case 'Left':
-                //         player.xPos += 20;
-                //         player.yPos += -10;
-                //         break;
-                //     case 'Top':
-                //         player.yPos += 20;
-                //         break;
-                //     case 'Bottom':
-                //         player.yPos += -20;
-                //         break;
+                // //__Pick Path__\\
+                // if (this.pathDurationCounter === this.pathDuration) {
+                //     this.pathDuration = Tools.pathDurationSetter();
+                //     this.pathPicker = Tools.pathPickerSetter();
+                //     this.pathDurationCounter = 0;
                 // }
+                // this.currentPath = this.pathDir[this.pathPicker];
 
-                //immunity timer background reset
-                this.maybeResetBackground();
+                //__Check lives__\\
+                if (this.lives <= 0 && this.game) {
+                    this.game = false;
+                    Tools.saveScore();
+                }
 
-                gfx.lag -= gfx.frameDuration;
+                if (this.speed === 0) {
+                    this.player.xDir = 0;
+                }
+
+                if (gfx.lag >= gfx.frameDuration) {
+                    //____Areas____\\
+                    gameArea.clearBottom();
+                    gameArea.clearTop();
+
+                    //__IO__\\
+                    if (this.speed !== 0) {
+                        io.handleArrowKeyPress();
+                        io.handleSpaceBar();
+                    }
+
+                    //__Top Area__\\
+                    if (this.showBlocks && !this.message) {
+                        if (this.speed !== 0) {
+                            if (this.blockCount < 4) {
+                                if (this.blockCount === 0) {
+                                    this.match = Math.random() < .25;
+                                }
+                                if (this.firstBlocks) {
+                                    this.match = false;
+                                    this.firstBlocks = false;
+                                }
+                                Tools.blockBuilder(this.match);
+                            } else if (this.makeNew) {
+                                Tools.makeNewBlocks();
+                            } else {
+                                if (this.blockPresentationTimer === this.blockPresentationTime) {
+                                    Tools.clearBlocks(true);
+                                    this.blockPresentationTimer = 0;
+                                }
+                            }
+                        }
+                        this.blockPresentationTimer++;
+                    } else if (this.message) {
+                        this.messageDisplayTimer++
+                    }
+                    if (this.messageDisplayTimer === this.messageDisplayTime) {
+                        this.message = false;
+                        this.messageDisplayTimer = 0;
+                        this.removeReactionTime();
+                    }
+                    if (this.frames >= (gameArea.canvas.height - this.player.yPos) / this.speed) {
+                        this.showBlocks = true;
+                    }
+
+                    //__Bottom Area__\\
+                    if (this.frames === 0) {
+                        this.createStart();
+                        console.log('start!');
+                    }
+                    if (this.speed !== 0) {
+                        this.levelTime += 1;
+                        this.frames += 1;
+                    }
+
+                    //adding new objects according to obstacleSize
+                    if (this.frames > 0 && this.frames % this.obstacleSize === 0 && !this.finish) {
+                        this.moreObstacles();
+                    }
+
+                    if (this.frames === this.framesArray.length) {
+                        this.createFinishLine();
+                        this.finish = true;
+                    }
+
+                    //update all objects
+                    Tools.handleObjects(gfx.objects["obstacles"], true);
+                    Tools.handleObjects(gfx.objects["pathParts"], true);
+                    this.countDownObject.update();
+
+
+                    //__Other Things__\\
+                    if (this.finish && this.finishArea) {
+                        this.finishArea.yPos -= this.speed;
+                        this.finishArea.update();
+                        this.speed = this.finishArea.yPos <= this.player.yPos ? 0 : this.speed;
+                        if (this.interLevelTime === 0) {
+                            if (this.level <= this.maxLevels) {
+                                this.prepareForNextLevel();
+                                console.log('next level!')
+                            }
+                        } else if (this.speed === 0) {
+                            this.interLevelTime--;
+                        }
+                        if (this.speed === 0 && this.level > this.maxLevels && this.game) {
+                            Tools.saveScore();
+                            this.game = false;
+                        }
+                    }
+                    if (gfx.objects["finishline"]) {
+                        Tools.handleObjects(gfx.objects["finishline"], true);
+                    }
+                    this.player.newPos();
+                    this.player.update();
+
+                    // check for collisions
+                    let result = Tools.checkCollision("obstacles", this.player);
+                    this.collisionBlock = result[0];
+                    this.collision = result[1];
+
+                    // relocate player to center of path when collision
+                    if (this.collision && this.collisionBlock) {
+                        this.relocatePlayer();
+                    }
+
+                    // switch(collision){
+                    //     case 'Right' :
+                    //         player.xPos += -20;
+                    //         player.yPos += -10;
+                    //         break;
+                    //     case 'Left':
+                    //         player.xPos += 20;
+                    //         player.yPos += -10;
+                    //         break;
+                    //     case 'Top':
+                    //         player.yPos += 20;
+                    //         break;
+                    //     case 'Bottom':
+                    //         player.yPos += -20;
+                    //         break;
+                    // }
+
+                    //immunity timer background reset
+                    this.maybeResetBackground();
+
+                    gfx.lag -= gfx.frameDuration;
+                }
             }
         }
 

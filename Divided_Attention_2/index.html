@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link rel="icon" href="../cropped-Favicon_512x512-32x32.png" sizes="32x32">
     <title>Divided Attention</title>
+    <link href="./style.css" type="text/css" rel="stylesheet">
     <script src="../JQUERY/jquery-1.9.1.min.js"></script>
     <script src="js/clickButton.js"></script>
     <script src="js/Graphics.js"></script>
@@ -17,18 +18,22 @@
     <script src="js/GlobalVariables.js"></script>
     <script src="js/main.js"></script>
     <style>
-        div {
-            position: absolute;
-            display: inline-block;
-        }
-        canvas {
-            display: block;
-            margin: 0 auto;
-        }
+
     </style>
 </head>
 <body>
-    <h1>Divided Attention</h1>
+    <div id="overlay">
+        <div id="instructions" class="message">
+            During this game you will need to pay attention to two places on your screen. At the top two groups of squares
+            will be shown. You need to press the SPACE-bar as soon as possible if these groups are exactly the same. DON'T press the SPACE-bar when
+            they are different. Below you will need to steer your character to stay on the path by using the LEFT and RIGHT arrow keys. Try to walk the path as fast
+            as possible. You WILL slow down when you move left and right, which means you will take longer to finish the level.
+            So don't try to move a lot to make things easier for you, because you will end up with a lower score. Press N to start the game.
+        </div>
+        <div id="end" class="message">
+            This is the end. Well done!
+        </div>
+    </div>
     <form id="myForm" action="javascript:void(0);" method="post">
         Name: <input type="text" name="name" id="name"/><br />
         <button id="sub">Save</button>

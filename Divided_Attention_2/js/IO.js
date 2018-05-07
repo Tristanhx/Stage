@@ -8,7 +8,11 @@ class IO{
                 e.preventDefault();
                 this.keys = (this.keys || []);
                 this.keys[e.keyCode] = (e.type === 'keydown');
-            } else if (!this.pressed) {
+            } else if(e.keyCode === 78){
+                gm.ready = true;
+                gm.overlayToggle(false);
+            }
+            else if (!this.pressed) {
                 this.spaceKey = e.keyCode;
             }
         });

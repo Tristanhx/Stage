@@ -254,7 +254,11 @@ class Tools{
     }
 
     static saveScore(){
+        gm.overlayToggle(true, 'end');
         console.log("Saving result");
+
+        gm.score += 1/gm.levelTime * 10000000;
+
         let csv = "[Frames], [Level], [Speed], [Lives], [Player X], [X Left], [X Right], [Screen-width]\r\n,";
         gm.data.forEach(function(data){
             let row = data.join(",");
