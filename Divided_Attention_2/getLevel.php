@@ -11,11 +11,26 @@ include("../conf/db_info.php");
 $con = mysqli_connect($servername, $username, $password, $dbname);
 #$db = mysqli_select_db($con, 'test');
 
-$result = mysqli_query($con, "SELECT data FROM thx_prototype_divided_attention_level_creator WHERE id=18");
-
-while ($row = $result->fetch_assoc())
-{
-    foreach($row as $value) {
-        echo $value;
-    }
+if ($con->connect_error){
+    die("Connection failed: " . $con->connect_error);
 }
+
+if($prep = $con->prepare("SELECT data FROM thx_prototype_divided_attention_level_creator WHERE id=?")) {
+    $prep->bind_param("i", $id);
+
+    $id = 19;
+    $prep->execute();
+
+    $result = $prep->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        foreach ($row as $value) {
+            echo strip_tags($value);
+        }
+    }
+
+    $prep->close();
+}
+$con->close();
+
+

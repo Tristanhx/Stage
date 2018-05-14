@@ -9,16 +9,22 @@
     // include the database
     $con = mysqli_connect($servername, $username, $password, $dbname);
     #$db = mysqli_select_db($con, 'test');
+    if ($con->connect_error){
+        die("Connection failed: " . $con->connect_error);
+    }
 
-    $name = $_POST['name'];
-    $data = $_POST['data'];
+    $prep = $con->prepare("INSERT INTO thx_prototype_divided_attention_level_creator (name, data, ip_address, date) VALUES(?, ?, ?, NOW())");
+    $prep->bind_param("sss", $name, $data, $ip_address);
+
+    $name = strip_tags($_POST['name']);
+    $data = strip_tags($_POST['data']);
     if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
     } else {
         $ip_address = $_SERVER['REMOTE_ADDR'];
     }
 
+    $prep->execute();
 
-    // here we make the query
-    // mysqli requires the first parameter to be the connection, the second is the query
-    mysqli_query($con, "INSERT INTO divided_attention_level_creator (name, data, ip_address, date) VALUES('$name', '$data', '$ip_address', NOW())");
+    $prep->close();
+    $con->close();

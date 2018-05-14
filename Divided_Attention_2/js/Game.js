@@ -26,7 +26,8 @@ class GameLoop {
         this.blockCount = 0;
         this.makeNew = true;
         this.match = null;
-        this.blockPresentationTimeSetter = 100;
+        this.blockPresentationTimeSetter = 90;
+        this.blockPresentationTimeSeconds = gfx.frameDuration * this.blockPresentationTimeSetter;
         this.blockPresentationTime = this.blockPresentationTimeSetter;
         this.blockPresentationTimer = 0;
         this.showBlocks = false;
@@ -85,6 +86,7 @@ class GameLoop {
         this.immunityTimer = this.immunityTime;
         this.lives = this.maxLives;
         this.frames = 1;
+        this.levelTime = 0;
         this.showBlocks = false;
 
         //__TopArea__\\
@@ -114,6 +116,13 @@ class GameLoop {
     }
 
     prepareForNextLevel(){
+        let levelScore =  ((gm.levelTime / gm.framesArray.length)*1000000) / gm.levelTime;
+
+        console.log("levelscores: ", levelScore);
+        console.log("leveltime: ", gm.levelTime);
+
+        gm.score += levelScore;
+
         console.log("levelduration in frames: ", this.frames);
         if(this.lives === this.maxLives) {
             this.speedSetting += 1;
@@ -127,7 +136,7 @@ class GameLoop {
         gfx.objects['pathparts'] = [];
         this.resetValues();
         console.log(this.lives, "/", this.maxLives);
-        console.log("Culminative score: ", this.score);
+        console.log("Cumulative score: ", this.score);
         this.level++;
 
         gameArea.lifeMeterBorders = [];
@@ -211,8 +220,8 @@ class GameLoop {
             gameArea.context.fillStyle = "red";
         } else {
             gameArea.context.fillStyle = "green";
-            let width = -0.14*rt + 228.57;
-            if(rt < 200 || rt > 1600){
+            let width = rt * -(200 / (this.blockPresentationTimeSeconds - 200)) + ((200 / (this.blockPresentationTimeSeconds - 200)) * this.blockPresentationTimeSeconds);
+            if(rt < 200 || rt > this.blockPresentationTimeSeconds){
                 width = 0;
             }
             gameArea.context.fillRect(300, 10, width, 10);

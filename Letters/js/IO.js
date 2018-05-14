@@ -18,7 +18,7 @@ class IO{
     }
 
     handleResponse() {
-        if (gm.practice && this.key === 13){
+        if (gm.practice && this.key === 78 && document.getElementById('overlay').style.display === "block"){
             gm.overlay = false;
             gm.overlayToggle(false);
         }

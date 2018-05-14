@@ -8,7 +8,7 @@ class IO{
                 e.preventDefault();
                 this.keys = (this.keys || []);
                 this.keys[e.keyCode] = (e.type === 'keydown');
-            } else if(e.keyCode === 78){
+            } else if(e.keyCode === 78 && document.getElementById('overlay').style.display === "block"){
                 gm.ready = true;
                 gm.overlayToggle(false);
             }
@@ -59,6 +59,9 @@ class IO{
                     gm.blockResponseNow = window.performance.now();
                     gm.delta = gm.blockResponseNow - gm.blockNow;
                     let addedScore = ((gm.blockPresentationTimeSetter * gfx.frameDuration) / gm.delta) * 10;
+                    if (gm.delta < 200 || gm.delta > 1600){
+                        addedScore = 0;
+                    }
                     gm.score += addedScore;
                     console.log("Delta: ", gm.delta, " Added score: ", addedScore);
                     message = Math.round(gm.delta);

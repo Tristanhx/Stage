@@ -257,7 +257,12 @@ class Tools{
         gm.overlayToggle(true, 'end');
         console.log("Saving result");
 
-        gm.score += 1/gm.levelTime * 10000000;
+        let levelScore =  ((gm.frames / gm.framesArray.length)*1000000) / gm.levelTime;
+
+        console.log("levelscores: ", levelScore);
+        console.log("leveltime: ", gm.levelTime);
+
+        gm.score += levelScore;
 
         let csv = "[Frames], [Level], [Speed], [Lives], [Player X], [X Left], [X Right], [Screen-width]\r\n,";
         gm.data.forEach(function(data){

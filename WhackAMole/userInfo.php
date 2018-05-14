@@ -5,12 +5,19 @@
  * Date: 25/02/2018
  * Time: 22:10
  */
+    include("../conf/db_info.php");
     // include the database
-    $con = mysqli_connect('localhost', 'root', '');
-    $db = mysqli_select_db($con, 'test');
+    $con = mysqli_connect($servername, $username, $password, $dbname);
 
-    $name = $_POST['name'];
-    $score = $_POST['score'];
+    if ($con->connect_error){
+        die("Connection failed: " . $con->connect_error);
+    }
+
+    $prep = $con->prepare("INSERT INTO thx_prototype_whackamole (name, score, ip_address,noticed_sequence, date) VALUES(?, ?, ?, ?, NOW())");
+    $prep->bind_param("siss", $name, $score, $noticed_sequence, $ip_address);
+
+    $name = strip_tags($_POST['name']);
+    $score = strip_tags($_POST['score']);
     if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
     } else {
@@ -18,7 +25,7 @@
     }
     $noticed_sequence = $_POST['noticed_sequence'];
 
+    $prep->execute();
 
-    // here we make the query
-    // mysqli requires the first parameter to be the connection, the second is the query
-    mysqli_query($con, "INSERT INTO thx_prototype_whackamole (name, score, ip_address,noticed_sequence, date) VALUES('$name', '$score', '$ip_address','$noticed_sequence', NOW())");
+    $prep->close();
+    $con->close();

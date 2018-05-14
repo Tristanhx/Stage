@@ -10,18 +10,24 @@
     // include the database
     $con = mysqli_connect($servername, $username, $password, $dbname);
     #$db = mysqli_select_db($con, 'test');
+    if ($con->connect_error){
+        die("Connection failed: " . $con->connect_error);
+    }
 
-    $name = $_POST['name'];
-    $score = $_POST['score'];
-    $data = $_POST['data'];
-    $keyReleases = $_POST['keyReleases'];
+    $prep = $con->prepare("INSERT INTO thx_prototype_divided_attention (name, score, data, key_releases, ip_address, date) VALUES(?, ?, ?, ?, ?,NOW())");
+    $prep->bind_param("sisis", $name, $score, $data, $keyReleases, $ip_address);
+
+    $name = strip_tags($_POST['name']);
+    $score = strip_tags($_POST['score']);
+    $data = strip_tags($_POST['data']);
+    $keyReleases = strip_tags($_POST['keyReleases']);
     if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
     } else {
         $ip_address = $_SERVER['REMOTE_ADDR'];
     }
 
+    $prep->execute();
 
-    // here we make the query
-    // mysqli requires the first parameter to be the connection, the second is the query
-    mysqli_query($con, "INSERT INTO thx_prototype_divided_attention (name, score, data, key_releases, ip_address, date) VALUES('$name', '$score', '$data', '$keyReleases', '$ip_address', NOW())");
+    $prep->close();
+    $con->close();
