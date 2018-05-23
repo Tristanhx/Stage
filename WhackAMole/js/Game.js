@@ -1,7 +1,7 @@
 class Game {
     constructor(){
-        this.firstSequence = this.shuffle([1,1,2,2,3,3,4,4]);
-        this.secondSequence = this.shuffle([1,1,2,2,3,3,4,4,1,1,2,2,3,3,4,4]);
+        this.firstSequence = [1,2,3,4, Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1)];
+        this.secondSequence = [1,1,2,2,3,3,4,4, Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1)];
         this.userName = false;
         this.moleDim = 400;
         this.moleImage = new Image(this.moleDim, this.moleDim);
@@ -10,8 +10,9 @@ class Game {
         this.moleImage.src = "./img/mole.png";
         this.moleHitImage.src = "./img/mole_hit.png";
         this.moleMissImage.src = "./img/mole_miss.png";
+        this.hammerImage = new Image(this.moleDim, this.moleDim);
+        this.hammerImage.src = "./img/hammer.png";
 
-        this.score = 0;
         this.game = true;
         this.ready = false;
         this.overlay = false;
@@ -58,27 +59,11 @@ class Game {
 
     waitForInput(){
         if(this.noticed_sequence){
-            gm.saveScore();
+            score.saveScore();
         } else{
             console.log('waiting for input');
             setTimeout(()=>{this.waitForInput()}, 1000);
         }
-    }
-
-    saveScore(){
-        //let noticed = window.confirm("Did you notice a sequence?");
-        score.s1_length = score.s1.length;
-        score.s2_length = score.s2.length;
-        score.ran_length = score.ran.length;
-        console.log("Saving result");
-        $.post("userInfo.php",
-            {
-                name: gm.userName,
-                score: JSON.stringify(score),
-                noticed_sequence: this.noticed_sequence
-            },
-            function(info){$("#results").html(info);}
-        )
     }
 
     gameLoop() {
@@ -112,20 +97,7 @@ class Game {
             rdr.timeOut++;
         }
         //__FPS__\\
-        gameArea.context.clearRect(gameArea.canvas.width - 135, 0, gameArea.canvas.width, 50);
-
-        let now = window.performance.now();
-        let delta = now - rdr.previous;
-
-        rdr.fps = 1 / (delta / 1000);
-
-        gameArea.context.font = "40pt Arial";
-        gameArea.context.fillStyle = 'red';
-        gameArea.context.fillText(rdr.fps.toFixed(2), gameArea.canvas.width - 135, 50);
-
-        rdr.framesOneSec += delta;
-        rdr.deltaBox.push(delta);
-        rdr.previous = now;
+        rdr.displayFPS();
     };
 
 }

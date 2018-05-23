@@ -14,10 +14,10 @@
     }
 
     $prep = $con->prepare("INSERT INTO thx_prototype_whackamole (name, score, ip_address,noticed_sequence, date) VALUES(?, ?, ?, ?, NOW())");
-    $prep->bind_param("siss", $name, $score, $noticed_sequence, $ip_address);
+    $prep->bind_param("ssss", $name, $score, $ip_address, $noticed_sequence);
 
     $name = strip_tags($_POST['name']);
-    $score = strip_tags($_POST['score']);
+    $score = $_POST['score'];
     if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
     } else {

@@ -253,16 +253,27 @@ class Tools{
         });
     }
 
-    static saveScore(){
-        gm.overlayToggle(true, 'end');
-        console.log("Saving result");
-
-        let levelScore =  ((gm.frames / gm.framesArray.length)*1000000) / gm.levelTime;
+    static calculateScore(){
+        let addedFractionD = gm.levelTime / 1000;
+        let addedFraction;
+        // no added points for the first 1000 frames in order to prevent addedFractionD to become smaller than the numerator
+        if (addedFractionD < 1){
+            addedFraction = 0;
+        } else{
+            addedFraction = 1 / addedFractionD;
+        }
+        let levelScore = gm.frames + (addedFraction * gm.frames);
 
         console.log("levelscores: ", levelScore);
         console.log("leveltime: ", gm.levelTime);
 
         gm.score += levelScore;
+    }
+
+
+    static saveScore(){
+        gm.overlayToggle(true, 'end');
+        console.log("Saving result");
 
         let csv = "[Frames], [Level], [Speed], [Lives], [Player X], [X Left], [X Right], [Screen-width]\r\n,";
         gm.data.forEach(function(data){

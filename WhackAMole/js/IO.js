@@ -43,40 +43,36 @@ class IO{
         this.rightIndex = key;
     }
 
+    hitMole(){
+        this.stopTime = window.performance.now();
+        rdr.makeMole = 'Dead';
+        this.rt = this.stopTime - this.startTime;
+        console.log(this.rt);
+        rdr.displayReactionTime(Math.round(this.rt));
+        score.writeScore(Math.round(this.rt));
+        this.go = false;
+    }
+
+    missMole(){
+        this.stopTime = this.startTime;
+        rdr.makeMole = 'Miss';
+        score.writeScore("miss");
+        rdr.displayReactionTime('Missed');
+        console.log(this.stopTime - this.startTime);
+        this.go = false;
+    }
+
     handleKeyHit(key){
         if((key === 49 && (rdr.x === rdr.posC && rdr.y === rdr.posC)) ||
             (key === 48 && (rdr.x === rdr.posC2 && rdr.y === rdr.posC)) ||
             (key === this.leftIndex && (rdr.x === rdr.posC && rdr.y === rdr.posC2)) ||
             (key === this.rightIndex && (rdr.x === rdr.posC2 && rdr.y === rdr.posC2)))   {
-            this.stopTime = window.performance.now();
-            rdr.makeMole = 'Dead';
-            this.rt = this.stopTime - this.startTime;
-            console.log(this.rt);
-            this.writeScore(Math.round(this.rt));
-            this.go = false;
+            this.hitMole();
         } else {
-            this.stopTime = this.startTime;
-            rdr.makeMole = 'Miss';
-            this.writeScore("miss");
-            console.log(this.stopTime - this.startTime);
-            this.go = false;
+            this.missMole();
         }
+        rdr.placeHammer(key);
     };
-
-    writeScore(data){
-        console.log("Writing score");
-        switch (rdr.sequenceNumber) {
-            case 0:
-                score.s1.push(data);
-                break;
-            case 1:
-                score.s2.push(data);
-                break;
-            case 2:
-                score.ran.push(data);
-                break;
-        }
-    }
 
     tooSoon(){
         console.log("Too soon!");

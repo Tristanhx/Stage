@@ -4,6 +4,7 @@ class GameLoop {
         //__Game__\\
         this.score = 0;
         this.frames = 0;
+        this.speedBuffer = 0;
         this.immunityTime = 10;
         this.immunityTimer = this.immunityTime;
         this.userName = null;
@@ -37,7 +38,7 @@ class GameLoop {
         this.message = false;
 
         //__BottomArea__\\
-        this.speedSetting = 1.4;
+        this.speedSetting = 2;
         this.speed = this.speedSetting;
         this.breakException = {};
         this.immunity = false;
@@ -116,19 +117,12 @@ class GameLoop {
     }
 
     prepareForNextLevel(){
-        let levelScore =  ((gm.levelTime / gm.framesArray.length)*1000000) / gm.levelTime;
-
-        console.log("levelscores: ", levelScore);
-        console.log("leveltime: ", gm.levelTime);
-
-        gm.score += levelScore;
-
         console.log("levelduration in frames: ", this.frames);
         if(this.lives === this.maxLives) {
             this.speedSetting += 1;
             this.maxLives -= 1;
         } else if(this.lives < this.maxLives){
-            this.speedSetting += 0.5;
+            this.speedSetting += 0;
             this.maxLives -= 1;
         }
         Tools.clearBlocks();
@@ -253,6 +247,7 @@ class GameLoop {
             document.getElementById("instructions").style.display = state ? "block" : "none";
             document.getElementById("end").style.display = state ? "none" : "block";
         } else if(type === "end"){
+            document.getElementById("end").innerHTML = `This is the end. Well done! Your score is: ${Math.floor(gm.score)}`;
             document.getElementById("end").style.display = state ? "block" : "none";
             document.getElementById("instructions").style.display = state ? "none" : "block";
         }
@@ -310,6 +305,7 @@ class GameLoop {
                 //__Check lives__\\
                 if (this.lives <= 0 && this.game) {
                     this.game = false;
+                    Tools.calculateScore();
                     Tools.saveScore();
                 }
 
@@ -369,7 +365,7 @@ class GameLoop {
                     }
                     if (this.speed !== 0) {
                         this.levelTime += 1;
-                        this.frames += 1;
+                        this.frames += this.speed;
                     }
 
                     //adding new objects according to obstacleSize
@@ -377,7 +373,7 @@ class GameLoop {
                         this.moreObstacles();
                     }
 
-                    if (this.frames === this.framesArray.length) {
+                    if (this.frames >= this.framesArray.length && !this.finish) {
                         this.createFinishLine();
                         this.finish = true;
                     }
@@ -395,6 +391,7 @@ class GameLoop {
                         this.speed = this.finishArea.yPos <= this.player.yPos ? 0 : this.speed;
                         if (this.interLevelTime === 0) {
                             if (this.level <= this.maxLevels) {
+                                Tools.calculateScore();
                                 this.prepareForNextLevel();
                                 console.log('next level!')
                             }
@@ -402,6 +399,7 @@ class GameLoop {
                             this.interLevelTime--;
                         }
                         if (this.speed === 0 && this.level > this.maxLevels && this.game) {
+                            Tools.calculateScore();
                             Tools.saveScore();
                             this.game = false;
                         }
