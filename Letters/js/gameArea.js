@@ -4,6 +4,7 @@ let gameArea = {
         this.canvas.id = "canvas";
         this.canvas.width = 500;
         this.canvas.height = 500;
+        this.canvas.style.backgroundImage = 'url(../misc/gamedata/game1img/background.png)';
         this.context = this.canvas.getContext("2d");
         let div = document.getElementById("canvas");
         div.appendChild(this.canvas);

@@ -9,5 +9,8 @@
     <orderEntry type="module" module-name="WhackAMole" />
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="module" module-name="conf" />
+    <orderEntry type="library" name="JQUERY" level="application" />
+    <orderEntry type="module" module-name="curvedLineTest" />
+    <orderEntry type="module" module-name="misc" />
   </component>
 </module>

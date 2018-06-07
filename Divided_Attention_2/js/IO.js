@@ -10,6 +10,7 @@ class IO{
                 this.keys[e.keyCode] = (e.type === 'keydown');
             } else if(e.keyCode === 78 && document.getElementById('overlay').style.display === "block"){
                 gm.ready = true;
+                gm.overlay = false;
                 gm.overlayToggle(false);
             }
             else if (!this.pressed) {

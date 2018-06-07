@@ -7,8 +7,8 @@ class Game {
         this.moleImage = new Image(this.moleDim, this.moleDim);
         this.moleHitImage = new Image(this.moleDim, this.moleDim);
         this.moleMissImage = new Image(this.moleDim, this.moleDim);
-        this.moleImage.src = "./img/mole.png";
-        this.moleHitImage.src = "./img/mole_hit.png";
+        this.moleImage.src = "../misc/gamedata/game1img/soccerRed.png";
+        this.moleHitImage.src = "../misc/gamedata/game1img/soccerRed2.png";
         this.moleMissImage.src = "./img/mole_miss.png";
         this.hammerImage = new Image(this.moleDim, this.moleDim);
         this.hammerImage.src = "./img/hammer.png";

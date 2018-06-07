@@ -7,6 +7,8 @@
       <module fileurl="file://$PROJECT_DIR$/../Letters/.idea/Letters.iml" filepath="$PROJECT_DIR$/../Letters/.idea/Letters.iml" />
       <module fileurl="file://$PROJECT_DIR$/../WhackAMole/.idea/WhackAMole.iml" filepath="$PROJECT_DIR$/../WhackAMole/.idea/WhackAMole.iml" />
       <module fileurl="file://$PROJECT_DIR$/../conf/.idea/conf.iml" filepath="$PROJECT_DIR$/../conf/.idea/conf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../curvedLineTest/.idea/curvedLineTest.iml" filepath="$PROJECT_DIR$/../curvedLineTest/.idea/curvedLineTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../misc/.idea/misc.iml" filepath="$PROJECT_DIR$/../misc/.idea/misc.iml" />
     </modules>
   </component>
 </project>

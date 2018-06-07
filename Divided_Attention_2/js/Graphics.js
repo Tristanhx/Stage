@@ -37,6 +37,27 @@ class Graphics{
 
     }
 
+    drawSmoothLine(points){
+        // draw line
+        gameArea.context.strokeStyle = '#50BAE1';
+        gameArea.context.strokeStyle = 'red';
+        gameArea.context.beginPath();
+        gameArea.context.moveTo(points[0].xPos, points[0].yPos);
+
+        let i;
+        for (i = 1; i < (points.length - 2); i++)
+        {
+            let xc = (points[i].xPos + points[i + 1].xPos) / 2;
+            let yc = (points[i].yPos + points[i + 1].yPos) / 2;
+            //gameArea.context.quadraticCurveTo(points[i].xPos, points[i].yPos, xc, yc);
+            gameArea.context.lineTo(xc, yc);
+        }
+        // curve through the last two points
+        //gameArea.context.quadraticCurveTo(points[i].xPos, points[i].yPos, points[i+1].xPos,points[i+1].yPos);
+
+        gameArea.context.stroke();
+    }
+
     createArrayInObjects(array){
         this.objects[array] = this.objects[array] || [];
     }

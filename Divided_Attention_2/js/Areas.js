@@ -9,7 +9,7 @@ const gameArea = {
         this.livesBorder = this.topBorder + 20;
 
         //this.canvas.style.border = "1px solid #00FF00";
-        this.canvas.style.backgroundColor = "#000000";
+        this.canvas.style.backgroundImage = 'url(../misc/gamedata/game1img/background.png)';
         this.context = this.canvas.getContext("2d");
 
         this.lifeMeterBg = new GameObject(this.canvas.width, this.livesBorder, 'red', 0, this.topBorder, this.context);

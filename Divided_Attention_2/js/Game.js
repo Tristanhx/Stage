@@ -36,6 +36,11 @@ class GameLoop {
         this.messageDisplayTime = 100;
         this.messageDisplayTimer = 0;
         this.message = false;
+        this.blockSize = 100 / 2;
+        this.blueNeuronImage = new Image(this.blockSize, this.blockSize);
+        this.blueNeuronImage.src = '../misc/gamedata/game1img/soccerRed.png';
+        this.yellowNeuronImage = new Image(this.blockSize, this.blockSize);
+        this.yellowNeuronImage.src = '../misc/gamedata/game1img/soccerYellow.png';
 
         //__BottomArea__\\
         this.speedSetting = 2;
@@ -176,7 +181,7 @@ class GameLoop {
         if (this.immunity && this.immunityTimer > 0) {
             this.immunityTimer--;
         } else {
-            gameArea.canvas.style.backgroundColor = 'black';
+            gameArea.canvas.style.backgroundImage = 'url(../misc/gamedata/game1img/background.png)';
             this.immunity = false;
             this.immunityTimer = this.immunityTime;
         }
@@ -191,9 +196,9 @@ class GameLoop {
     moreObstacles(){
         //Tools.changeBlockLoc(this.currentPath);
         this.fetchValues(this.frames);
-        gfx.placeObjects("pathParts", this.gap - this.obstacleSize, this.obstacleSize * this.speed * 2, '#FFAA00', this.blockLoc +
+        gfx.placeObjects("pathParts", this.gap - this.obstacleSize, this.obstacleSize * this.speed * 2, '#50BAE1', this.blockLoc +
             this.obstacleSize, gameArea.canvas.height, gameArea.context, 1, this.gap);
-        gfx.placeObjects("obstacles", this.obstacleSize, this.obstacleSize * this.speed, "#00FF00", this.blockLoc,
+        gfx.placeObjects("obstacles", this.obstacleSize, this.obstacleSize * this.speed, "#00A4E1", this.blockLoc,
             gameArea.canvas.height, gameArea.context, 2, this.gap);
         //this.pathDurationCounter++;
     }
@@ -262,6 +267,9 @@ class GameLoop {
         if (!this.ready && !this.overlay) {
             this.overlayToggle(true, "instructions");
             this.overlay = true;
+        }
+        if (this.overlay){
+            gfx.lag = 0;
         }
         if(this.ready) {
             if (!gfx.objects["previousLeftBlocks"]) {

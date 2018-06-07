@@ -68,11 +68,11 @@ class Tools{
     static createInitialObjects(){
         for (let i = gameArea.livesBorder; i < gameArea.canvas.width ; i += gm.obstacleSize) {
             if (i < gm.blockLoc || i > gm.blockLoc + gm.gap) {
-                gfx.placeObjects("obstacles", gm.obstacleSize, gm.obstacleSize * gm.speed, '#00FF00', i, gameArea.canvas.height, gameArea.context, 1, gm.gap);
+                gfx.placeObjects("obstacles", gm.obstacleSize, gm.obstacleSize * gm.speed, '#50BAE1', i, gameArea.canvas.height, gameArea.context, 1, gm.gap);
             }
         }
         for (let i = gameArea.livesBorder ; i < gameArea.canvas.height ; i += gm.obstacleSize) {
-            gfx.placeObjects("pathParts", gameArea.canvas.width, Math.round(gm.obstacleSize * gm.speed) *2, '#FFAA00', 0, i, gameArea.context, 1, gm.gap);
+            gfx.placeObjects("pathParts", gameArea.canvas.width, Math.round(gm.obstacleSize * gm.speed) *2, '#50BAE1', 0, i, gameArea.context, 1, gm.gap);
         }
         gm.player.xPos = gm.blockLoc + (gm.gap / 2);
     }
@@ -143,14 +143,13 @@ class Tools{
 
     static makeNewBlocks(){
         gameArea.canvas.style.backgroundColor = "black";
-        gm.blockSize = gameArea.topBorder / 2;
         for (let i = 0; i < gfx.objects["leftBlocks"].length; i++) {
             gm.blockPositionX = (i % 2 === 0 ? 0 : gm.blockSize);
             gm.blockPositionY = (i < 2 ? 0 : gm.blockSize);
             gfx.objects["leftBlocks"][i] = new GameObject(gm.blockSize, gm.blockSize, gfx.objects["leftBlocks"][i],
-                gm.blockPositionX + gameArea.topLeft, gm.blockPositionY, "top");
+                gm.blockPositionX + gameArea.topLeft, gm.blockPositionY, "top", false, false, false);
             gfx.objects["rightBlocks"][i] = new GameObject(gm.blockSize, gm.blockSize, gfx.objects["rightBlocks"][i],
-                gm.blockPositionX + 3 * gm.blockSize + gameArea.topLeft, gm.blockPositionY, "top");
+                gm.blockPositionX + 3 * gm.blockSize + gameArea.topLeft, gm.blockPositionY, "top", false, false, false);
         }
         gfx.objects["leftBlocks"].forEach(function (block) {
             block.update();
@@ -219,6 +218,7 @@ class Tools{
                     }
                 }
                 objects[i].update();
+                //gfx.drawSmoothLine(gfx.objects['obstacles']);
             }
 
         }

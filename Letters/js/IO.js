@@ -18,9 +18,16 @@ class IO{
     }
 
     handleResponse() {
-        if (gm.practice && this.key === 78 && document.getElementById('overlay').style.display === "block"){
+        if ((gm.practice || gm.game) && this.key === 78 && document.getElementById('overlay').style.display === "block"){
             gm.overlay = false;
             gm.overlayToggle(false);
+        }
+        else if (!gm.practice && !gm.endGame && this.key === 78 && document.getElementById('overlay').style.display === "block"){
+            gm.overlay = false;
+            gm.overlayToggle(false);
+            gm.game = true;
+            gm.gameLoop();
+            console.log('game on!');
         }
         if (this.key === 32 && this.go) {
             let tmpArray = [];
@@ -31,7 +38,7 @@ class IO{
             });
             let tmpWord = tmpArray.join("");
             if (tmpWord !== this.lastResponse) {
-                if (realWordList.indexOf(tmpWord) === -1) {
+                if (targetWordList.indexOf(tmpWord) === -1 || (gm.practice && wordList.indexOf(tmpWord) === 1)) {
                     gm.score -= 100;
                     gm.speedSetter(false);
                     gm.revertTimer = 3000;
