@@ -7,12 +7,13 @@ class Game{
         this.letters = [];
         this.target = null;
         this.letterSize = 100;
-        this.speed = 10;
+        this.spawnSpeed = 2;
+        this.spawnSpeedTank = this.spawnSpeed;
         this.targetOffset = 50;
         this.score = 0;
         this.focusLetter = null;
         this.userName = null;
-        this.currentSpeed = 10;
+        this.moveSpeed = 2;
         this.revertTimer = 0;
         this.colorTimer = 0;
         this.overlay = true;
@@ -32,15 +33,24 @@ class Game{
         this.letters = [];
         this.wordNumber = 0;
         this.frames = 0;
+        this.moveSpeed = 2;
+        this.spawnSpeed = 2;
+        this.spawnSpeedTank = this.spawnSpeed;
     }
 
     speedSetter(correct){
-        if(correct && this.currentSpeed > 2){
-            this.currentSpeed -= (this.currentSpeed * 0.05);
-            console.log(this.currentSpeed);
-        } else{
-            this.currentSpeed += (this.currentSpeed * 0.05);
-            console.log(this.currentSpeed);
+        if(correct && this.moveSpeed < 6){
+            this.moveSpeed += (this.moveSpeed * 0.05);
+            if (this.spawnSpeed > 1) {
+                this.spawnSpeedTank -= (this.spawnSpeedTank * 0.05);
+                this.spawnSpeed = Math.round(this.spawnSpeedTank);
+            }
+            console.log(this.moveSpeed);
+        } else if(this.moveSpeed > 1){
+            this.moveSpeed -= (this.moveSpeed * 0.05);
+            this.spawnSpeedTank += (this.spawnSpeedTank * 0.05);
+            this.spawnSpeed = Math.round(this.spawnSpeedTank);
+            console.log(this.moveSpeed);
         }
     }
 
@@ -61,7 +71,7 @@ class Game{
                         things[i].color = '#FFF';
                         things[i].target = false;
                     }
-                    things[i].y += things[i].d * this.speed;
+                    things[i].y += things[i].d * this.moveSpeed;
                     things[i].update();
                 }
                 // if it is something else
@@ -258,7 +268,7 @@ class Game{
             }
 
             gameArea.clear();
-            if ((this.frames / (100 / this.speed)) % 1 === 0 && this.wordNumber < wordList.length) {
+            if ((this.frames / (100 / this.spawnSpeed)) % 1 === 0 && this.wordNumber < wordList.length) {
                 this.createLetters(this.wordLength);
                 this.wordNumber++;
 
@@ -287,7 +297,7 @@ class Game{
 
 
             if (this.revertTimer === 0) {
-                this.currentSpeed = 10;
+                this.moveSpeed = 2;
             }
 
             gfx.lag -= gfx.frameDuration;

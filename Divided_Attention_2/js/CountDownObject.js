@@ -9,7 +9,7 @@ function CountDownObject(width, height, color, xPos, yPos, context, text) {
     this.context = context;
     this.update = function () {
         if (parseInt(this.text) === 0){
-            this.yPos -= gm.speed;
+            this.yPos -= gm.spawnSpeed;
         }
         else {
             this.yPos = this.yPosSetting;

@@ -31,13 +31,13 @@ class IO{
     handleArrowKeyPress(){
         if (this.keys && this.keys[37]){
             gm.speed = 1;
-            //gm.speed = Math.sqrt(gm.speedSetting**2 - 1**2);
-            gm.player.xDir = -gm.speed;
+            //gm.spawnSpeed = Math.sqrt(gm.speedSetting**2 - 1**2);
+            gm.player.xDir = -gm.spawnSpeed;
         }
         if (this.keys && this.keys[39]){
             gm.speed = 1;
-            //gm.speed = Math.sqrt(gm.speedSetting**2 - 1**2);
-            gm.player.xDir = gm.speed;
+            //gm.spawnSpeed = Math.sqrt(gm.speedSetting**2 - 1**2);
+            gm.player.xDir = gm.spawnSpeed;
         }
         if (this.keys && (!this.keys[37] && !this.keys[39])){
             gm.player.xDir = 0;
