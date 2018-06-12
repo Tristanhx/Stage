@@ -42,10 +42,10 @@ class Tools{
         if (gm.blockLoc > gm.obstacleSize && gm.blockLoc < gameArea.canvas.width - gm.obstacleSize - gm.gap) {
             switch (path){
                 case "Left":
-                    gm.blockLoc -= gm.obstacleSize * gm.spawnSpeed;
+                    gm.blockLoc -= gm.obstacleSize * gm.speed;
                     break;
                 case "Right":
-                    gm.blockLoc += gm.obstacleSize * gm.spawnSpeed;
+                    gm.blockLoc += gm.obstacleSize * gm.speed;
                     break;
                 case 'Straight':
                     break;
@@ -68,11 +68,11 @@ class Tools{
     static createInitialObjects(){
         for (let i = gameArea.livesBorder; i < gameArea.canvas.width ; i += gm.obstacleSize) {
             if (i < gm.blockLoc || i > gm.blockLoc + gm.gap) {
-                gfx.placeObjects("obstacles", gm.obstacleSize, gm.obstacleSize * gm.spawnSpeed, '#50BAE1', i, gameArea.canvas.height, gameArea.context, 1, gm.gap);
+                gfx.placeObjects("obstacles", gm.obstacleSize, gm.obstacleSize * gm.speed, '#50BAE1', i, gameArea.canvas.height, gameArea.context, 1, gm.gap);
             }
         }
         for (let i = gameArea.livesBorder ; i < gameArea.canvas.height ; i += gm.obstacleSize) {
-            gfx.placeObjects("pathParts", gameArea.canvas.width, Math.round(gm.obstacleSize * gm.spawnSpeed) *2, '#50BAE1', 0, i, gameArea.context, 1, gm.gap);
+            gfx.placeObjects("pathParts", gameArea.canvas.width, Math.round(gm.obstacleSize * gm.speed) *2, '#50BAE1', 0, i, gameArea.context, 1, gm.gap);
         }
         gm.player.xPos = gm.blockLoc + (gm.gap / 2);
     }
@@ -209,12 +209,12 @@ class Tools{
                 if(moving) {
                     if (objects[i].yPos <= gameArea.livesBorder) {
                         if (objects[i].height > 0){
-                            objects[i].height -= gm.spawnSpeed;
+                            objects[i].height -= gm.speed;
                         } else {
                             objects.splice(i, 1);
                         }
                     } else {
-                        objects[i].yPos -= gm.spawnSpeed;
+                        objects[i].yPos -= gm.speed;
                     }
                 }
                 objects[i].update();

@@ -14,9 +14,9 @@ function GameObject(width, height, color, xPos, yPos, type, stroke, path, gap) {
         this.right = this.xPos + this.width;
         this.top = this.yPos;
         this.bottom = this.yPos + this.height;
-        if(type !== 'top') {
+        if(this.type !== 'top') {
             if (stroke) {
-                this.context.fillStyle = this.color;
+                this.context.strokeStyle = this.color;
                 this.context.strokeRect(this.xPos, this.yPos, this.width, this.height);
             } else {
                 this.context.fillStyle = this.color;
