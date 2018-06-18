@@ -14,7 +14,7 @@ class IO{
     }
 
     calculateScore(){
-        return 500 - ((gm.focusLetter.y- gm.target.h) * 2);
+        return Math.round(500 - ((gm.focusLetter.y- gm.target.h) * 2));
     }
 
     handleResponse() {
@@ -45,11 +45,13 @@ class IO{
                     gm.target.color = 'red';
                     gm.colorTimer = this.colorTimerTime;
                 } else {
-                    gm.score += this.calculateScore();
+                    gm.addedScore = this.calculateScore();
+                    gm.score += gm.addedScore;
                     gm.speedSetter(true);
                     gm.revertTimer = 3000;
                     gm.target.color = 'green';
                     gm.colorTimer = this.colorTimerTime;
+                    gfx.displayAddedScore(gameArea.context);
                 }
                 this.lastResponse = tmpWord;
             }

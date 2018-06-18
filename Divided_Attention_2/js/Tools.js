@@ -181,6 +181,7 @@ class Tools{
             Tools.livesChange();
             Tools.handleObjects(gameArea.lifeMeterBorders);
         }
+        gameArea.clearTopBlocks();
         gm.makeNew = true;
         io.pressed = false;
     }

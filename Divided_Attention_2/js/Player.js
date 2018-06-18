@@ -24,7 +24,7 @@ function Player(width, height, color, xPos, yPos) {
         } else if (gm.imgFrame === 69){
             gm.imgFrame = 0;
         }
-        context.drawImage(gm.activeImage, this.xPos, this.yPos);
+        context.drawImage(gm.activeImage, this.xPos, this.yPos, gm.activeImage.width, gm.activeImage.height);
     };
 
     this.newPos = function(){

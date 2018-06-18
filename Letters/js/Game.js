@@ -7,13 +7,12 @@ class Game{
         this.letters = [];
         this.target = null;
         this.letterSize = 100;
-        this.spawnSpeed = 2;
-        this.spawnSpeedTank = this.spawnSpeed;
         this.targetOffset = 50;
         this.score = 0;
+        this.addedScore = null;
         this.focusLetter = null;
         this.userName = null;
-        this.moveSpeed = 2;
+        this.moveSpeed = 1;
         this.revertTimer = 0;
         this.colorTimer = 0;
         this.overlay = true;
@@ -23,6 +22,7 @@ class Game{
         this.practiceLevelWords = ['tag', 'fob', 'fig'];
         this.wordLength = 3;
         this.endGame = false;
+        this.indexingOffset = 1;
     }
 
     resetValues(){
@@ -33,14 +33,12 @@ class Game{
         this.letters = [];
         this.wordNumber = 0;
         this.frames = 0;
-        this.moveSpeed = 2;
-        this.spawnSpeed = 2;
-        this.spawnSpeedTank = this.spawnSpeed;
+        this.moveSpeed = 100;
     }
 
     speedSetter(correct){
         if(correct && this.moveSpeed < 6){
-            this.moveSpeed += (this.moveSpeed * 0.05);
+            this.moveSpeed += (this.moveSpeed * 0.1);
             if (this.spawnSpeed > 1) {
                 this.spawnSpeedTank -= (this.spawnSpeedTank * 0.05);
                 this.spawnSpeed = Math.round(this.spawnSpeedTank);
@@ -115,16 +113,36 @@ class Game{
     //     }
     // }
 
+    createTarget(){
+        if (!this.target) {
+            this.target = new Target(this.letterSize - this.targetOffset / 2, (gameArea.canvas.height / 2) - this.targetOffset,
+                this.letterSize * 3, this.letterSize);
+        }
+    }
+
     createLetters(wordLength) {
         if (wordLength === 3) {
-            this.letters.push(new Letter(this.letterSize, -this.letterSize, this.letterSize, wordList[this.wordNumber][0], 1, '#FFF'));
-            this.letters.push(new Letter(this.letterSize * 2, gameArea.canvas.height + this.letterSize, this.letterSize, wordList[this.wordNumber][1], -1, '#FFF'));
-            this.letters.push(new Letter(this.letterSize * 3, -this.letterSize, this.letterSize, wordList[this.wordNumber][2], 1, '#FFF'));
+            for (let i = 0 ;  i < 3 ; i++){
+                this.letters.push(new Letter(
+                    gameArea.streamLeft * (i+1),                                            //x
+                    i%2===0 ? -this.letterSize : gameArea.canvas.height + this.letterSize,  //y
+                    this.letterSize,                                                        //width
+                    wordList[this.wordNumber][i],                                           //letter
+                    i%2===0 ? 1 : -1,                                                       //direction
+                    '#FFF'                                                                  //color
+                ));
+            }
         } else if (wordLength === 4){
-            this.letters.push(new Letter(this.letterSize - (this.letterSize /2), -this.letterSize, this.letterSize, wordList[this.wordNumber][0], 1, '#FFF'));
-            this.letters.push(new Letter(this.letterSize * 2 - (this.letterSize /2), gameArea.canvas.height + this.letterSize, this.letterSize, wordList[this.wordNumber][1], -1, '#FFF'));
-            this.letters.push(new Letter(this.letterSize * 3 - (this.letterSize /2), -this.letterSize, this.letterSize, wordList[this.wordNumber][2], 1, '#FFF'));
-            this.letters.push(new Letter(this.letterSize * 4 - (this.letterSize /2), gameArea.canvas.height + this.letterSize, this.letterSize, wordList[this.wordNumber][3], -1, '#FFF'));
+            for (let i = 0 ; i < 4 ; i++){
+                this.letters.push(new Letter(
+                    gameArea.streamLeft * (i+1) - (this.letterSize /2), //x
+                    i%2===0 ? -this.letterSize : gameArea.canvas.height + this.letterSize, //y
+                    this.letterSize, //width
+                    wordList[this.wordNumber][i], //letter
+                    i%2===0 ? 1 : -1, //direction
+                    '#FFF'//color
+                ));
+            }
         }
     }
 
@@ -135,7 +153,8 @@ class Game{
         }
         // SCOREBOARD!
         gameArea.context.font = "20px Times New Roman";
-        gameArea.context.fillText(this.score.toString(), 450, 20, 100);
+        gameArea.context.textBaseline = 'bottom';
+        gameArea.context.fillText(Math.round(this.score).toString(), gameArea.scoreLeft, gameArea.scoreBottom, 100);
         if (this.colorTimer === 0) {
             this.target.color = '#50BAE1';
         }
@@ -178,12 +197,9 @@ class Game{
                 this.colorTimer--;
             }
 
-            if (!this.target) {
-                this.target = new Target(this.letterSize - this.targetOffset / 2, (gameArea.canvas.height / 2) - this.targetOffset,
-                    this.letterSize * 3, this.letterSize);
-            }
+            this.createTarget();
 
-            gameArea.clear();
+            gameArea.clearStream();
 
             if (this.overlay){
 
@@ -242,12 +258,15 @@ class Game{
             nonTargetWordList = fakeWords.split("\n").filter(e => e);
             wordList = shuffle(targetWordList.concat(nonTargetWordList));
         } else if (level === 3){
+            this.createTarget();
             targetWordList = fourLetterWords.split("\n").filter(e => e);
             nonTargetWordList = fourLetterFakeWords.split("\n").filter(e => e);
             wordList = shuffle(targetWordList.concat(nonTargetWordList));
             this.wordLength = 4;
             this.target.x -= this.letterSize / 2;
             this.target.w = this.letterSize * 4;
+            this.indexingOffset = 2;
+            gameArea.addedScoreLeft += this.letterSize;
         }
         console.log('level ', level);
     }
@@ -258,6 +277,12 @@ class Game{
         }
 
         if (gfx.lag >= gfx.frameDuration) {
+            if (this.frames === 0) {
+                this.createLetters(this.wordLength);
+                this.wordNumber++;
+                this.createTarget();
+            }
+
             this.frames++;
 
             if (this.revertTimer !== 0) {
@@ -267,12 +292,16 @@ class Game{
                 this.colorTimer--;
             }
 
-            gameArea.clear();
-            if ((this.frames / (100 / this.spawnSpeed)) % 1 === 0 && this.wordNumber < wordList.length) {
-                this.createLetters(this.wordLength);
-                this.wordNumber++;
+            gameArea.clearStream();
+            if (this.wordNumber < wordList.length) {
+                if (this.letters[this.letters.length - this.indexingOffset].y >= 0) {
+                    this.createLetters(this.wordLength);
+                    this.wordNumber++;
+                }
+            }
 
-            } else if (this.wordNumber >= wordList.length) {
+
+            else if (this.wordNumber >= wordList.length) {
                 if (this.level !== this.levels) {
                     if (this.letters.length <= 0) {
                         this.level += 1;
@@ -292,16 +321,15 @@ class Game{
                     }
                 }
             }
-
+            gameArea.clearScore();
             this.updateElements();
 
 
             if (this.revertTimer === 0) {
-                this.moveSpeed = 2;
+                this.moveSpeed = 1;
             }
 
             gfx.lag -= gfx.frameDuration;
-
         }
 
         //___FPS Control___\\
@@ -315,7 +343,7 @@ class Game{
         gfx.lag += gfx.delta;
 
         gfx.fps = 1 / (gfx.delta / 1000);
-        gfx.displayFPS(gameArea.context);
+        //gfx.displayFPS(gameArea.context);
 
         gfx.previous = gfx.now;
 

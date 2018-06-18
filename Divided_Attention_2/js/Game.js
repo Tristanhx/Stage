@@ -14,7 +14,7 @@ class GameLoop {
         this.level = 1;
         this.levelTime = 0;
         this.maxLevels = 2;
-        this.maxLives = 4;
+        this.maxLives = 10;
         this.lives = this.maxLives;
         this.data = [];
         this.framesArray = [];
@@ -36,7 +36,7 @@ class GameLoop {
         this.messageDisplayTime = 100;
         this.messageDisplayTimer = 0;
         this.message = false;
-        this.blockSize = 100 / 2;
+        this.blockSize = 50;
         this.blueNeuronImage = new Image(this.blockSize, this.blockSize);
         this.blueNeuronImage.src = '../misc/gamedata/game1img/soccerRed.png';
         this.yellowNeuronImage = new Image(this.blockSize, this.blockSize);
@@ -80,11 +80,11 @@ class GameLoop {
         this.run1 = new Image(this.playerDim, this.playerDim);
         this.run2 = new Image(this.playerDim, this.playerDim);
         this.activeImage = this.run0;
-        this.run0.src = './img/runningdown0.png';
-        this.run1.src = './img/runningdown1.png';
-        this.run2.src = './img/runningdown2.png';
+        this.run0.src = './img/Large.png';
+        this.run1.src = './img/Medium.png';
+        this.run2.src = './img/Small.png';
         this.imgFrame = 0;
-        this.player = new Player(this.playerDim, this.playerDim, 'blue', this.xPosArray[0]+(this.gapArray[0]/2), 800);
+        this.player = new Player(this.playerDim, this.playerDim, 'blue', this.xPosArray[0]+(this.gapArray[0]/2), 500);
     }
 
     resetValues(){

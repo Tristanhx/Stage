@@ -561,7 +561,11 @@ function startGame(){
     console.log('Start!');
     document.getElementById("myForm").style.display = "none";
     gameArea.start();
-    gm.practiceLevelLoop();
+    //gm.practiceLevelLoop();
+    gm.practice = false;
+    gm.game=true;
+    gm.setupNextLevel(gm.level);
+    gm.gameLoop();
 }
 
 function shuffle(a) {

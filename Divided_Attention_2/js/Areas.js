@@ -3,7 +3,7 @@ const gameArea = {
     canvas: document.createElement("canvas"),
     start: function(){
         this.canvas.width = 800;
-        this.canvas.height = 1300;
+        this.canvas.height = 1000;
         this.topBorder = 100;
         this.topLeft = 275;
         this.livesBorder = this.topBorder + 20;
