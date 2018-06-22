@@ -44,13 +44,23 @@ class IO{
     }
 
     hitMole(){
-        this.stopTime = window.performance.now();
-        rdr.makeMole = 'Dead';
-        this.rt = this.stopTime - this.startTime;
-        console.log(this.rt);
-        rdr.displayReactionTime(Math.round(this.rt));
-        score.writeScore(Math.round(this.rt));
-        this.go = false;
+        if (rdr.blue) {
+            this.stopTime = window.performance.now();
+            rdr.makeMole = 'Dead';
+            this.rt = this.stopTime - this.startTime;
+            console.log(this.rt);
+            rdr.displayReactionTime(Math.round(this.rt));
+            score.writeScore(Math.round(this.rt));
+            this.go = false;
+        } else{
+            this.stopTime = this.startTime;
+            rdr.makeMole = 'Dead';
+            score.writeScore("false");
+            rdr.displayReactionTime('Missed');
+            console.log(this.stopTime - this.startTime);
+            this.go = false;
+            rdr.placeContraHammer();
+        }
     }
 
     missMole(){
@@ -63,15 +73,15 @@ class IO{
     }
 
     handleKeyHit(key){
+        rdr.placeHammer(key);
         if((key === 49 && (rdr.x === rdr.posC && rdr.y === rdr.posC)) ||
             (key === 48 && (rdr.x === rdr.posC2 && rdr.y === rdr.posC)) ||
             (key === this.leftIndex && (rdr.x === rdr.posC && rdr.y === rdr.posC2)) ||
             (key === this.rightIndex && (rdr.x === rdr.posC2 && rdr.y === rdr.posC2)))   {
             this.hitMole();
-        } else {
+        } else if(key === 49 || key === 48 || key === this.leftIndex || key === this.rightIndex) {
             this.missMole();
         }
-        rdr.placeHammer(key);
     };
 
     tooSoon(){

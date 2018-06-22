@@ -18,7 +18,7 @@ class Game{
         this.overlay = true;
         this.practiceLevel = 1;
         this.levels = 3;
-        this.level = 1;
+        this.level = 3;
         this.practiceLevelWords = ['tag', 'fob', 'fig'];
         this.wordLength = 3;
         this.endGame = false;
@@ -33,7 +33,7 @@ class Game{
         this.letters = [];
         this.wordNumber = 0;
         this.frames = 0;
-        this.moveSpeed = 100;
+        this.moveSpeed = 1;
     }
 
     speedSetter(correct){

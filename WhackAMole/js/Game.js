@@ -1,17 +1,21 @@
 class Game {
     constructor(){
-        this.firstSequence = [1,2,3,4, Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1)];
-        this.secondSequence = [1,1,2,2,3,3,4,4, Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1)];
+        this.firstSequence = [1,2,3,4, (Math.floor(Math.random()*4 +1)), (Math.floor(Math.random()*4 +1)), -(Math.floor(Math.random()*4 +1))];
+        this.secondSequence = [1,1,2,2,3,3,4,4, Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), -(Math.floor(Math.random()*4 +1)), -(Math.floor(Math.random()*4 +1))];
         this.userName = false;
-        this.moleDim = 400;
+        this.moleDim = 200;
         this.moleImage = new Image(this.moleDim, this.moleDim);
         this.moleHitImage = new Image(this.moleDim, this.moleDim);
         this.moleMissImage = new Image(this.moleDim, this.moleDim);
+        this.antiMoleImage = new Image(this.moleDim, this.moleDim);
         this.moleImage.src = "../misc/gamedata/game1img/soccerRed.png";
         this.moleHitImage.src = "../misc/gamedata/game1img/soccerRed2.png";
-        this.moleMissImage.src = "./img/mole_miss.png";
+        this.moleMissImage.src = "../misc/gamedata/game1img/soccerRed2.png";
+        this.antiMoleImage.src = "../misc/gamedata/game1img/soccerYellow.png";
         this.hammerImage = new Image(this.moleDim, this.moleDim);
         this.hammerImage.src = "./img/hammer.png";
+        this.cross = new Image(this.moleDim / 2, this.moleDim / 2);
+        this.cross.src = "../misc/gamedata/game1img/fout.png";
 
         this.game = true;
         this.ready = false;
@@ -26,7 +30,7 @@ class Game {
         this.countDownTimer = 0;
         this.countDownObject = new CountDownObject(10, 10, 'blue', 50, 50, gameArea.context, '10');
     }
-
+        
     overlayToggle(state, type){
         if (state) {
             document.getElementById('overlay').style.display = "block";
@@ -85,6 +89,7 @@ class Game {
                     this.countDownObject.text = this.countDownArray[this.countDownSeconds - 1].toString();
                     this.countDownObject.context = gameArea.context;
                     this.countDownSeconds--;
+                    rdr.placeCenter();
                 }
                 this.countDownObject.update();
                 this.countDownTimer++;
@@ -97,7 +102,7 @@ class Game {
             rdr.timeOut++;
         }
         //__FPS__\\
-        rdr.displayFPS();
+        //rdr.displayFPS();
     };
 
 }

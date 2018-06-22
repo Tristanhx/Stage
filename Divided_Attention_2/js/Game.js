@@ -181,7 +181,7 @@ class GameLoop {
         if (this.immunity && this.immunityTimer > 0) {
             this.immunityTimer--;
         } else {
-            gameArea.canvas.style.backgroundImage = 'url(../misc/gamedata/game1img/background.png)';
+            gameArea.canvas.style.backgroundImage = 'url(../misc/gamedata/game2img/background.png)';
             this.immunity = false;
             this.immunityTimer = this.immunityTime;
         }

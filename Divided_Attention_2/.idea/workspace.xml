@@ -2,20 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="877f8e3e-e4b5-4b44-a437-6c05a35a3a26" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/Areas.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Areas.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/Tools.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Tools.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Letters/js/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Letters/js/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Letters/js/Graphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Letters/js/Graphics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Letters/js/IO.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Letters/js/IO.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Letters/js/gameArea.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Letters/js/gameArea.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Letters/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Letters/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../conf/.idea/conf.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../conf/.idea/conf.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../curvedLineTest/.idea/curvedLineTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../curvedLineTest/.idea/curvedLineTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../misc/.idea/misc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../misc/.idea/misc.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WhackAMole/js/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WhackAMole/js/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WhackAMole/js/IO.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WhackAMole/js/IO.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WhackAMole/js/Renderer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WhackAMole/js/Renderer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WhackAMole/js/gameArea.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WhackAMole/js/gameArea.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WhackAMole/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WhackAMole/js/main.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,47 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="IO.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../Letters/js/IO.js">
+      <file leaf-file-name="Game.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../WhackAMole/js/Game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="16" column="71" selection-start-line="16" selection-start-column="71" selection-end-line="16" selection-end-column="71" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Game.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../Letters/js/Game.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="155" column="49" lean-forward="true" selection-start-line="155" selection-start-column="49" selection-end-line="155" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gameArea.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../Letters/js/gameArea.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Letter.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../Letters/js/Letter.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Graphics.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../Letters/js/Graphics.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+            <state relative-caret-position="710">
+              <caret line="104" column="10" selection-start-line="104" selection-start-column="10" selection-end-line="104" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -88,6 +48,7 @@
       <find>overlayToggle</find>
       <find>speed</find>
       <find>spawn</find>
+      <find>timeout</find>
     </findStrings>
     <dirStrings>
       <dir>C:\xampp\htdocs\Stage\Divided_Attention_2\js</dir>
@@ -105,11 +66,8 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/../WhackAMole/js/GlobalVariables.js" />
         <option value="$PROJECT_DIR$/../WhackAMole/index.html" />
-        <option value="$PROJECT_DIR$/../WhackAMole/js/IO.js" />
-        <option value="$PROJECT_DIR$/../WhackAMole/js/main.js" />
         <option value="$PROJECT_DIR$/../WhackAMole/js/Score.js" />
         <option value="$PROJECT_DIR$/../WhackAMole/userInfo.php" />
-        <option value="$PROJECT_DIR$/../WhackAMole/js/Renderer.js" />
         <option value="$PROJECT_DIR$/../Letters/js/CorgaloreRoundedCornersRect.js" />
         <option value="$PROJECT_DIR$/../Letters/index.html" />
         <option value="$PROJECT_DIR$/js/main.js" />
@@ -119,20 +77,23 @@
         <option value="$PROJECT_DIR$/../curvedLineTest/index.html" />
         <option value="$PROJECT_DIR$/js/Graphics.js" />
         <option value="$PROJECT_DIR$/../curvedLineTest/drawSmoothLine.js" />
-        <option value="$PROJECT_DIR$/../WhackAMole/js/Game.js" />
-        <option value="$PROJECT_DIR$/../WhackAMole/js/gameArea.js" />
         <option value="$PROJECT_DIR$/js/GameObject.js" />
         <option value="$PROJECT_DIR$/js/CountDownObject.js" />
         <option value="$PROJECT_DIR$/js/IO.js" />
         <option value="$PROJECT_DIR$/js/Player.js" />
-        <option value="$PROJECT_DIR$/js/Game.js" />
-        <option value="$PROJECT_DIR$/js/Areas.js" />
         <option value="$PROJECT_DIR$/js/Tools.js" />
         <option value="$PROJECT_DIR$/../Letters/js/main.js" />
         <option value="$PROJECT_DIR$/../Letters/js/IO.js" />
-        <option value="$PROJECT_DIR$/../Letters/js/gameArea.js" />
-        <option value="$PROJECT_DIR$/../Letters/js/Game.js" />
         <option value="$PROJECT_DIR$/../Letters/js/Graphics.js" />
+        <option value="$PROJECT_DIR$/../Letters/js/Game.js" />
+        <option value="$PROJECT_DIR$/../WhackAMole/js/main.js" />
+        <option value="$PROJECT_DIR$/../WhackAMole/js/IO.js" />
+        <option value="$PROJECT_DIR$/../WhackAMole/js/Renderer.js" />
+        <option value="$PROJECT_DIR$/../WhackAMole/js/gameArea.js" />
+        <option value="$PROJECT_DIR$/js/Areas.js" />
+        <option value="$PROJECT_DIR$/../Letters/js/gameArea.js" />
+        <option value="$PROJECT_DIR$/js/Game.js" />
+        <option value="$PROJECT_DIR$/../WhackAMole/js/Game.js" />
       </list>
     </option>
   </component>
@@ -146,10 +107,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-85" />
-    <option name="y" value="28" />
-    <option name="width" value="1936" />
-    <option name="height" value="1096" />
+    <option name="x" value="953" />
+    <option name="width" value="974" />
+    <option name="height" value="1051" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -157,6 +117,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -180,12 +141,6 @@
             </path>
             <path>
               <item name="Divided_Attention_2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="misc" type="462c0819:PsiDirectoryNode" />
-              <item name="gamedata" type="462c0819:PsiDirectoryNode" />
-              <item name="game1img" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Divided_Attention_2" type="b2602c69:ProjectViewProjectNode" />
               <item name="WhackAMole" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -197,7 +152,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -243,27 +197,32 @@
       <workItem from="1528406527895" duration="2326000" />
       <workItem from="1528721177661" duration="4000" />
       <workItem from="1528788772024" duration="828000" />
-      <workItem from="1528996173596" duration="9691000" />
+      <workItem from="1528996173596" duration="12125000" />
+      <workItem from="1529314700801" duration="25000" />
+      <workItem from="1529314737511" duration="1260000" />
+      <workItem from="1529320195899" duration="1268000" />
+      <workItem from="1529327612692" duration="9697000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70912000" />
+    <option name="totallyTimeSpent" value="85596000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25479743" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32979852" />
-      <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1652452" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32873806" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -272,7 +231,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32925585" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -287,33 +245,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../conf/db_info.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Letters/userInfo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/userInfo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="32" column="18" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Divided_Attention_Level_Creator/userInfo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Letters/js/clickButton.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Divided_Attention_Level_Creator/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -345,16 +276,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../WhackAMole/js/IO.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../WhackAMole/js/main.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/../WhackAMole/userInfo.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -380,13 +301,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../WhackAMole/js/Renderer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2452">
-          <caret line="162" column="6" lean-forward="true" selection-start-line="162" selection-start-column="6" selection-end-line="162" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -433,13 +347,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../misc/gamedata/game1img/powered.svg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../WhackAMole/js/Game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/CountDownObject.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -489,13 +396,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Areas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="31" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/IO.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -510,31 +410,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="347" column="54" lean-forward="true" selection-start-line="347" selection-start-column="54" selection-end-line="347" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../WhackAMole/js/gameArea.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="63" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Letters/js/CorgaloreRoundRect.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Letters/js/Target.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -545,24 +424,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Letters/js/IO.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="16" column="71" selection-start-line="16" selection-start-column="71" selection-end-line="16" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Letters/js/Letter.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Letters/js/Game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="155" column="49" lean-forward="true" selection-start-line="155" selection-start-column="49" selection-end-line="155" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -573,10 +438,95 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../misc/gamedata/game1img/soccerYellow.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Letters/js/Target.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="40" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="8" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Letters/js/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="62" column="50" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Letters/js/IO.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="67">
+          <caret line="16" column="71" selection-start-line="16" selection-start-column="71" selection-end-line="16" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../WhackAMole/js/Renderer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="141" column="20" selection-start-line="141" selection-start-column="20" selection-end-line="141" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../WhackAMole/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../misc/gamedata/game2img/background.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../misc/gamedata/game3img/background.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../misc/gamedata/game4img/background.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../misc/gamedata/game1img/background.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../WhackAMole/js/gameArea.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="72" selection-start-line="7" selection-start-column="72" selection-end-line="7" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/Areas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="71" selection-start-line="11" selection-start-column="71" selection-end-line="11" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../WhackAMole/js/IO.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="61" column="35" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../Letters/js/gameArea.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
+        <state relative-caret-position="221">
+          <caret line="13" column="71" selection-start-line="13" selection-start-column="71" selection-end-line="13" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="183" column="79" selection-start-line="183" selection-start-column="79" selection-end-line="183" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../WhackAMole/js/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="710">
+          <caret line="104" column="10" selection-start-line="104" selection-start-column="10" selection-end-line="104" selection-end-column="10" />
         </state>
       </provider>
     </entry>

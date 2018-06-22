@@ -5,7 +5,7 @@ let gameArea = {
         this.context.fillStyle = 'red';
         this.canvas.width = 1000;
         this.canvas.height = 1000;
-        this.canvas.style.backgroundImage = "url('../misc/gamedata/game1img/background.png')";
+        this.canvas.style.backgroundImage = "url('../misc/gamedata/game2img/background.png')";
         let div = document.getElementById("molefield");
         div.appendChild(this.canvas);
         resize();
