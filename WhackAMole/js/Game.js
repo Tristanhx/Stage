@@ -1,7 +1,9 @@
 class Game {
     constructor(){
-        this.firstSequence = [1,2,3,4, (Math.floor(Math.random()*4 +1)), (Math.floor(Math.random()*4 +1)), -(Math.floor(Math.random()*4 +1))];
-        this.secondSequence = [1,1,2,2,3,3,4,4, Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), -(Math.floor(Math.random()*4 +1)), -(Math.floor(Math.random()*4 +1))];
+        this.firstSequence = [1,2,3,4, (Math.floor(Math.random()*4 +1)), (Math.floor(Math.random()*4 +1))];
+        this.secondSequence = [1,2,3,4, (Math.floor(Math.random()*4 +1)), (Math.floor(Math.random()*4 +1)), (Math.floor(Math.random()*4 +1)), (Math.floor(Math.random()*4 +1))];
+        this.thirdSequence = [1,1,2,2,3,3,4,4, Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1)];
+        this.fourthSequence = [1,1,2,2,3,3,4,4, Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1)];
         this.userName = false;
         this.moleDim = 200;
         this.moleImage = new Image(this.moleDim, this.moleDim);

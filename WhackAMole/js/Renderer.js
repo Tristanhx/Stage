@@ -13,59 +13,76 @@ class Renderer{
         this.posC2 = 800;
         this.blue = null;
         this.sequenceNumber = 0;
-        this.maxTrials = 36;
+        this.maxRepeats = 5;
+        this.maxTrials = null;
+        this.maxRandomTrials = 50;
         this.trial = 0;
         this.clearYellow = null;
+        this.set = false;
     }
+    
+    fillCurrentArray(sequence){
+        if (typeof sequence === "string"){
+            this.currentSequence = new Array(this.maxRandomTrials);
+            for (let i = 0 ; i < this.maxRandomTrials ; i++){
+                this.currentSequence[i] = Math.floor(Math.random()*4 +1);
+            }
+        } else if (typeof sequence === "object") {
+            if (this.trial === 0) {
+                sequence = gm.shuffle(sequence);
+            }
 
-    setFirst(){
-        if (this.trial === 0){
-            gm.firstSequence = gm.shuffle(gm.firstSequence);
+            this.currentSequence = new Array(gm.firstSequence.length * this.maxRepeats);
+
+            for (let i = 0; i < this.maxRepeats; i++) {
+                for (let j = 0; j < sequence.length; j++) {
+                    console.log(this.currentSequence);
+                    this.currentSequence[j + sequence.length * i] = sequence[j];
+                }
+
+            }
         }
-        this.currentSequence = gm.firstSequence;
-    }
+        this.currentSequence.push(-(Math.floor(Math.random()*4 +1)));
 
-    setSecond(){
-        if (this.trial === 0){
-            gm.secondSequence = gm.shuffle(gm.secondSequence);
-        }
-        this.currentSequence = gm.secondSequence;
-    }
-
-    setRandom(){
-        this.currentSequence = false;
-        this.x = Math.random() > .5 ? this.posC : this.posC2;
-        this.y = Math.random() > .5 ? this.posC: this.posC2;
+        this.maxTrials = this.currentSequence.length;
     }
 
     pickPosition(){
         this.jitter = 1;
-        switch (this.sequenceNumber){
-            case 0:
-                this.setFirst();
-                break;
-            case 1:
-                this.setRandom();
-                break;
-            case 2:
-                this.setSecond();
-                break;
-            case 3:
-                this.setRandom();
-                break;
-            case 4:
-                this.setFirst();
-                break;
-            case 5:
-                this.setRandom();
-                break;
-            case 6:
-                this.setSecond();
-                break;
+
+        //switch sequences
+        if (!this.set) {
+            console.log("switching sequences");
+            switch (this.sequenceNumber) {
+                case 0:
+                    this.fillCurrentArray(gm.firstSequence);
+                    break;
+                case 1:
+                    this.fillCurrentArray("random");
+                    break;
+                case 2:
+                    this.fillCurrentArray(gm.secondSequence);
+                    break;
+                case 3:
+                    this.fillCurrentArray("random");
+                    break;
+                case 4:
+                    this.fillCurrentArray(gm.thirdSequence);
+                    break;
+                case 5:
+                    this.fillCurrentArray("random");
+                    break;
+                case 6:
+                    this.fillCurrentArray(gm.fourthSequence);
+                    break;
+            }
+            console.log(this.currentSequence);
+            this.set = true;
         }
-        console.log(this.currentSequence);
+
+        // switch positions within current sequence
         if (this.currentSequence) {
-            switch (this.currentSequence[this.trial % this.currentSequence.length]) {
+            switch (this.currentSequence[this.trial]) {
                 case 1:
                     this.x = this.posC;
                     this.y = this.posC;
@@ -115,6 +132,7 @@ class Renderer{
             console.log("This was sequence: ", this.sequenceNumber);
             if(this.sequenceNumber < 6) {
                 this.sequenceNumber++;
+                this.set = false;
             } else {
                 gameArea.canvas.width = 0;
                 gameArea.canvas.height = 0;
@@ -123,7 +141,7 @@ class Renderer{
                 gm.overlayToggle(true, "follow-up");
                 gm.waitForInput();
             }
-                this.trial = 0;
+            this.trial = 0;
         }
     }
 
