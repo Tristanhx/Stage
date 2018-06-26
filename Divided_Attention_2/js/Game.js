@@ -196,10 +196,12 @@ class GameLoop {
     moreObstacles(){
         //Tools.changeBlockLoc(this.currentPath);
         this.fetchValues(this.frames);
-        gfx.placeObjects("pathParts", this.gap - this.obstacleSize, this.obstacleSize * this.speed * 2, '#50BAE1', this.blockLoc +
-            this.obstacleSize, gameArea.canvas.height, gameArea.context, 1, this.gap);
+        // gfx.placeObjects("pathParts", this.gap - this.obstacleSize, this.obstacleSize * this.speed * 2, '#50BAE1', this.blockLoc +
+        //     this.obstacleSize, gameArea.canvas.height, gameArea.context, 1, this.gap);
         gfx.placeObjects("obstacles", this.obstacleSize, this.obstacleSize * this.speed, "#00A4E1", this.blockLoc,
-            gameArea.canvas.height, gameArea.context, 2, this.gap);
+            gameArea.canvas.height, gameArea.context, this.gap);
+        gfx.placeObjects("obstacles right", this.obstacleSize, this.obstacleSize * this.speed, "#00A4E1", this.blockLoc + this.gap,
+            gameArea.canvas.height, gameArea.context, this.gap);
         //this.pathDurationCounter++;
     }
 

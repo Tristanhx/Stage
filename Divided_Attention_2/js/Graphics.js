@@ -10,10 +10,10 @@ class Graphics{
         this.delta = 0;
     }
 
-    placeObjects(array, w, h, c, x, y, context, amount, gap) {
+    placeObjects(array, w, h, c, x, y, context, gap) {
         this.createArrayInObjects(array);
         let pathDirection = "";
-        if (array === "obstacles") {
+        if (array === "obstacles" || array === "obstacles right") {
             try {
                 if (this.objects[array][-1].blockLoc === gm.blockLoc) {
                     pathDirection = "Straight";
@@ -25,36 +25,44 @@ class Graphics{
             } catch(e){
                 pathDirection = "Straight";
             }
-            for (let i = 0 ; i < amount; i++){
-                this.objects[array].push(new GameObject(w, h, c, x+gap*i, y, context, false, pathDirection, gap));
-            }
+            this.objects[array].push(new GameObject(w, h, c, x, y, context, false, pathDirection, gap));
         } else {
-
-            for (let i = 0; i < amount; i++) {
-                this.objects[array].push(new GameObject(w, h, c, x+gap*i, y, context));
-            }
+            this.objects[array].push(new GameObject(w, h, c, x, y, context));
         }
 
     }
 
-    drawSmoothLine(points){
-        // draw line
-        gameArea.context.strokeStyle = '#50BAE1';
-        gameArea.context.strokeStyle = 'red';
-        gameArea.context.beginPath();
-        gameArea.context.moveTo(points[0].xPos, points[0].yPos);
+    drawSmoothPath(left, right){
+        if(left & right){
+            // draw line
+            gameArea.context.fillStyle = '#50BAE1';
+            gameArea.context.strokeStyle = 'red';
+            gameArea.context.beginPath();
+            gameArea.context.moveTo(left[0].xPos, left[0].yPos);
+            console.log(typeof left, typeof right);
 
-        let i;
-        for (i = 1; i < (points.length - 2); i++)
-        {
-            //let xc = (points[i].xPos + points[i + 1].xPos) / 2;
-            //let yc = (points[i].yPos + points[i + 1].yPos) / 2;
-            //gameArea.context.quadraticCurveTo(points[i].xPos, points[i].yPos, xc, yc);
-            gameArea.context.lineTo(points[i].x, points[i].y);
+
+            let i;
+            for (i = 1; i < (left.length - 2); i++)
+            {
+                //let xc = (points[i].xPos + points[i + 1].xPos) / 2;
+                //let yc = (points[i].yPos + points[i + 1].yPos) / 2;
+                //gameArea.context.quadraticCurveTo(points[i].xPos, points[i].yPos, xc, yc);
+                gameArea.context.lineTo(left[i].xPos, left[i].yPos);
+            }
+
+
+            //for (i = (right.length - 1); i >= 0; i--)
+            for (i = right.length - 1; i >= 0; i++) {
+                //let xc = (points[i].xPos + points[i + 1].xPos) / 2;
+                //let yc = (points[i].yPos + points[i + 1].yPos) / 2;
+                //gameArea.context.quadraticCurveTo(points[i].xPos, points[i].yPos, xc, yc);
+                gameArea.context.lineTo(right[i].xPos, right[i].yPos);
+            }
         }
         // curve through the last two points
         //gameArea.context.quadraticCurveTo(points[i].xPos, points[i].yPos, points[i+1].xPos,points[i+1].yPos);
-
+        gameArea.context.closePath();
         gameArea.context.stroke();
     }
 
