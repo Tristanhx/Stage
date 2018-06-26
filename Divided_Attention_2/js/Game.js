@@ -50,7 +50,7 @@ class GameLoop {
 
         //_obstacles_\\
         this.collisionBlock = null;
-        this.obstacleSize = 5;
+        this.obstacleSize = 10;
         this.gap = null;
         this.blockLoc = null;
 
@@ -189,17 +189,17 @@ class GameLoop {
 
     createFinishLine(){
         console.log('finishline!');
-        this.finishArea = new GameObject(gameArea.canvas.width, gameArea.canvas.height/2, '#FFAA00', 0, gameArea.canvas.height, gameArea.context);
+        this.finishArea = new GameObject(gameArea.canvas.width, gameArea.canvas.height/2, '#FFAA00', 0, gameArea.canvas.height, "bottom pathparts");
         gfx.createObjectHLine('finishline', ['black', 'white'], gameArea.canvas, 10, gameArea.context, this.blockLoc, this.blockLoc + this.gap);
     }
 
     moreObstacles(){
         //Tools.changeBlockLoc(this.currentPath);
         this.fetchValues(this.frames);
-        gfx.placeObjects("pathParts", this.gap - this.obstacleSize, this.obstacleSize * this.speed * 2, '#50BAE1', this.blockLoc +
-            this.obstacleSize, gameArea.canvas.height, gameArea.context, 1, this.gap);
+        gfx.placeObjects("pathParts", this.gap - this.obstacleSize, this.obstacleSize * this.speed * 2, '#50FAE1', this.blockLoc +
+            this.obstacleSize, gameArea.canvas.height, "bottom pathparts", 1, this.gap);
         gfx.placeObjects("obstacles", this.obstacleSize, this.obstacleSize * this.speed, "#00A4E1", this.blockLoc,
-            gameArea.canvas.height, gameArea.context, 2, this.gap);
+            gameArea.canvas.height, "bottom obstacles", 2, this.gap);
         //this.pathDurationCounter++;
     }
 

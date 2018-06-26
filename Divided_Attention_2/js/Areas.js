@@ -12,12 +12,12 @@ const gameArea = {
         this.canvas.style.backgroundImage = 'url(../misc/gamedata/game2img/background.png)';
         this.context = this.canvas.getContext("2d");
 
-        this.lifeMeterBg = new GameObject(this.canvas.width, this.livesBorder, 'red', 0, this.topBorder, this.context);
-        this.lifeMeter = new GameObject(this.canvas.width, this.livesBorder, 'green', 0, this.topBorder, this.context);
+        this.lifeMeterBg = new GameObject(this.canvas.width, this.livesBorder, 'red', 0, this.topBorder, "lives");
+        this.lifeMeter = new GameObject(this.canvas.width, this.livesBorder, 'green', 0, this.topBorder, "lives");
         this.lifeMeterBorders = [];
         this.fillBorders = () => {
             for(let i = 0 ; i < gm.maxLives ; i++){
-                this.lifeMeterBorders.push(new GameObject(this.canvas.width/ gm.maxLives, this.canvas.height, 'black', (this.canvas.width/ gm.maxLives) * i, this.topBorder, this.context, true));
+                this.lifeMeterBorders.push(new GameObject(this.canvas.width/ gm.maxLives, this.canvas.height, 'black', (this.canvas.width/ gm.maxLives) * i, this.topBorder, "lives", true));
             }
         };
         this.fillBorders();

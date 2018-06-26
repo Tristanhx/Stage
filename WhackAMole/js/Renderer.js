@@ -195,7 +195,7 @@ class Renderer{
             //ctx.moveTo(cx,cy);
             ctx.arc(cx,cy,r,toRadians(line[0]),toRadians(line[1]));
             ctx.stroke();
-            ctx.beginPath()
+            ctx.beginPath();
             ctx.moveTo(line[2], line[3]);
             ctx.lineTo(line[4], line[5]);
             ctx.stroke();

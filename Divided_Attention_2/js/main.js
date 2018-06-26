@@ -8,3 +8,6 @@ function startGame() {
     gm.gameLoop();
 }
 
+function toRadians(deg) {
+    return deg * Math.PI / 180
+}

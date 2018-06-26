@@ -68,11 +68,11 @@ class Tools{
     static createInitialObjects(){
         for (let i = gameArea.livesBorder; i < gameArea.canvas.width ; i += gm.obstacleSize) {
             if (i < gm.blockLoc || i > gm.blockLoc + gm.gap) {
-                gfx.placeObjects("obstacles", gm.obstacleSize, gm.obstacleSize * gm.speed, '#50BAE1', i, gameArea.canvas.height, gameArea.context, 1, gm.gap);
+                gfx.placeObjects("obstacles", gm.obstacleSize, gm.obstacleSize * gm.speed, '#50BAE1', i, gameArea.canvas.height, "bottom obstacles", 1, gm.gap);
             }
         }
         for (let i = gameArea.livesBorder ; i < gameArea.canvas.height ; i += gm.obstacleSize) {
-            gfx.placeObjects("pathParts", gameArea.canvas.width, Math.round(gm.obstacleSize * gm.speed) *2, '#50BAE1', 0, i, gameArea.context, 1, gm.gap);
+            gfx.placeObjects("pathParts", gameArea.canvas.width, Math.round(gm.obstacleSize * gm.speed) *2, '#50BAE1', 0, i, "bottom pathparts", 1, gm.gap);
         }
         gm.player.xPos = gm.blockLoc + (gm.gap / 2);
     }

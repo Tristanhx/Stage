@@ -14,7 +14,7 @@ function GameObject(width, height, color, xPos, yPos, type, stroke, path, gap) {
         this.right = this.xPos + this.width;
         this.top = this.yPos;
         this.bottom = this.yPos + this.height;
-        if(this.type !== 'top') {
+        if(this.type === "lives") {
             if (stroke) {
                 this.context.strokeStyle = this.color;
                 this.context.strokeRect(this.xPos, this.yPos, this.width, this.height);
@@ -22,7 +22,31 @@ function GameObject(width, height, color, xPos, yPos, type, stroke, path, gap) {
                 this.context.fillStyle = this.color;
                 this.context.fillRect(this.xPos, this.yPos, this.width, this.height);
             }
-        } else{
+        }
+        if(this.type === "bottom pathparts") {
+            if (stroke) {
+                this.context.strokeStyle = this.color;
+                this.context.strokeRect(this.xPos, this.yPos, this.width, this.height);
+            } else {
+                this.context.fillStyle = this.color;
+                this.context.fillRect(this.xPos, this.yPos, this.width, this.height);
+            }
+        }
+        if(this.type === "bottom obstacles") {
+            if (stroke) {
+                this.context.strokeStyle = this.color;
+                this.context.strokeRect(this.xPos, this.yPos, this.width, this.height);
+            } else {
+                this.context.fillStyle = this.color;
+                //this.context.fillRect(this.xPos, this.yPos, this.width, this.height);
+
+                this.context.beginPath();
+                this.context.arc(this.xPos + this.width / 2, this.yPos + this.width / 2, this.width / 2, 0, toRadians(360));
+                this.context.closePath();
+                this.context.fill();
+            }
+        }
+        if (this.type === "top"){
             if (this.color === 'blue'){
                 this.context.drawImage(gm.blueNeuronImage, this.xPos, this.yPos, gm.blueNeuronImage.width, gm.blueNeuronImage.height);
             } else if (this.color === 'yellow'){
