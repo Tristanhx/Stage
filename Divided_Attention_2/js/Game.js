@@ -73,6 +73,10 @@ class GameLoop {
         this.countDownTime = gfx.tfps * this.countDownSeconds;
         this.countDownTimer = 0;
         this.countDownObject = new CountDownObject(10, 10, 'blue', 50, 50, gameArea.context, '10');
+        this.startAreaImage = new Image(gameArea.canvas.width, gameArea.canvas.width);
+        this.startAreaImage.src = "../misc/gamedata/game1img/soccerRed.png";
+        this.finishAreaImage = new Image(gameArea.canvas.width, gameArea.canvas.width);
+        this.finishAreaImage.src = "../misc/gamedata/game1img/soccerYellow.png";
 
         //__Player__\\
         this.playerDim = 24;
@@ -189,7 +193,7 @@ class GameLoop {
 
     createFinishLine(){
         console.log('finishline!');
-        this.finishArea = new GameObject(gameArea.canvas.width, gameArea.canvas.height/2, '#FFAA00', 0, gameArea.canvas.height, gameArea.context);
+        this.finishArea = new GameObject(gameArea.canvas.width + 20, gameArea.canvas.height/2, '#FFAA00', -10, gameArea.canvas.height -10, "finish", false, false, false);
         gfx.createObjectHLine('finishline', ['black', 'white'], gameArea.canvas, 10, gameArea.context, this.blockLoc, this.blockLoc + this.gap);
     }
 

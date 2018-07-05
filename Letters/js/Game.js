@@ -18,7 +18,7 @@ class Game{
         this.overlay = true;
         this.practiceLevel = 1;
         this.levels = 3;
-        this.level = 3;
+        this.level = 1;
         this.practiceLevelWords = ['tag', 'fob', 'fig'];
         this.wordLength = 3;
         this.endGame = false;

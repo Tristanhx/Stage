@@ -66,14 +66,17 @@ class Tools{
     };
 
     static createInitialObjects(){
+        let colors = ['#50BAE1', "#000"];
         for (let i = gameArea.livesBorder; i < gameArea.canvas.width ; i += gm.obstacleSize) {
             if (i < gm.blockLoc || i > gm.blockLoc + gm.gap) {
-                gfx.placeObjects("obstacles", gm.obstacleSize, gm.obstacleSize * gm.speed, '#50BAE1', i, gameArea.canvas.height, gameArea.context, 1, gm.gap);
+                gfx.placeObjects("obstacles", gm.obstacleSize, gm.obstacleSize * gm.speed, '#000', i, gameArea.canvas.height, gameArea.context, 1, gm.gap);
             }
         }
-        for (let i = gameArea.livesBorder ; i < gameArea.canvas.height ; i += gm.obstacleSize) {
-            gfx.placeObjects("pathParts", gameArea.canvas.width, Math.round(gm.obstacleSize * gm.speed) *2, '#50BAE1', 0, i, gameArea.context, 1, gm.gap);
-        }
+        //gm.startArea = new GameObject(gameArea.canvas.width, gameArea.canvas.height, '#FFAA00', 0, gameArea.canvas.height, "start", false, false, false);
+        gfx.placeObjects("pathParts", gameArea.canvas.width + 10, gameArea.canvas.height + 10, "#50BAE1", -10, gameArea.livesBorder + 10, "start", 1, gm.gap);
+        // for (let i = gameArea.livesBorder ; i < gameArea.canvas.height ; i += gm.obstacleSize) {
+        //     gfx.placeObjects("pathParts", gameArea.canvas.width, Math.round(gm.obstacleSize * gm.speed) *2, colors[i%2], 0, i, gameArea.context, 1, gm.gap);
+        // }
         gm.player.xPos = gm.blockLoc + (gm.gap / 2);
     }
 
@@ -208,7 +211,7 @@ class Tools{
 
             for (let i = 0; i < objects.length; i++) {
                 if(moving) {
-                    if (objects[i].yPos <= gameArea.livesBorder) {
+                    if (objects[i].yPos <= gameArea.livesBorder || objects[i].type === "start") {
                         if (objects[i].height > 0){
                             objects[i].height -= gm.speed;
                         } else {

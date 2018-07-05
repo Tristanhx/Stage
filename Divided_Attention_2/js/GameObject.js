@@ -18,6 +18,10 @@ function GameObject(width, height, color, xPos, yPos, type, stroke, path, gap) {
             if (stroke) {
                 this.context.strokeStyle = this.color;
                 this.context.strokeRect(this.xPos, this.yPos, this.width, this.height);
+            } else if (type === "finish"){
+                this.context.drawImage(gm.finishAreaImage, this.xPos, this.yPos, this.width, this.width);
+            } else if (type === "start"){
+                this.context.drawImage(gm.startAreaImage, this.xPos, this.yPos, this.width, this.height);
             } else {
                 this.context.fillStyle = this.color;
                 this.context.fillRect(this.xPos, this.yPos, this.width, this.height);
