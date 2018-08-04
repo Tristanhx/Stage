@@ -17,12 +17,16 @@ class Game{
         this.colorTimer = 0;
         this.overlay = true;
         this.practiceLevel = 1;
-        this.levels = 3;
+        this.levels = 1;
         this.level = 1;
         this.practiceLevelWords = ['tag', 'fob', 'fig'];
         this.wordLength = 3;
         this.endGame = false;
         this.indexingOffset = 1;
+        this.currentWord = [];
+        this.previousWord = [];
+        this.data = [];
+        this.present = null;
     }
 
     resetValues(){
@@ -64,7 +68,7 @@ class Game{
                         things[i].target = true;
                         io.go = true;
                         this.focusLetter = things[i];
-
+                        this.currentWord.push(this.focusLetter);
                     } else{
                         things[i].color = '#FFF';
                         things[i].target = false;
@@ -77,14 +81,36 @@ class Game{
                 things[i].update();
             }
         }
+        if (this.currentWord.length === this.previousWord.length && this.currentWord.every((value, index) => value === this.previousWord[index])){
+            //do nothing
+        } else{
+            this.present = window.performance.now();
+        }
+        this.previousWord = this.currentWord;
+        this.currentWord = [];
+    }
+
+    logData(word, type, rt, dis){
+        this.data.push([this.userName, word, type, rt, dis]);
+    }
+
+    makeCSV(headers, data){
+        let csv = headers;
+        data.forEach(function(looseData){
+            let row = looseData.join(";");
+            csv += row + "\r\n";
+        });
+        return csv;
     }
 
     saveScore(){
+        let csv = this.makeCSV("name;word;type;reaction time;displacement in pixels\r\n", this.data);
         console.log("Saving result");
         $.post("userInfo.php",
             {
                 name: this.userName,
                 score: this.score,
+                data: csv
             },
             function(info){$("#results").html(info);}
         )

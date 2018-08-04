@@ -50,11 +50,14 @@ class IO{
         if (this.spaceKey === 32 && gfx.objects["leftBlocks"].length === 4){
             let message;
             if (gm.lives > 0 && !this.pressed){
+                gm.blockResponseNow = window.performance.now();
+                gm.delta = gm.blockResponseNow - gm.blockNow;
                 if (!gm.match){
                     gm.lives--;
                     gm.immunity = true;
                     gameArea.canvas.style.backgroundColor = 'red';
-                    message = 'WRONG'
+                    message = 'WRONG';
+                    gm.logTrialData("no-match", gm.delta);
                 } else if (gm.match){
                     gameArea.canvas.style.backgroundColor = 'green';
                     gm.blockResponseNow = window.performance.now();
@@ -66,6 +69,7 @@ class IO{
                     gm.score += addedScore;
                     console.log("Delta: ", gm.delta, " Added score: ", addedScore);
                     message = Math.round(gm.delta);
+                    gm.logTrialData("match", gm.delta);
                 }
                 console.log("SPACE");
                 gm.message = true;

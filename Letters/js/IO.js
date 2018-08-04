@@ -14,7 +14,11 @@ class IO{
     }
 
     calculateScore(){
-        return Math.round(500 - ((gm.focusLetter.y- gm.target.h) * 2));
+        return Math.round(500 - (this.calculateDisplacement() * 2));
+    }
+
+    calculateDisplacement(){
+        return gm.focusLetter.y- gm.target.h;
     }
 
     handleResponse() {
@@ -30,6 +34,8 @@ class IO{
             console.log('game on!');
         }
         if (this.key === 32 && this.go) {
+            let stopPresent = window.performance.now();
+            let present = gm.present;
             let tmpArray = [];
             gm.letters.forEach(function (letter) {
                 if (letter.target) {
@@ -44,6 +50,7 @@ class IO{
                     gm.revertTimer = 3000;
                     gm.target.color = 'red';
                     gm.colorTimer = this.colorTimerTime;
+                    gm.logData(tmpWord, "non-target", stopPresent-present, this.calculateDisplacement());
                 } else {
                     gm.addedScore = this.calculateScore();
                     gm.score += gm.addedScore;
@@ -52,6 +59,7 @@ class IO{
                     gm.target.color = 'green';
                     gm.colorTimer = this.colorTimerTime;
                     gfx.displayAddedScore(gameArea.context);
+                    gm.logData(tmpWord, "target", stopPresent-present, this.calculateDisplacement());
                 }
                 this.lastResponse = tmpWord;
             }

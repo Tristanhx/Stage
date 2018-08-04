@@ -44,31 +44,34 @@ class IO{
     }
 
     hitMole(){
+        this.stopTime = window.performance.now();
+        this.rt = this.stopTime - this.startTime;
         if (rdr.blue) {
-            this.stopTime = window.performance.now();
             rdr.makeMole = 'Dead';
-            this.rt = this.stopTime - this.startTime;
             console.log(this.rt);
             rdr.displayReactionTime(Math.round(this.rt));
             score.writeScore(Math.round(this.rt));
+            gm.logData(rdr.x*rdr.y, "correct", this.rt);
             this.go = false;
         } else{
             this.stopTime = this.startTime;
             rdr.makeMole = 'Dead';
             score.writeScore("false");
+            gm.logData(rdr.x*rdr.y, "anti", this.rt);
             rdr.displayReactionTime('Missed');
-            console.log(this.stopTime - this.startTime);
             this.go = false;
             rdr.placeContraHammer();
         }
     }
 
     missMole(){
+        this.stopTime = window.performance.now();
+        this.rt = this.stopTime - this.startTime;
         this.stopTime = this.startTime;
         rdr.makeMole = 'Miss';
         score.writeScore("miss");
+        gm.logData(rdr.x*rdr.y, "incorrect", this.rt);
         rdr.displayReactionTime('Missed');
-        console.log(this.stopTime - this.startTime);
         this.go = false;
     }
 

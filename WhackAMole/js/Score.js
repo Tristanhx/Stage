@@ -40,7 +40,18 @@ class Score {
         }
     }
 
+    makeCSV(headers, data){
+        let csv = headers;
+        data.forEach(function(looseData){
+            let row = looseData.join(";");
+            csv += row + "\r\n";
+        });
+        return csv;
+    }
+
     saveScore(){
+
+        let csv = this.makeCSV("id;trial;position;sequence;response;correctness;reaction time\r\n", gm.data);
         //let noticed = window.confirm("Did you notice a sequence?");
         // score.s1_length = score.s1.length;
         // score.s2_length = score.s2.length;
@@ -50,6 +61,7 @@ class Score {
             {
                 name: gm.userName,
                 score: JSON.stringify(this.score),
+                data: csv,
                 noticed_sequence: gm.noticed_sequence
             },
             function(info){$("#results").html(info);}

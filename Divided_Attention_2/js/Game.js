@@ -17,6 +17,8 @@ class GameLoop {
         this.maxLives = 10;
         this.lives = this.maxLives;
         this.data = [];
+        this.trialData = [];
+        this.trial = 0;
         this.framesArray = [];
         this.xPosArray = [];
         this.h_speedArray = [];
@@ -209,6 +211,10 @@ class GameLoop {
 
     logData(){
         this.data.push([this.frames, this.level, this.speed, this.lives, Math.round(this.player.xPos), Math.round(this.blockLoc), Math.round(this.blockLoc + this.gap), gameArea.canvas.style.width]);
+    }
+
+    logTrialData(trialType, rt){
+        this.trialData.push([this.userName, this.frames, this.trial, this.level, trialType, rt]);
     }
 
     fetchValues(frame){

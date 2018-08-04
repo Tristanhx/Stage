@@ -5,6 +5,7 @@ class Game {
         this.thirdSequence = [1,1,2,2,3,3,4,4, Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1)];
         this.fourthSequence = [1,1,2,2,3,3,4,4, Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1), Math.floor(Math.random()*4 +1)];
         this.userName = false;
+        this.data = [];
         this.moleDim = 200;
         this.moleImage = new Image(this.moleDim, this.moleDim);
         this.moleHitImage = new Image(this.moleDim, this.moleDim);
@@ -70,6 +71,10 @@ class Game {
             console.log('waiting for input');
             setTimeout(()=>{this.waitForInput()}, 1000);
         }
+    }
+
+    logData(response, correct, rt){
+        this.data.push([this.userName, rdr.trial, rdr.currentSequence[rdr.trial], rdr.sequenceNumber, response, correct, rt])
     }
 
     gameLoop() {

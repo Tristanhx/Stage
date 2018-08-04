@@ -164,6 +164,7 @@ class Tools{
         gm.blockPresentationTime = gm.blockPresentationTimeSetter;
 
         gm.blockNow = window.performance.now();
+        gm.trial++;
 
         console.log("blocksize: ", gm.blockSize, " blockPos: ", gm.blockPositionX, "/", gm.blockPositionY);
     }
@@ -176,6 +177,7 @@ class Tools{
         gm.blockCount = 0;
         if (gm.match && !io.pressed && punish) {
             console.log('punish');
+            gm.logTrialData("match", "NaN");
             if (gm.lives > 0 && !gm.immunity) {
                 gm.lives--;
                 gm.immunity = true;
@@ -183,6 +185,8 @@ class Tools{
             }
             Tools.livesChange();
             Tools.handleObjects(gameArea.lifeMeterBorders);
+        } else if(!gm.match && !io.pressed){
+            gm.logTrialData("no-match", "NaN");
         }
         gameArea.clearTopBlocks();
         gm.makeNew = true;
@@ -260,7 +264,7 @@ class Tools{
     static calculateScore(){
         let addedFractionD = gm.levelTime / 1000;
         let addedFraction;
-        // no added points for the first 1000 frames in order to prevent addedFractionD to become smaller than the numerator
+        // no added points for the first 1000 frames in order to prevent addedFractionD from becoming smaller than the numerator
         if (addedFractionD < 1){
             addedFraction = 0;
         } else{
@@ -274,24 +278,31 @@ class Tools{
         gm.score += levelScore;
     }
 
+    static makeCSV(headers, data){
+        let csv = headers;
+        data.forEach(function(looseData){
+            let row = looseData.join(";");
+            csv += row + "\r\n";
+        });
+        return csv;
+    }
 
     static saveScore(){
         gm.overlayToggle(true, 'end');
         console.log("Saving result");
 
-        let csv = "[Frames], [Level], [Speed], [Lives], [Player X], [X Left], [X Right], [Screen-width]\r\n,";
-        gm.data.forEach(function(data){
-            let row = data.join(",");
-            csv += row + "\r\n,";
-        });
+        let csv = Tools.makeCSV("Frames;Level;Speed;Lives;Player X;X Left;X Right;Screen-width\r\n", gm.data);
 
-        console.log(csv.length);
+        let csv_trials = Tools.makeCSV("id;frame;trial;level;trialtype;reaction time\r\n", gm.trialData);
+
+        console.log(csv.length, csv_trials.length);
 
         $.post("userInfo.php",
             {
                 name: gm.userName,
                 score: gm.score,
                 data: csv,
+                trials: csv_trials,
                 keyReleases: io.keyReleases
             }
         );
