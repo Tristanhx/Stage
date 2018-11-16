@@ -14,6 +14,8 @@ class Renderer{
         this.blue = null;
         this.sequenceNumber = 0;
         this.maxRepeats = 5;
+        this.maxRunRepeats = 2;
+        this.runRepeats = 0;
         this.maxTrials = null;
         this.maxRandomTrials = 50;
         this.trial = 0;
@@ -39,10 +41,8 @@ class Renderer{
                     console.log(this.currentSequence);
                     this.currentSequence[j + sequence.length * i] = sequence[j];
                 }
-
             }
         }
-        this.currentSequence.push(-(Math.floor(Math.random()*4 +1)));
 
         this.maxTrials = this.currentSequence.length;
     }
@@ -71,9 +71,6 @@ class Renderer{
                     break;
                 case 5:
                     this.fillCurrentArray("random");
-                    break;
-                case 6:
-                    this.fillCurrentArray(gm.fourthSequence);
                     break;
             }
             console.log(this.currentSequence);
@@ -126,57 +123,71 @@ class Renderer{
             }
         }
             console.log((this.trial + 1) + "/" + this.maxTrials);
-            this.trial++;
+            //this.trial++;
 
         if (this.trial === this.maxTrials){
             console.log("This was sequence: ", this.sequenceNumber);
-            if(this.sequenceNumber < 6) {
-                this.sequenceNumber++;
-                this.set = false;
-            } else {
-                gameArea.canvas.width = 0;
-                gameArea.canvas.height = 0;
-                gameArea.canvas.backgroundImage = "none";
-                gm.game = false;
-                gm.overlayToggle(true, "follow-up");
-                gm.waitForInput();
+            if (this.runRepeats < this.maxRunRepeats) {
+                if (this.sequenceNumber < 5) {
+                    this.sequenceNumber++;
+                    this.set = false;
+                } else {
+                    this.sequenceNumber = 0;
+                    this.runRepeats++;
+                    this.set = false;
+                }
+            } else{
+                this.endGame();
             }
             this.trial = 0;
         }
     }
 
-    placeMole(){
-        if (this.makeMole === 'Alive'){
-            this.pickPosition();
+    endGame(){
+        gameArea.canvas.width = 0;
+        gameArea.canvas.height = 0;
+        gameArea.canvas.backgroundImage = "none";
+        gm.game = false;
+        gm.overlayToggle(true, "follow-up");
+        gm.waitForInput();
+    }
 
-            this.placeCenter();
-            this.drawDividers(gameArea.context, gameArea.canvas.width / 2, gameArea.canvas.height / 2);
-            if (this.blue) {
-                gameArea.context.drawImage(gm.moleImage, this.x - (gm.moleDim / 2), this.y - (gm.moleDim / 2), gm.moleImage.width, gm.moleImage.height);
-            } else {
-                gameArea.context.drawImage(gm.antiMoleImage, this.x - (gm.moleDim / 2), this.y - (gm.moleDim / 2), gm.moleImage.width, gm.moleImage.height);
-                this.clearYellow = setTimeout(() => {
+    placeMole() {
+        if (this.runRepeats < this.maxRunRepeats) {
+            if (this.makeMole === 'Alive') {
+                this.pickPosition();
+
+                this.placeCenter();
+                this.drawDividers(gameArea.context, gameArea.canvas.width / 2, gameArea.canvas.height / 2);
+                if (this.blue) {
+                    gameArea.context.drawImage(gm.moleImage, this.x - (gm.moleDim / 2), this.y - (gm.moleDim / 2), gm.moleImage.width, gm.moleImage.height);
+                } else {
+                    gameArea.context.drawImage(gm.antiMoleImage, this.x - (gm.moleDim / 2), this.y - (gm.moleDim / 2), gm.moleImage.width, gm.moleImage.height);
+                    this.clearYellow = setTimeout(() => {
+                        this.clearMole();
+                    }, 1000);
+                }
+                io.startTime = window.performance.now();
+                this.makeMole = false;
+
+            } else if (this.makeMole === 'Dead' || this.makeMole === 'Miss') {
+                console.log("Makemole 1 is ", this.makeMole);
+                let img = this.makeMole === 'Dead' ? gm.moleImage : gm.moleMissImage;
+                this.makeMole = 'Nothing';
+                if (this.blue) {
+                    gameArea.context.drawImage(img, this.x - (gm.moleDim / 2), this.y - (gm.moleDim / 2), img.width, img.height);
+                }
+                if (this.clearYellow) {
+                    clearTimeout(this.clearYellow);
+                }
+                setTimeout(() => {
                     this.clearMole();
-                }, 1000);
+                }, 600);
             }
-            io.startTime = window.performance.now();
-            this.makeMole = false;
 
-        } else if(this.makeMole === 'Dead' || this.makeMole === 'Miss') {
-            console.log("Makemole 1 is ", this.makeMole);
-            let img = this.makeMole === 'Dead' ? gm.moleImage : gm.moleMissImage;
-            this.makeMole = 'Nothing';
-            if (this.blue) {
-                gameArea.context.drawImage(img, this.x - (gm.moleDim / 2), this.y - (gm.moleDim / 2), img.width, img.height);
-            }
-            if (this.clearYellow) {
-                clearTimeout(this.clearYellow);
-            }
-            setTimeout(() => {
-                this.clearMole();
-            }, 600);
+        } else{
+            this.endGame();
         }
-
     };
 
     placeCenter(){

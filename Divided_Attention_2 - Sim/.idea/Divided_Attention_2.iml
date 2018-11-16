@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="Divided_Attention_Level_Creator" />
+    <orderEntry type="module" module-name="Letters" />
+    <orderEntry type="module" module-name="WhackAMole" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="module" module-name="conf" />
+    <orderEntry type="library" name="JQUERY" level="application" />
+    <orderEntry type="module" module-name="curvedLineTest" />
+    <orderEntry type="module" module-name="misc" />
+  </component>
+</module>

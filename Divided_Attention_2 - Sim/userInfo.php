@@ -14,14 +14,13 @@
         die("Connection failed: " . $con->connect_error);
     }
 
-    $prep = $con->prepare("INSERT INTO thx_prototype_divided_attention (name, score, data, trials, level_times, key_releases, ip_address, date) VALUES(?, ?, ?, ?, ?, ?, ?,NOW())");
-    $prep->bind_param("sisssis", $name, $score, $data, $trials, $level_times, $keyReleases, $ip_address);
+    $prep = $con->prepare("INSERT INTO thx_prototype_divided_attention (name, score, data, trials, key_releases, ip_address, date) VALUES(?, ?, ?, ?, ?, ?,NOW())");
+    $prep->bind_param("sissis", $name, $score, $data, $trials, $keyReleases, $ip_address);
 
     $name = strip_tags($_POST['name']);
     $score = strip_tags($_POST['score']);
     $data = strip_tags($_POST['data']);
     $trials = strip_tags($_POST['trials']);
-    $level_times = strip_tags($_POST['level_times']);
     $keyReleases = strip_tags($_POST['keyReleases']);
     if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];

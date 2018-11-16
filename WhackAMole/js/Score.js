@@ -50,8 +50,7 @@ class Score {
     }
 
     saveScore(){
-
-        let csv = this.makeCSV("id;trial;position;sequence;response;correctness;reaction time\r\n", gm.data);
+        let csv = this.makeCSV("id;trial;position;sequence;repeat;response;correctness;reaction time\r\n", gm.data);
         //let noticed = window.confirm("Did you notice a sequence?");
         // score.s1_length = score.s1.length;
         // score.s2_length = score.s2.length;

@@ -6,7 +6,7 @@
  * Time: 13:32
  */
 
-include("../conf/db_info.php");
+include("../../conf/db_info.php");
 // include the database
 $con = mysqli_connect($servername, $username, $password, $dbname);
 #$db = mysqli_select_db($con, 'test');
@@ -32,10 +32,11 @@ if($prep = $con->prepare("SELECT data FROM thx_prototype_divided_attention_level
         echo 'result not found';
     }
 
-//    var_dump($result);
-//    echo "<br/><br/>";
+    //var_dump($result);
+    //echo "<br/><br/>";
     foreach ($result as $row){
         echo implode(",", $row);
+        //echo "<br/><br/>";
     }
 
     while ($row = $result->fetch_assoc()) {

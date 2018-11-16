@@ -53,6 +53,7 @@ class IO{
             score.writeScore(Math.round(this.rt));
             gm.logData(rdr.x*rdr.y, "correct", this.rt);
             this.go = false;
+            rdr.trial++
         } else{
             this.stopTime = this.startTime;
             rdr.makeMole = 'Dead';
@@ -61,6 +62,7 @@ class IO{
             rdr.displayReactionTime('Missed');
             this.go = false;
             rdr.placeContraHammer();
+            rdr.trial++
         }
     }
 
@@ -73,6 +75,7 @@ class IO{
         gm.logData(rdr.x*rdr.y, "incorrect", this.rt);
         rdr.displayReactionTime('Missed');
         this.go = false;
+        rdr.trial++
     }
 
     handleKeyHit(key){

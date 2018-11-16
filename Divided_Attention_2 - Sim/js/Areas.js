@@ -12,18 +12,15 @@ const gameArea = {
         this.canvas.style.backgroundImage = 'url(../misc/gamedata/game2img/background.png)';
         this.context = this.canvas.getContext("2d");
 
-        // life meter wasn't practical in the current design
-        // this.lifeMeterBg = new GameObject(this.canvas.width, this.livesBorder, 'red', 0, this.topBorder, this.context);
-        // this.lifeMeter = new GameObject(this.canvas.width, this.livesBorder, 'green', 0, this.topBorder, this.context);
-        // this.lifeMeterBorders = [];
-        // this.fillBorders = () => {
-        //     for(let i = 0 ; i < gm.maxLives ; i++){
-        //         this.lifeMeterBorders.push(new GameObject(this.canvas.width/ gm.maxLives, this.canvas.height, 'black', (this.canvas.width/ gm.maxLives) * i, this.topBorder, this.context, true));
-        //     }
-        // };
-        // this.fillBorders();
-
-        this.hitBar = new GameObject(this.canvas.width, this.livesBorder, "#00A4E1", 0, this.topBorder, this.context);
+        this.lifeMeterBg = new GameObject(this.canvas.width, this.livesBorder, 'red', 0, this.topBorder, this.context);
+        this.lifeMeter = new GameObject(this.canvas.width, this.livesBorder, 'green', 0, this.topBorder, this.context);
+        this.lifeMeterBorders = [];
+        this.fillBorders = () => {
+            for(let i = 0 ; i < gm.maxLives ; i++){
+                this.lifeMeterBorders.push(new GameObject(this.canvas.width/ gm.maxLives, this.canvas.height, 'black', (this.canvas.width/ gm.maxLives) * i, this.topBorder, this.context, true));
+            }
+        };
+        this.fillBorders();
         this.div = document.getElementById("gameArea");
         this.div.appendChild(this.canvas);
         resize();
@@ -33,9 +30,6 @@ const gameArea = {
     clearTop: function(){
         this.context.clearRect(0, 0, 200, 100);
         this.context.clearRect(this.canvas.width - 200, 0, 200, this.topBorder);
-    },
-    clearEntireTop: function(){
-        this.context.clearRect(0, 0, this.canvas.width, this.topBorder);
     },
     clearTopBlocks: function(){
         this.context.clearRect(this.topLeft, 0, gm.blockSize * 2, this.topBorder);

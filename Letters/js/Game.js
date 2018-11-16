@@ -41,15 +41,15 @@ class Game{
     }
 
     speedSetter(correct){
-        if(correct && this.moveSpeed < 6){
-            this.moveSpeed += (this.moveSpeed * 0.1);
+        if(correct && this.moveSpeed < 3){
+            this.moveSpeed += 0.2;
             if (this.spawnSpeed > 1) {
                 this.spawnSpeedTank -= (this.spawnSpeedTank * 0.05);
                 this.spawnSpeed = Math.round(this.spawnSpeedTank);
             }
             console.log(this.moveSpeed);
         } else if(this.moveSpeed > 1){
-            this.moveSpeed -= (this.moveSpeed * 0.05);
+            this.moveSpeed -= 0.2;
             this.spawnSpeedTank += (this.spawnSpeedTank * 0.05);
             this.spawnSpeed = Math.round(this.spawnSpeedTank);
             console.log(this.moveSpeed);
@@ -91,7 +91,7 @@ class Game{
     }
 
     logData(word, type, rt, dis){
-        this.data.push([this.userName, word, type, rt, dis]);
+        this.data.push([this.userName, word, type, rt, dis, this.moveSpeed]);
     }
 
     makeCSV(headers, data){
@@ -104,7 +104,7 @@ class Game{
     }
 
     saveScore(){
-        let csv = this.makeCSV("name;word;type;reaction time;displacement in pixels\r\n", this.data);
+        let csv = this.makeCSV("name;word;type;reaction time;displacement in pixels;speed\r\n", this.data);
         console.log("Saving result");
         $.post("userInfo.php",
             {

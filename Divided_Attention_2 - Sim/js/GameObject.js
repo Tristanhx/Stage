@@ -9,8 +9,6 @@ function GameObject(width, height, color, xPos, yPos, type, stroke, path, gap) {
     this.gap = gap;
     this.context = gameArea.context;
     this.type = type;
-    this.cliph = 151;
-    this.clipy = 0;
     this.update = function () {
         this.left = this.xPos;
         this.right = this.xPos + this.width;
@@ -21,9 +19,9 @@ function GameObject(width, height, color, xPos, yPos, type, stroke, path, gap) {
                 this.context.strokeStyle = this.color;
                 this.context.strokeRect(this.xPos, this.yPos, this.width, this.height);
             } else if (type === "finish"){
-                this.context.drawImage(gm.finishAreaImage, this.xPos, this.yPos, this.width, this.height);
+                this.context.drawImage(gm.finishAreaImage, this.xPos, this.yPos, this.width, this.width);
             } else if (type === "start"){
-                this.context.drawImage(gm.startAreaImage, 0, this.clipy, 151, this.cliph, this.xPos, this.yPos, this.width, this.height);
+                this.context.drawImage(gm.startAreaImage, this.xPos, this.yPos, this.width, this.height);
             } else {
                 this.context.fillStyle = this.color;
                 this.context.fillRect(this.xPos, this.yPos, this.width, this.height);

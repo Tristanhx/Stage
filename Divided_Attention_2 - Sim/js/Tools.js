@@ -1,23 +1,9 @@
 class Tools{
 
-    static livesChange(red){
-        // gameArea.lifeMeter.width = (gameArea.canvas.width / gm.maxLives) * gm.lives;
-        // gameArea.lifeMeterBg.update();
-        // gameArea.lifeMeter.update();
-        // gm.logData("lives change");
-
-        clearTimeout(gm.revertHitBarColor);
-        if (red) {
-            gameArea.hitBar.color = "red";
-            gameArea.hitBar.update();
-        } else {
-            gameArea.hitBar.color = "green";
-            gameArea.hitBar.update();
-        }
-        gm.revertHitBarColor = setTimeout(function(){
-            gameArea.hitBar.color = "#00A4E1";
-            gameArea.hitBar.update();
-        }, 1000);
+    static livesChange(){
+        gameArea.lifeMeter.width = (gameArea.canvas.width / gm.maxLives) * gm.lives;
+        gameArea.lifeMeterBg.update();
+        gameArea.lifeMeter.update();
     }
 
     static checkCollision(array, object){
@@ -29,14 +15,14 @@ class Tools{
                     if (tempCollision) {
                         console.log("collision");
                         console.log(item);
-                        // if (gm.lives > 0 && !gm.immunity) {
-                        //     gm.lives--;
-                        //     gm.immunity = true;
-                        //     gameArea.canvas.style.backgroundColor = 'red';
-                        // }
+                        if (gm.lives > 0 && !gm.immunity) {
+                            gm.lives--;
+                            gm.immunity = true;
+                            gameArea.canvas.style.backgroundColor = 'red';
+                        }
                         tempObstacle = item;
-                        Tools.livesChange(true);
-                        //Tools.handleObjects(gameArea.lifeMeterBorders);
+                        Tools.livesChange();
+                        Tools.handleObjects(gameArea.lifeMeterBorders);
                         throw gm.breakException;
                     }
                 });
@@ -87,9 +73,7 @@ class Tools{
             }
         }
         //gm.startArea = new GameObject(gameArea.canvas.width, gameArea.canvas.height, '#FFAA00', 0, gameArea.canvas.height, "start", false, false, false);
-
-        //this is the start area!
-        //gfx.placeObjects("pathParts", (gameArea.canvas.width + 20)*5, (gameArea.canvas.height + 20)*5, "#50BAE1", -10, gameArea.livesBorder + 10, "start", 1, gm.gap);
+        gfx.placeObjects("pathParts", gameArea.canvas.width + 10, gameArea.canvas.height + 10, "#50BAE1", -10, gameArea.livesBorder + 10, "start", 1, gm.gap);
         // for (let i = gameArea.livesBorder ; i < gameArea.canvas.height ; i += gm.obstacleSize) {
         //     gfx.placeObjects("pathParts", gameArea.canvas.width, Math.round(gm.obstacleSize * gm.speed) *2, colors[i%2], 0, i, gameArea.context, 1, gm.gap);
         // }
@@ -102,11 +86,8 @@ class Tools{
 
         if(match){
             rightRandom = leftRandom;
-            console.log("match!");
-            console.log(leftRandom);
         }else{
             rightRandom = Math.random();
-            console.log("no match!");
         }
 
         if (leftRandom <= 0.5){
@@ -153,7 +134,6 @@ class Tools{
     static ensureDifference(){
         gfx.objects["rightBlocks"][0] = gfx.objects["rightBlocks"][0] === 'yellow' ? 'blue' : 'yellow';
         gfx.objects["rightBlocks"] = Tools.shuffle(gfx.objects["rightBlocks"]);
-        console.log("ensured difference!");
     }
 
     static shuffle(a) {
@@ -186,11 +166,7 @@ class Tools{
         gm.blockNow = window.performance.now();
         gm.trial++;
 
-        console.log("left: " + [gfx.objects["leftBlocks"][0].color, gfx.objects["leftBlocks"][1].color, gfx.objects["leftBlocks"][2].color, gfx.objects["leftBlocks"][3].color]
-            + " right: " + [gfx.objects["rightBlocks"][0].color, gfx.objects["rightBlocks"][1].color, gfx.objects["rightBlocks"][2].color, gfx.objects["rightBlocks"][3].color]);
-
-        gm.logData("left: " + [gfx.objects["leftBlocks"][0].color, gfx.objects["leftBlocks"][1].color, gfx.objects["leftBlocks"][2].color, gfx.objects["leftBlocks"][3].color].toString()
-            + " right: " + [gfx.objects["rightBlocks"][0].color, gfx.objects["rightBlocks"][1].color, gfx.objects["rightBlocks"][2].color, gfx.objects["rightBlocks"][3].color].toString());
+        console.log("blocksize: ", gm.blockSize, " blockPos: ", gm.blockPositionX, "/", gm.blockPositionY);
     }
 
     static clearBlocks(punish){
@@ -202,11 +178,11 @@ class Tools{
         if (gm.match && !io.pressed && punish) {
             console.log('punish');
             gm.logTrialData("match", "NaN");
-            // if (gm.lives > 0 && !gm.immunity) {
-            //     gm.lives--;
-            //     gm.immunity = true;
-            //     gameArea.canvas.style.backgroundColor = 'red';
-            // }
+            if (gm.lives > 0 && !gm.immunity) {
+                gm.lives--;
+                gm.immunity = true;
+                gameArea.canvas.style.backgroundColor = 'red';
+            }
             Tools.livesChange();
             Tools.handleObjects(gameArea.lifeMeterBorders);
         } else if(!gm.match && !io.pressed){
@@ -239,20 +215,13 @@ class Tools{
 
             for (let i = 0; i < objects.length; i++) {
                 if(moving) {
-                    if (objects[i].yPos <= gameArea.livesBorder && objects[i].type !== "start") {
+                    if (objects[i].yPos <= gameArea.livesBorder || objects[i].type === "start") {
                         if (objects[i].height > 0){
                             objects[i].height -= gm.speed;
                         } else {
                             objects.splice(i, 1);
                         }
-                    }
-                    //else if(objects[i].type === "start"){
-                    //     if (objects[i].cliph > 0) {
-                    //         objects[i].cliph -= gm.speed;
-                    //         objects[i].clipy += gm.speed/10;
-                    //     }
-                    // }
-                    else {
+                    } else {
                         objects[i].yPos -= gm.speed;
                     }
                 }
@@ -263,54 +232,34 @@ class Tools{
         }
     }
 
-    static makeLevelArrays(input, framesArray, xPosArray, hSpeedArray, vSpeedArray, gapArray){
-        let level = input.split(',');
-        for (let i = 0; i < level.length; i += 5) {
-            framesArray.push(parseInt(level[i]));
-            xPosArray.push(parseInt(level[i + 1]));
-            hSpeedArray.push(parseInt(level[i + 2]));
-            vSpeedArray.push(parseInt(level[i + 3]));
-            gapArray.push(parseInt(level[i + 4]));
-        }
-        framesArray.shift();
-        xPosArray.shift();
-        hSpeedArray.shift();
-        vSpeedArray.shift();
-        gapArray.shift();
-        console.log("inside function (parameters): ", framesArray, xPosArray, hSpeedArray, vSpeedArray, gapArray);
-        console.log("inside function (references): ", gm.straightPathFramesArray, gm.straightPathXPosArray, gm.straightPathHSpeedArray, gm.straightPathVSpeedArray, gm.straightPathGapArray);
-        if(gm.straightPathFramesArray.length > 0) {
-            return "level made\n";
-        }
-        else{
-            return "level not made\n";
-        }
-    };
-
     static getLevel(){
-
         console.log("getting level");
         $.ajax({
             url: "getLevel.php",
-            success: function (response) {
-                let slicedResponse = response.slice(45);
-                let levelArray = slicedResponse.split('[Frames]');
+            success: function(response) {
+                let levelArray = response.split(',');
                 console.log(levelArray);
+                for (let i = 0 ; i < levelArray.length ; i += 5){
+                    gm.framesArray.push(parseInt(levelArray[i]));
+                    gm.xPosArray.push(parseInt(levelArray[i+1]));
+                    gm.h_speedArray.push(parseInt(levelArray[i+2]));
+                    gm.v_speedArray.push(parseInt(levelArray[i+3]));
+                    gm.gapArray.push(parseInt(levelArray[i+4]));
+                }
+                gm.framesArray.shift();
+                gm.xPosArray.shift();
+                gm.h_speedArray.shift();
+                gm.v_speedArray.shift();
+                gm.gapArray.shift();
 
-                Tools.makeLevelArrays(levelArray[0], gm.straightPathFramesArray, gm.straightPathXPosArray, gm.straightPathHSpeedArray, gm.straightPathVSpeedArray, gm.straightPathGapArray);
-                Tools.makeLevelArrays(levelArray[1], gm.pathOnlyFramesArray, gm.pathOnlyXPosArray, gm.pathOnlyHSpeedArray, gm.pathOnlyVSpeedArray, gm.pathOnlyGapArray);
-                Tools.makeLevelArrays(levelArray[2], gm.level_1_FramesArray, gm.level_1_XPosArray, gm.level_1_HSpeedArray, gm.level_1_VSpeedArray, gm.level_1_GapArray);
-                Tools.makeLevelArrays(levelArray[3], gm.level_2_FramesArray, gm.level_2_XPosArray, gm.level_2_HSpeedArray, gm.level_2_VSpeedArray, gm.level_2_GapArray);
-                Tools.makeLevelArrays(levelArray[4], gm.level_3_FramesArray, gm.level_3_XPosArray, gm.level_3_HSpeedArray, gm.level_3_VSpeedArray, gm.level_3_GapArray);
-
-                console.log("outside function: ", gm.straightPathFramesArray, gm.straightPathXPosArray, gm.straightPathHSpeedArray, gm.straightPathVSpeedArray, gm.straightPathGapArray);
+                gm.blockLoc = gm.xPosArray[0];
+                gm.gap = gm.gapArray[0];
+                console.log(gm.framesArray, gm.xPosArray, gm.h_speedArray, gm.v_speedArray, gm.gapArray);
                 startGame();
             },
-            error: () => {
-                alert("Connection failed, please press F5 to try again")
-            }
+            error: () => {alert("Connection failed, please press F5 to try again")}
         });
-    };
+    }
 
     static calculateScore(){
         let addedFractionD = gm.levelTime / 1000;
@@ -342,13 +291,9 @@ class Tools{
         gm.overlayToggle(true, 'end');
         console.log("Saving result");
 
-        gm.logLevelTime(gm.level_name, gm.levelTime, gm.hits);
-
-        let csv = Tools.makeCSV("Frames;Level;Speed;Hits;Player X;X Left;X Right;Screen-width;event\r\n", gm.data);
+        let csv = Tools.makeCSV("Frames;Level;Speed;Lives;Player X;X Left;X Right;Screen-width\r\n", gm.data);
 
         let csv_trials = Tools.makeCSV("id;frame;trial;level;trialtype;reaction time\r\n", gm.trialData);
-
-        let csv_level_times = Tools.makeCSV("level;level time;hits\r\n", gm.levelTimeData);
 
         console.log(csv.length, csv_trials.length);
 
@@ -358,7 +303,6 @@ class Tools{
                 score: gm.score,
                 data: csv,
                 trials: csv_trials,
-                level_times: csv_level_times,
                 keyReleases: io.keyReleases
             }
         );

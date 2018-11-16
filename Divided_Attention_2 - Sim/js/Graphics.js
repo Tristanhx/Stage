@@ -31,74 +31,10 @@ class Graphics{
         } else {
 
             for (let i = 0; i < amount; i++) {
-                this.objects[array].push(new GameObject(w, h, c, x+gap*i, y, context, false, false, false));
+                this.objects[array].push(new GameObject(w, h, c, x+gap*i, y, context));
             }
         }
 
-    }
-
-    renderTopArea(speed, frames){
-        if (gm.showBlocks && !gm.message) {
-            if (speed !== 0) {
-                if (gm.blockCount < 4) {
-                    if (gm.blockCount === 0) {
-                        gm.match = Math.random() < .25;
-                    }
-                    if (gm.firstBlocks) {
-                        gm.match = false;
-                        gm.firstBlocks = false;
-                    }
-                    Tools.blockBuilder(gm.match);
-                } else if (gm.makeNew) {
-                    Tools.makeNewBlocks();
-                } else {
-                    if (gm.blockPresentationTimer === gm.blockPresentationTime) {
-                        Tools.clearBlocks(true);
-                        gm.blockPresentationTimer = 0;
-                    }
-                }
-            }
-            gm.blockPresentationTimer++;
-        } else if (gm.message) {
-            gm.messageDisplayTimer++
-        }
-        if (gm.messageDisplayTimer === gm.messageDisplayTime) {
-            gm.message = false;
-            gm.messageDisplayTimer = 0;
-            gm.removeReactionTime();
-        }
-        if (frames >= (gameArea.canvas.height - gm.player.yPos) / speed) {
-            gm.showBlocks = true;
-        }
-    }
-
-    renderBottomArea(speed, frames, obstacleSize){
-        if (frames === 0) {
-            gm.createStart();
-            console.log('start!');
-        }
-        if (speed !== 0) {
-            gm.levelTime += 1;
-            gm.frames += speed;
-        }
-
-        //adding new objects according to obstacleSize
-        if (frames > 0 && frames % obstacleSize === 0 && !gm.finish) {
-            gm.moreObstacles();
-        }
-
-        if (frames >= gm.currentFramesArray.length && !gm.finish) {
-            gm.createFinishLine();
-            console.log(this.objects["finishline"]);
-            gm.finish = true;
-        }
-
-        //update all objects
-        if(this.objects["obstacles"] && this.objects["pathParts"]) {
-            Tools.handleObjects(this.objects["obstacles"], true);
-            Tools.handleObjects(this.objects["pathParts"], true);
-        }
-        gm.countDownObject.update();
     }
 
     drawSmoothLine(points){
