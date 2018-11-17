@@ -12,42 +12,32 @@ class IO{
     }
 
     handleResponse() {
-        if (lex.go && this.key === 78 && document.getElementById('overlay').style.display === "block"){
+        if (!lex.go && this.key === 78 && document.getElementById('overlay').style.display === "block"){
             lex.overlay = false;
             lex.overlayToggle(false);
             lex.go = true;
             lex.loop();
             console.log('game on!');
         }
-        if (this.key === 32 && this.go) {
+        if ((this.key === 90 || this.key === 77) && this.go) {
             let stopPresent = window.performance.now();
-            let present = gm.present;
-            let tmpArray = [];
-            gm.letters.forEach(function (letter) {
-                if (letter.target) {
-                    tmpArray.push(letter.letter);
+            let present = lex.present;
+            lex.interTrial();
+            if (lex.currentWord !== this.lastResponse) {
+                if (this.key === 90) {
+                    if (targetWordList.indexOf(lex.currentWord) === -1) {
+                        lex.logData(lex.currentWord, "non-target", stopPresent - present, "incorrect");
+                    } else {
+                        lex.logData(lex.currentWord, "target", stopPresent - present, "correct");
+                    }
+                } else if (this.key === 77){
+                    if (targetWordList.indexOf(lex.currentWord) === -1) {
+                        lex.logData(lex.currentWord, "non-target", stopPresent - present, "correct");
+                    } else {
+                        lex.logData(lex.currentWord, "target", stopPresent - present, "incorrect");
+                    }
                 }
-            });
-            let tmpWord = tmpArray.join("");
-            if (tmpWord !== this.lastResponse) {
-                if (targetWordList.indexOf(tmpWord) === -1 || (gm.practice && wordList.indexOf(tmpWord) === 1)) {
-                    gm.score -= 100;
-                    gm.speedSetter(false);
-                    gm.revertTimer = 3000;
-                    gm.target.color = 'red';
-                    gm.colorTimer = this.colorTimerTime;
-                    gm.logData(tmpWord, "non-target", stopPresent-present, this.calculateDisplacement());
-                } else {
-                    gm.addedScore = this.calculateScore();
-                    gm.score += gm.addedScore;
-                    gm.speedSetter(true);
-                    gm.revertTimer = 3000;
-                    gm.target.color = 'green';
-                    gm.colorTimer = this.colorTimerTime;
-                    gfx.displayAddedScore(gameArea.context);
-                    gm.logData(tmpWord, "target", stopPresent-present, this.calculateDisplacement());
-                }
-                this.lastResponse = tmpWord;
+                this.lastResponse = lex.currentWord;
             }
         }
     }

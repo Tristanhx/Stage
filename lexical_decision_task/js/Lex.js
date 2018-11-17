@@ -1,17 +1,54 @@
 class Lex{
     constructor(){
-        this.go = true;
+        this.userName = null;
+        this.go = false;
         this.overlay = true;
         this.countDown = 4;
         this.timeOut = false;
+        this.word = true;
+        this.draw = true;
+        this.level = 1;
+        this.levels = 2;
+        this.currentWord = false;
+        this.data = [];
+        this.type = "pseudo words";
+    }
+
+    resetValues(){
+        this.wordNumber = 0;
+    }
+
+    logData(word, type, rt, response){
+        this.data.push([this.userName, word, type, rt, response]);
+        console.log(this.data);
+    }
+
+    makeCSV(headers, data){
+        let csv = headers;
+        data.forEach(function(looseData){
+            let row = looseData.join(";");
+            csv += row + "\r\n";
+        });
+        return csv;
+    }
+
+    saveScore(){
+        let csv = this.makeCSV("name;word;type;reaction time;response\r\n", this.data);
+        console.log("Saving result");
+        $.post("userInfo.php",
+            {
+                name: this.userName,
+                data: csv
+            },
+            function(info){$("#results").html(info);}
+        )
     }
 
     changeOverlayText(type){
         if (type === "first"){
             document.getElementById("instructions").innerHTML = `This is a lexical decision task. <br/>(Press N to continue)`;
         } else if (type === "second"){
-            document.getElementById("instructions").innerHTML = `Great job! Your next target is real words. 
-Good luck!<br/>(Press N to continue)`;
+            document.getElementById("instructions").innerHTML = `Great job! Your next target is real words. Good luck!<br/>(Press N to continue)`;
         } else if (type === "end"){
             document.getElementById("instructions").innerHTML = `This is the end. Well done!`;
         }
@@ -32,16 +69,40 @@ Good luck!<br/>(Press N to continue)`;
 
     }
 
+    setupNextLevel(level){
+        this.resetValues();
+        if (level === 1){
+            targetWordList = pseudoWords.split("\n").filter(e => e);
+            nonTargetWordList = fillers.split("\n").filter(e => e);
+            wordList = shuffle(targetWordList.concat(nonTargetWordList));
+        } else if (level === 2){
+            targetWordList = realWords.split("\n").filter(e => e);
+            nonTargetWordList = fakeWords.split("\n").filter(e => e);
+            wordList = shuffle(targetWordList.concat(nonTargetWordList));
+        }
+        console.log('level ', level);
+    }
+
+    interTrial(){
+        console.log("cross");
+        gfx.drawCross();
+        gfx.drawKeyReminders(this.type);
+        this.draw = false;
+        io.go = false;
+        this.wordTimeout = setTimeout(()=>{
+            this.draw = true;
+            this.word = true;
+        }, 1000 + Math.floor(Math.random() * 1000));
+        //2000 + Math.floor(Math.random() * 1000)
+    }
+
     loop(){
         if (this.go){requestAnimationFrame(()=>{this.loop();})}
         if (gfx.lag >= gfx.frameDuration) {
-            console.log("looping!");
-
             if (this.countDown) {
                 if (!this.timeOut) {
-                    gameArea.clear();
-                    gameArea.context.fillStyle = "Arial 100px";
-                    gameArea.context.fillText((this.countDown - 1).toString(), 50, 50);
+                    gfx.drawCountDown(this.countDown);
+                    gfx.drawKeyReminders("pseudo words");
                     this.timeOut = true;
                     this.countDown--;
                     setTimeout(() => {
@@ -51,7 +112,33 @@ Good luck!<br/>(Press N to continue)`;
                 }
             }else {
                 //Do things
-                gameArea.clear();
+                if (this.wordNumber < wordList.length){
+                    if (this.draw) {
+                        if (this.word) {
+                            this.currentWord = wordList[this.wordNumber];
+                            console.log("word", this.currentWord);
+                            this.wordNumber++;
+                            gfx.drawWord(this.currentWord);
+                            gfx.drawKeyReminders("pseudo words");
+                            this.present = window.performance.now();
+                            this.draw = false;
+                            this.word = false;
+                            io.go = true;
+                        }
+                    }
+                } else {
+                    if (this.level !== this.levels){
+                        this.go = false;
+                        this.level++;
+                        this.overlayToggle(true, "second");
+                        this.setupNextLevel(this.level);
+
+                    } else{
+                        this.go = false;
+                        this.overlayToggle(true, "end");
+                        this.saveScore();
+                    }
+                }
             }
             gfx.lag -= gfx.frameDuration;
         }

@@ -618,6 +618,7 @@ function startGame(){
     document.getElementById("myForm").style.display = "none";
     gameArea.start();
     lex.overlayToggle(true, "first");
+    lex.setupNextLevel(lex.level);
 }
 
 function shuffle(a) {
