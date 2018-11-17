@@ -398,7 +398,7 @@ class GameLoop {
         gfx.lag += gfx.delta;
 
         gfx.fps = 1/ (gfx.delta/1000);
-        gfx.displayFPS(gameArea.context, gameArea.canvas);
+        //gfx.displayFPS(gameArea.context, gameArea.canvas);
 
         gfx.previous = gfx.now;
     }

@@ -54,7 +54,7 @@ nat
 //TODO: make dutch pseudowords
 
 let realWords =
-`car
+    `car
 eat
 put
 nun
@@ -108,7 +108,7 @@ nit
 bur`;
 
 let echteWoorden =
-`aap
+    `aap
 aas
 ban
 bek
@@ -611,17 +611,13 @@ let nonTargetWordList;
 let wordList;
 const gfx = new Graphics();
 const io = new IO();
-const gm = new Game();
+const lex = new Lex();
 
 function startGame(){
     console.log('Start!');
     document.getElementById("myForm").style.display = "none";
     gameArea.start();
-    //gm.practiceLevelLoop();
-    gm.practice = true;
-    gm.game = true;
-    gm.setupNextLevel(gm.level);
-    gm.practiceLevelLoop();
+    lex.overlayToggle(true, "first");
 }
 
 function shuffle(a) {

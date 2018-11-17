@@ -17,9 +17,10 @@ class Game{
         this.colorTimer = 0;
         this.overlay = true;
         this.practiceLevel = 1;
-        this.levels = 1;
+        this.levels = 2;
         this.level = 1;
-        this.practiceLevelWords = ['tag', 'fob', 'fig'];
+        this.practiceLevelWordsPseudo = ['cas', 'fdb', 'frg'];
+        this.practiceLevelWordsReal = ['car', 'fob', 'fdi'];
         this.wordLength = 3;
         this.endGame = false;
         this.indexingOffset = 1;
@@ -41,14 +42,14 @@ class Game{
     }
 
     speedSetter(correct){
-        if(correct && this.moveSpeed < 3){
+        if(correct && this.moveSpeed < 2){
             this.moveSpeed += 0.2;
             if (this.spawnSpeed > 1) {
                 this.spawnSpeedTank -= (this.spawnSpeedTank * 0.05);
                 this.spawnSpeed = Math.round(this.spawnSpeedTank);
             }
             console.log(this.moveSpeed);
-        } else if(this.moveSpeed > 1){
+        } else if(!correct && this.moveSpeed > 1){
             this.moveSpeed -= 0.2;
             this.spawnSpeedTank += (this.spawnSpeedTank * 0.05);
             this.spawnSpeed = Math.round(this.spawnSpeedTank);
@@ -116,7 +117,33 @@ class Game{
         )
     }
 
+    changeOverlayText(){
+        if (this.practice && this.practiceLevel === 1){
+            document.getElementById("instructions").innerHTML = `The goal of this game is to hit the SPACE bar when a 
+certain type of word enters the blue target. This could either be a real word or a pseudo word. Pseudo words are 
+words that could be real, but aren't. Let's start with a pseudo word!<br/>(Press N to continue)`;
+        } else if (this.practice && this.practiceLevel === 2){
+            document.getElementById("instructions").innerHTML = `As you saw, the word was segmented and recombined briefly 
+in the target. There are three letter streams forming three letter words. Let's see what that looks like with some more 
+pseudo words!<br/>(Press N to continue)`;
+        } else if (this.practice && this.practiceLevel === 3){
+            document.getElementById("instructions").innerHTML = `Alright let's now try to hit the real words. 
+So no pseudo words!<br/>(Press N to continue)`;
+        } else if (this.practice && this.practiceLevel === 4){
+            document.getElementById("instructions").innerHTML = `Those where just practice levels, now the real game begins. 
+You should now target pseudo words. Every time you hit a target word, the streams move a little faster. If you miss, the streams 
+slow down again. Good luck!<br/>(Press N to continue)`;
+        } else if (!this.practice && this.level === 2){
+            document.getElementById("instructions").innerHTML = `Great job! Your next target is real words. 
+Good luck!<br/>(Press N to continue)`;
+        } else if (this.level === this.levels){
+            document.getElementById("instructions").innerHTML = `This is the end. Well done!`;
+        }
+    }
+
     overlayToggle(state){
+        this.changeOverlayText();
+
         if (state) {
             document.getElementById('overlay').style.display = "block";
             console.log('overlay on!');
@@ -178,9 +205,9 @@ class Game{
             this.handle(this.letters);
         }
         // SCOREBOARD!
-        gameArea.context.font = "20px Times New Roman";
-        gameArea.context.textBaseline = 'bottom';
-        gameArea.context.fillText(Math.round(this.score).toString(), gameArea.scoreLeft, gameArea.scoreBottom, 100);
+        // gameArea.context.font = "20px Times New Roman";
+        // gameArea.context.textBaseline = 'bottom';
+        // gameArea.context.fillText(Math.round(this.score).toString(), gameArea.scoreLeft, gameArea.scoreBottom, 100);
         if (this.colorTimer === 0) {
             this.target.color = '#50BAE1';
         }
@@ -199,7 +226,7 @@ class Game{
 
     checkPracticeLevel(){
         console.log(this.letters.length);
-        if (this.letters.length === 1 && this.frames > 10){
+        if (this.letters.length === 1 && this.frames > 100){
             console.log("next!", this.frames);
             this.overlay = true;
             this.practiceLevel++;
@@ -214,7 +241,13 @@ class Game{
             requestAnimationFrame(()=>{this.practiceLevelLoop();});
         }
         if (this.frames === 0){
-            wordList = this.practiceLevelWords;
+            if (this.practiceLevel === 2 || this.practiceLevel === 1) {
+                wordList = this.practiceLevelWordsPseudo;
+                targetWordList = ["cas"];
+            } else if (this.practiceLevel === 3){
+                wordList = this.practiceLevelWordsReal;
+                targetWordList = ["car"];
+            }
         }
         if(gfx.lag >= gfx.frameDuration){
             this.frames++;
@@ -251,7 +284,8 @@ class Game{
                 this.practice = false;
                 this.frames = 0;
                 this.setupNextLevel(this.level);
-                this.overlayToggle(true);
+                //this.overlayToggle(true);
+                this.gameLoop();
 
             }
             gfx.lag -= gfx.frameDuration;
@@ -268,7 +302,7 @@ class Game{
         gfx.lag += gfx.delta;
 
         gfx.fps = 1/ (gfx.delta/1000);
-        gfx.displayFPS(gameArea.context);
+        //gfx.displayFPS(gameArea.context);
 
         gfx.previous = gfx.now;
     }
@@ -342,6 +376,8 @@ class Game{
                         this.saveScore();
                         this.game = false;
                         this.endGame = true;
+                        this.overlay = true;
+                        this.overlayToggle(true);
                         gameArea.canvas.width = 0;
                         return;
                     }
