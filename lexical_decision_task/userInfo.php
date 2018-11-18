@@ -14,7 +14,7 @@
     }
 
     $prep = $con->prepare("INSERT INTO thx_prototype_lexical_decision (name, data, ip, date) VALUES(?, ?, ?, NOW())");
-    $prep->bind_param("siss", $name, $data, $ip_address);
+    $prep->bind_param("sss", $name, $data, $ip_address);
 
     $name = strip_tags($_POST['name']);
     $data = strip_tags($_POST['data']);

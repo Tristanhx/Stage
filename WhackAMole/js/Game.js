@@ -47,11 +47,17 @@ class Game {
 
     message(state, type){
         if (type === "instructions"){
-            document.getElementById("button-mapping-text").style.display = state ? "block" : "none";
-            document.getElementById("follow-up-question").style.display = state ? "none" : "block";
+            document.getElementById("instructions").style.display = "block";
+            document.getElementById("button-mapping-text").style.display = "none";
+            document.getElementById("follow-up-question").style.display = "none";
+        } else if (type === "button_mapping"){
+            document.getElementById("button-mapping-text").style.display = "block";
+            document.getElementById("follow-up-question").style.display = "none";
+            document.getElementById("instructions").style.display = "none";
         } else if(type === "follow-up"){
-            document.getElementById("follow-up-question").style.display = state ? "block" : "none";
-            document.getElementById("button-mapping-text").style.display = state ? "none" : "block";
+            document.getElementById("follow-up-question").style.display = "block";
+            document.getElementById("button-mapping-text").style.display = "none";
+            document.getElementById("instructions").style.display = "none";
         }
     }
 
@@ -73,7 +79,8 @@ class Game {
     }
 
     logData(response, correct, rt){
-        this.data.push([this.userName, rdr.trial, rdr.currentSequence[rdr.trial], rdr.sequenceNumber, rdr.runRepeats, response, correct, rt])
+        this.data.push([this.userName, rdr.trial, rdr.currentSequence[rdr.trial], rdr.sequenceNumber, rdr.runRepeats, response, correct, rt]);
+        console.log(this.data);
     }
 
     gameLoop() {

@@ -2,6 +2,7 @@ class Lex{
     constructor(){
         this.userName = null;
         this.go = false;
+        this.save = true;
         this.overlay = true;
         this.countDown = 4;
         this.timeOut = false;
@@ -16,10 +17,11 @@ class Lex{
 
     resetValues(){
         this.wordNumber = 0;
+        this.countDown = 4;
     }
 
     logData(word, type, rt, response){
-        this.data.push([this.userName, word, type, rt, response]);
+        this.data.push([this.type, word, type, rt, response]);
         console.log(this.data);
     }
 
@@ -33,7 +35,7 @@ class Lex{
     }
 
     saveScore(){
-        let csv = this.makeCSV("name;word;type;reaction time;response\r\n", this.data);
+        let csv = this.makeCSV("word-type;word;type;reaction time;response\r\n", this.data);
         console.log("Saving result");
         $.post("userInfo.php",
             {
@@ -79,6 +81,7 @@ class Lex{
             targetWordList = realWords.split("\n").filter(e => e);
             nonTargetWordList = fakeWords.split("\n").filter(e => e);
             wordList = shuffle(targetWordList.concat(nonTargetWordList));
+            this.type = "real words";
         }
         console.log('level ', level);
     }
@@ -89,10 +92,10 @@ class Lex{
         gfx.drawKeyReminders(this.type);
         this.draw = false;
         io.go = false;
-        this.wordTimeout = setTimeout(()=>{
+        setTimeout(()=>{
             this.draw = true;
             this.word = true;
-        }, 1000 + Math.floor(Math.random() * 1000));
+        }, Math.floor(Math.random() * 1000));
         //2000 + Math.floor(Math.random() * 1000)
     }
 
@@ -102,7 +105,7 @@ class Lex{
             if (this.countDown) {
                 if (!this.timeOut) {
                     gfx.drawCountDown(this.countDown);
-                    gfx.drawKeyReminders("pseudo words");
+                    gfx.drawKeyReminders(this.type);
                     this.timeOut = true;
                     this.countDown--;
                     setTimeout(() => {
@@ -119,7 +122,7 @@ class Lex{
                             console.log("word", this.currentWord);
                             this.wordNumber++;
                             gfx.drawWord(this.currentWord);
-                            gfx.drawKeyReminders("pseudo words");
+                            gfx.drawKeyReminders(this.type);
                             this.present = window.performance.now();
                             this.draw = false;
                             this.word = false;
@@ -133,8 +136,9 @@ class Lex{
                         this.overlayToggle(true, "second");
                         this.setupNextLevel(this.level);
 
-                    } else{
+                    } else if (this.save){
                         this.go = false;
+                        this.save = false;
                         this.overlayToggle(true, "end");
                         this.saveScore();
                     }

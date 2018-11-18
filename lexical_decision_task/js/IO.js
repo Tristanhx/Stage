@@ -12,7 +12,7 @@ class IO{
     }
 
     handleResponse() {
-        if (!lex.go && this.key === 78 && document.getElementById('overlay').style.display === "block"){
+        if (!lex.go && lex.save && this.key === 78 && document.getElementById('overlay').style.display === "block"){
             lex.overlay = false;
             lex.overlayToggle(false);
             lex.go = true;
