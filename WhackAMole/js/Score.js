@@ -65,6 +65,6 @@ class Score {
             },
             function(info){$("#results").html(info);}
         );
-        console.log(JSON.stringify(this.score))
+        //console.log(JSON.stringify(this.score))
     }
 }
