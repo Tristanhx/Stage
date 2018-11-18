@@ -2,7 +2,7 @@ $(function(){
     $("#sub").click(function(){
         gm.userName = document.getElementById("name").value;
         clearInput();
-        console.log('CLICK! ', gm.userName);
+        //console.log('CLICK! ', gm.userName);
         startGame();
     });
 

@@ -36,11 +36,11 @@ class Game {
     overlayToggle(state, type){
         if (state) {
             document.getElementById('overlay').style.display = "block";
-            console.log('overlay on!');
+            //console.log('overlay on!');
         }
          else{
             document.getElementById('overlay').style.display = "none";
-            console.log('overlay off!');
+            //console.log('overlay off!');
         }
         this.message(state, type);
     }
@@ -73,14 +73,14 @@ class Game {
         if(this.noticed_sequence){
             score.saveScore();
         } else{
-            console.log('waiting for input');
+            //console.log('waiting for input');
             setTimeout(()=>{this.waitForInput()}, 1000);
         }
     }
 
     logData(response, correct, rt){
         this.data.push([this.userName, rdr.trial, rdr.currentSequence[rdr.trial], rdr.sequenceNumber, rdr.runRepeats, response, correct, rt]);
-        console.log(this.data);
+        //console.log(this.data);
     }
 
     gameLoop() {

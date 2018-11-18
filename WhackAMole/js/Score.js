@@ -14,7 +14,7 @@ class Score {
     }
 
     writeScore(data){
-        console.log("Writing score");
+        //console.log("Writing score");
         switch (rdr.sequenceNumber) {
             case 0:
                 this.score.fs1.push(data);
@@ -55,7 +55,7 @@ class Score {
         // score.s1_length = score.s1.length;
         // score.s2_length = score.s2.length;
         // score.ran_length = score.ran.length;
-        console.log("Saving result");
+        //console.log("Saving result");
         $.post("userInfo.php",
             {
                 name: gm.userName,

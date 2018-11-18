@@ -48,9 +48,10 @@ class Lex{
 
     changeOverlayText(type){
         if (type === "first"){
-            document.getElementById("instructions").innerHTML = `This is a lexical decision task. <br/>(Press N to continue)`;
+            document.getElementById("instructions").innerHTML = `This is a lexical decision task. There are two types of target words: Pseudo words and real words. During this task you should decide whether a word is of the target type or not. You can do this by pressing the keys highlighted here: <img src="../misc/gamedata/game2img/kb_10.png"><br/>
+Try to be as fast and accurate as possible. Your first target type is PSEUDO WORDS. Good Luck!<br/><br/>(Press N to continue)`;
         } else if (type === "second"){
-            document.getElementById("instructions").innerHTML = `Great job! Your next target is real words. Good luck!<br/>(Press N to continue)`;
+            document.getElementById("instructions").innerHTML = `Great job! Your next target type is real words. Good luck!<br/>(Press N to continue)`;
         } else if (type === "end"){
             document.getElementById("instructions").innerHTML = `This is the end. Well done!`;
         }
@@ -61,11 +62,11 @@ class Lex{
 
         if (state) {
             document.getElementById('overlay').style.display = "block";
-            console.log('overlay on!');
+            //console.log('overlay on!');
         }
         else{
             document.getElementById('overlay').style.display = "none";
-            console.log('overlay off!');
+            //console.log('overlay off!');
         }
         document.getElementById("instructions").style.display = state ? "block" : "none";
 
@@ -83,11 +84,11 @@ class Lex{
             wordList = shuffle(targetWordList.concat(nonTargetWordList));
             this.type = "real words";
         }
-        console.log('level ', level);
+        //console.log('level ', level);
     }
 
     interTrial(){
-        console.log("cross");
+        //console.log("cross");
         gfx.drawCross();
         gfx.drawKeyReminders(this.type);
         this.draw = false;
@@ -119,7 +120,7 @@ class Lex{
                     if (this.draw) {
                         if (this.word) {
                             this.currentWord = wordList[this.wordNumber];
-                            console.log("word", this.currentWord);
+                            //console.log("word", this.currentWord);
                             this.wordNumber++;
                             gfx.drawWord(this.currentWord);
                             gfx.drawKeyReminders(this.type);

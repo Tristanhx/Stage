@@ -48,12 +48,12 @@ class Game{
                 this.spawnSpeedTank -= (this.spawnSpeedTank * 0.05);
                 this.spawnSpeed = Math.round(this.spawnSpeedTank);
             }
-            console.log(this.moveSpeed);
+            //console.log(this.moveSpeed);
         } else if(!correct && this.moveSpeed > 1){
             this.moveSpeed -= 0.2;
             this.spawnSpeedTank += (this.spawnSpeedTank * 0.05);
             this.spawnSpeed = Math.round(this.spawnSpeedTank);
-            console.log(this.moveSpeed);
+            //console.log(this.moveSpeed);
         }
     }
 
@@ -106,7 +106,7 @@ class Game{
 
     saveScore(){
         let csv = this.makeCSV("name;word;type;reaction time;displacement in pixels;speed\r\n", this.data);
-        console.log("Saving result");
+        //console.log("Saving result");
         $.post("userInfo.php",
             {
                 name: this.userName,
@@ -146,11 +146,11 @@ Good luck!<br/>(Press N to continue)`;
 
         if (state) {
             document.getElementById('overlay').style.display = "block";
-            console.log('overlay on!');
+            //console.log('overlay on!');
         }
         else{
             document.getElementById('overlay').style.display = "none";
-            console.log('overlay off!');
+            //console.log('overlay off!');
         }
         document.getElementById("instructions").style.display = state ? "block" : "none";
 
@@ -218,16 +218,16 @@ Good luck!<br/>(Press N to continue)`;
             this.frames = 0;
             this.createLetters(this.wordLength);
             this.wordNumber++;
-            console.log("practiceLevel 1");
+            //console.log("practiceLevel 1");
         } else if (this.wordNumber){}
 
         this.updateElements();
     }
 
     checkPracticeLevel(){
-        console.log(this.letters.length);
+        //console.log(this.letters.length);
         if (this.letters.length === 1 && this.frames > 100){
-            console.log("next!", this.frames);
+            //console.log("next!", this.frames);
             this.overlay = true;
             this.practiceLevel++;
             this.wordNumber = 0;
@@ -328,7 +328,7 @@ Good luck!<br/>(Press N to continue)`;
             this.indexingOffset = 2;
             gameArea.addedScoreLeft += this.letterSize;
         }
-        console.log('level ', level);
+        //console.log('level ', level);
     }
 
     gameLoop() {
@@ -368,7 +368,7 @@ Good luck!<br/>(Press N to continue)`;
                         this.setupNextLevel(this.level);
                         this.overlayToggle(true);
                         this.game = false;
-                        console.log("next level");
+                        //console.log("next level");
                         return;
                     }
                 } else {

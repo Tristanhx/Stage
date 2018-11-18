@@ -97,12 +97,12 @@ class IO{
                         addedScore = 0;
                     }
                     gm.score += addedScore;
-                    console.log("Delta: ", gm.delta, " Added score: ", addedScore);
+                    //console.log("Delta: ", gm.delta, " Added score: ", addedScore);
                     message = Math.round(gm.delta);
                     gm.logTrialData("match", gm.delta);
                     Tools.livesChange(false);
                 }
-                console.log("SPACE");
+                //console.log("SPACE");
                 gm.message = true;
                 gameArea.clearTopBlocks();
                 gm.showReactionTime(message);

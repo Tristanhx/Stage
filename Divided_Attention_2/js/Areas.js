@@ -54,7 +54,7 @@ const gameArea = {
 
 
 function resize(){
-    console.log('resizing');
+    //console.log('resizing');
     let ratio;
     let width;
     let height;
@@ -69,7 +69,7 @@ function resize(){
         height = window.innerHeight;
         width = height * ratio;
     }
-    console.log(ratio);
+    //console.log(ratio);
 
     gameArea.canvas.style.width = (width) + "px";
     gameArea.canvas.style.height = (height) + "px";

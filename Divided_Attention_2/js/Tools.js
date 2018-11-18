@@ -27,8 +27,8 @@ class Tools{
                 gfx.objects[array].forEach(function (item) {
                     tempCollision = Tools.collisionWith(object, item);
                     if (tempCollision) {
-                        console.log("collision");
-                        console.log(item);
+                        //console.log("collision");
+                        //console.log(item);
                         // if (gm.lives > 0 && !gm.immunity) {
                         //     gm.lives--;
                         //     gm.immunity = true;
@@ -102,11 +102,11 @@ class Tools{
 
         if(match){
             rightRandom = leftRandom;
-            console.log("match!");
-            console.log(leftRandom);
+            //console.log("match!");
+            //console.log(leftRandom);
         }else{
             rightRandom = Math.random();
-            console.log("no match!");
+            //console.log("no match!");
         }
 
         if (leftRandom <= 0.5){
@@ -153,7 +153,7 @@ class Tools{
     static ensureDifference(){
         gfx.objects["rightBlocks"][0] = gfx.objects["rightBlocks"][0] === 'yellow' ? 'blue' : 'yellow';
         gfx.objects["rightBlocks"] = Tools.shuffle(gfx.objects["rightBlocks"]);
-        console.log("ensured difference!");
+        //console.log("ensured difference!");
     }
 
     static shuffle(a) {
@@ -186,8 +186,8 @@ class Tools{
         gm.blockNow = window.performance.now();
         gm.trial++;
 
-        console.log("left: " + [gfx.objects["leftBlocks"][0].color, gfx.objects["leftBlocks"][1].color, gfx.objects["leftBlocks"][2].color, gfx.objects["leftBlocks"][3].color]
-            + " right: " + [gfx.objects["rightBlocks"][0].color, gfx.objects["rightBlocks"][1].color, gfx.objects["rightBlocks"][2].color, gfx.objects["rightBlocks"][3].color]);
+        //console.log("left: " + [gfx.objects["leftBlocks"][0].color, gfx.objects["leftBlocks"][1].color, gfx.objects["leftBlocks"][2].color, gfx.objects["leftBlocks"][3].color]
+        //    + " right: " + [gfx.objects["rightBlocks"][0].color, gfx.objects["rightBlocks"][1].color, gfx.objects["rightBlocks"][2].color, gfx.objects["rightBlocks"][3].color]);
 
         gm.logData("left: " + [gfx.objects["leftBlocks"][0].color, gfx.objects["leftBlocks"][1].color, gfx.objects["leftBlocks"][2].color, gfx.objects["leftBlocks"][3].color].toString()
             + " right: " + [gfx.objects["rightBlocks"][0].color, gfx.objects["rightBlocks"][1].color, gfx.objects["rightBlocks"][2].color, gfx.objects["rightBlocks"][3].color].toString());
@@ -200,7 +200,7 @@ class Tools{
         gfx.objects["rightBlocks"] = [];
         gm.blockCount = 0;
         if (gm.match && !io.pressed && punish) {
-            console.log('punish');
+            //console.log('punish');
             gm.logTrialData("match", "NaN");
             // if (gm.lives > 0 && !gm.immunity) {
             //     gm.lives--;
@@ -277,8 +277,8 @@ class Tools{
         hSpeedArray.shift();
         vSpeedArray.shift();
         gapArray.shift();
-        console.log("inside function (parameters): ", framesArray, xPosArray, hSpeedArray, vSpeedArray, gapArray);
-        console.log("inside function (references): ", gm.straightPathFramesArray, gm.straightPathXPosArray, gm.straightPathHSpeedArray, gm.straightPathVSpeedArray, gm.straightPathGapArray);
+        //console.log("inside function (parameters): ", framesArray, xPosArray, hSpeedArray, vSpeedArray, gapArray);
+        //console.log("inside function (references): ", gm.straightPathFramesArray, gm.straightPathXPosArray, gm.straightPathHSpeedArray, gm.straightPathVSpeedArray, gm.straightPathGapArray);
         if(gm.straightPathFramesArray.length > 0) {
             return "level made\n";
         }
@@ -289,13 +289,13 @@ class Tools{
 
     static getLevel(){
 
-        console.log("getting level");
+        //console.log("getting level");
         $.ajax({
             url: "getLevel.php",
             success: function (response) {
                 let slicedResponse = response.slice(45);
                 let levelArray = slicedResponse.split('[Frames]');
-                console.log(levelArray);
+                //console.log(levelArray);
 
                 Tools.makeLevelArrays(levelArray[0], gm.straightPathFramesArray, gm.straightPathXPosArray, gm.straightPathHSpeedArray, gm.straightPathVSpeedArray, gm.straightPathGapArray);
                 Tools.makeLevelArrays(levelArray[1], gm.pathOnlyFramesArray, gm.pathOnlyXPosArray, gm.pathOnlyHSpeedArray, gm.pathOnlyVSpeedArray, gm.pathOnlyGapArray);
@@ -303,7 +303,7 @@ class Tools{
                 Tools.makeLevelArrays(levelArray[3], gm.level_2_FramesArray, gm.level_2_XPosArray, gm.level_2_HSpeedArray, gm.level_2_VSpeedArray, gm.level_2_GapArray);
                 Tools.makeLevelArrays(levelArray[4], gm.level_3_FramesArray, gm.level_3_XPosArray, gm.level_3_HSpeedArray, gm.level_3_VSpeedArray, gm.level_3_GapArray);
 
-                console.log("outside function: ", gm.straightPathFramesArray, gm.straightPathXPosArray, gm.straightPathHSpeedArray, gm.straightPathVSpeedArray, gm.straightPathGapArray);
+                //console.log("outside function: ", gm.straightPathFramesArray, gm.straightPathXPosArray, gm.straightPathHSpeedArray, gm.straightPathVSpeedArray, gm.straightPathGapArray);
                 startGame();
             },
             error: () => {
@@ -323,8 +323,8 @@ class Tools{
         }
         let levelScore = gm.frames + (addedFraction * gm.frames);
 
-        console.log("levelscores: ", levelScore);
-        console.log("leveltime: ", gm.levelTime);
+       // console.log("levelscores: ", levelScore);
+        //console.log("leveltime: ", gm.levelTime);
 
         gm.score += levelScore;
     }
@@ -340,7 +340,7 @@ class Tools{
 
     static saveScore(){
         gm.overlayToggle(true, 'end');
-        console.log("Saving result");
+        //console.log("Saving result");
 
         gm.logLevelTime(gm.level_name, gm.levelTime, gm.hits);
 
@@ -350,7 +350,7 @@ class Tools{
 
         let csv_level_times = Tools.makeCSV("level;level time;hits\r\n", gm.levelTimeData);
 
-        console.log(csv.length, csv_trials.length);
+        //console.log(csv.length, csv_trials.length);
 
         $.post("userInfo.php",
             {

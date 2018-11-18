@@ -181,7 +181,7 @@ class GameLoop {
 
     prepareForNextLevel(){
         this.logLevelTime(this.level_name, this.levelTime, this.hits);
-        console.log("levelduration in frames: ", this.frames);
+        //console.log("levelduration in frames: ", this.frames);
 
         //shouldn't change speed anymore if we are to compare levels
         // if(this.lives === this.maxLives) {
@@ -195,8 +195,8 @@ class GameLoop {
         gfx.objects['obstacles'] = [];
         gfx.objects['pathParts'] = [];
         this.resetValues();
-        console.log(this.lives, "/", this.maxLives);
-        console.log("Cumulative score: ", this.score);
+        //console.log(this.lives, "/", this.maxLives);
+        //.log("Cumulative score: ", this.score);
 
         gameArea.lifeMeterBorders = [];
         //gameArea.fillBorders();
@@ -214,7 +214,7 @@ class GameLoop {
     changeType(){
         if (this.pathOnlyBool){
             this.setCurrentArray(this.straightPathFramesArray, this.straightPathXPosArray, this.straightPathHSpeedArray, this.straightPathVSpeedArray, this.straightPathGapArray);
-            console.log("changed to block");
+            //console.log("changed to block");
             this.level_name = "blocks Only";
             this.pathOnlyBool = false;
             this.blocksOnlyBool = true;
@@ -224,7 +224,7 @@ class GameLoop {
             this.blocksOnly()
         } else if(this.blocksOnlyBool){
             this.setCurrentArray(this.level_1_FramesArray, this.level_1_XPosArray, this.level_1_HSpeedArray, this.level_1_VSpeedArray, this.level_1_GapArray);
-            console.log("changed to level 1");
+            //console.log("changed to level 1");
             this.level_name = "level 1";
             this.blocksOnlyBool = false;
             this.ready = false;
@@ -234,12 +234,12 @@ class GameLoop {
         } else {
             if (this.level === 1){
                 this.setCurrentArray(this.level_2_FramesArray, this.level_2_XPosArray, this.level_2_HSpeedArray, this.level_2_VSpeedArray, this.level_2_GapArray);
-                console.log("changed to level 2");
+                //console.log("changed to level 2");
                 this.level_name = "level 2";
             }
             if (this.level === 2){
                 this.setCurrentArray(this.level_3_FramesArray, this.level_3_XPosArray, this.level_3_HSpeedArray, this.level_3_VSpeedArray, this.level_3_GapArray);
-                console.log("changed to level 3");
+                //console.log("changed to level 3");
                 this.level_name = "level 3";
             }
             this.level++;
@@ -283,12 +283,12 @@ class GameLoop {
     }
 
     createStartingArea(){
-        console.log("start!");
+        //console.log("start!");
         this.startingArea = new GameObject(gameArea.canvas.width + 200, gameArea.canvas.width + 200, '#FFAA00', -100, gameArea.livesBorder, "start", false, false, false);
     }
 
     createFinishLine(){
-        console.log('finishline!');
+        //console.log('finishline!');
         this.finishArea = new GameObject(gameArea.canvas.width + 20, gameArea.canvas.width + 20, '#FFAA00', -10, gameArea.canvas.height -10, "finish", false, false, false);
         gfx.createObjectHLine('finishline', ['black', 'white'], gameArea.canvas, 10, gameArea.context, this.blockLoc, this.blockLoc + this.gap);
     }
@@ -306,7 +306,7 @@ class GameLoop {
     logData(event){
         this.data.push([this.frames, this.level_name, this.speed, this.hits, Math.round(this.player.xPos), Math.round(this.blockLoc),
             Math.round(this.blockLoc + this.gap), gameArea.canvas.style.width, event]);
-        console.log("logging data");
+        //console.log("logging data");
     }
 
     logTrialData(trialType, rt){
@@ -348,11 +348,11 @@ class GameLoop {
     overlayToggle(state, type){
         if (state) {
             document.getElementById('overlay').style.display = "block";
-            console.log('overlay on!');
+            //console.log('overlay on!');
         }
         else{
             document.getElementById('overlay').style.display = "none";
-            console.log('overlay off!');
+            //console.log('overlay off!');
         }
         this.showMessage(type);
     }
@@ -510,7 +510,7 @@ class GameLoop {
                             Tools.calculateScore();
                             this.prepareForNextLevel();
                             this.changeType();
-                            console.log('next level!')
+                            //console.log('next level!')
                         }
                     } else if (this.speed === 0) {
                         this.interLevelTime--;
@@ -614,7 +614,7 @@ class GameLoop {
         } else if(this.pathOnlyBool){
             this.setCurrentArray(this.pathOnlyFramesArray, this.pathOnlyXPosArray, this.pathOnlyHSpeedArray, this.pathOnlyVSpeedArray, this.pathOnlyGapArray);
             this.prepareForNextLevel();
-            console.log(this.currentFramesArray);
+            //console.log(this.currentFramesArray);
             this.pathOnly();
         } else if(this.blocksOnlyBool){
             this.setCurrentArray(this.straightPathFramesArray, this.straightPathXPosArray, this.straightPathHSpeedArray, this.straightPathVSpeedArray, this.straightPathGapArray);

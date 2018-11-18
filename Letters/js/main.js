@@ -614,7 +614,7 @@ const io = new IO();
 const gm = new Game();
 
 function startGame(){
-    console.log('Start!');
+    //console.log('Start!');
     document.getElementById("myForm").style.display = "none";
     gameArea.start();
     //gm.practiceLevelLoop();

@@ -22,7 +22,7 @@ class Graphics{
         context.textAlign = 'left';
         context.textBaseline = 'bottom';
         context.fillText(gm.addedScore.toString(), gameArea.addedScoreLeft + 50, gameArea.addedScoreTop);
-        console.log(gm.addedScore);
+        //console.log(gm.addedScore);
         setTimeout(() => {gameArea.clearAddedScore();}, 1000);
     }
 }

@@ -17,9 +17,9 @@ class IO{
             lex.overlayToggle(false);
             lex.go = true;
             lex.loop();
-            console.log('game on!');
+            //console.log('game on!');
         }
-        if ((this.key === 90 || this.key === 77) && this.go) {
+        if ((this.key === 49 || this.key === 48) && this.go) {
             let stopPresent = window.performance.now();
             let present = lex.present;
             lex.interTrial();

@@ -275,7 +275,7 @@ const io = new IO();
 const lex = new Lex();
 
 function startGame(){
-    console.log('Start!');
+    //console.log('Start!');
     document.getElementById("myForm").style.display = "none";
     gameArea.start();
     lex.overlayToggle(true, "first");

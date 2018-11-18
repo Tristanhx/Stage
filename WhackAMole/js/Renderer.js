@@ -38,7 +38,7 @@ class Renderer{
 
             for (let i = 0; i < this.maxRepeats; i++) {
                 for (let j = 0; j < sequence.length; j++) {
-                    console.log(this.currentSequence);
+                    //console.log(this.currentSequence);
                     this.currentSequence[j + sequence.length * i] = sequence[j];
                 }
             }
@@ -52,7 +52,7 @@ class Renderer{
 
         //switch sequences
         if (!this.set) {
-            console.log("switching sequences");
+            //console.log("switching sequences");
             switch (this.sequenceNumber) {
                 case 0:
                     this.fillCurrentArray(gm.firstSequence);
@@ -73,7 +73,7 @@ class Renderer{
                     this.fillCurrentArray("random");
                     break;
             }
-            console.log(this.currentSequence);
+            //console.log(this.currentSequence);
             this.set = true;
         }
 
@@ -122,11 +122,11 @@ class Renderer{
                     break;
             }
         }
-            console.log((this.trial + 1) + "/" + this.maxTrials);
+            //console.log((this.trial + 1) + "/" + this.maxTrials);
             //this.trial++;
 
         if (this.trial === this.maxTrials){
-            console.log("This was sequence: ", this.sequenceNumber);
+            //console.log("This was sequence: ", this.sequenceNumber);
             if (this.runRepeats < this.maxRunRepeats) {
                 if (this.sequenceNumber < 5) {
                     this.sequenceNumber++;
@@ -171,7 +171,7 @@ class Renderer{
                 this.makeMole = false;
 
             } else if (this.makeMole === 'Dead' || this.makeMole === 'Miss') {
-                console.log("Makemole 1 is ", this.makeMole);
+                //console.log("Makemole 1 is ", this.makeMole);
                 let img = this.makeMole === 'Dead' ? gm.moleImage : gm.moleMissImage;
                 this.makeMole = 'Nothing';
                 if (this.blue) {
@@ -206,7 +206,7 @@ class Renderer{
             //ctx.moveTo(cx,cy);
             ctx.arc(cx,cy,r,toRadians(line[0]),toRadians(line[1]));
             ctx.stroke();
-            ctx.beginPath()
+            ctx.beginPath();
             ctx.moveTo(line[2], line[3]);
             ctx.lineTo(line[4], line[5]);
             ctx.stroke();
@@ -278,7 +278,7 @@ class Renderer{
     }
 
     clearMole(){
-        console.log(this + " " + gameArea.context);
+        //console.log(this + " " + gameArea.context);
         gameArea.context.clearRect(0, 0, gameArea.canvas.width, gameArea.canvas.height);
         this.makeMole = 'Alive';
         this.timeOut = 0;

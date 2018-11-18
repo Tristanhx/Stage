@@ -17,7 +17,7 @@ let gameArea = {
 };
 
 function resize(){
-    console.log('resizing');
+    //console.log('resizing');
     let ratio = gameArea.canvas.width / gameArea.canvas.height;
     let height;
     let width;

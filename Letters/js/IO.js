@@ -31,7 +31,7 @@ class IO{
             gm.overlayToggle(false);
             gm.game = true;
             gm.gameLoop();
-            console.log('game on!');
+            //console.log('game on!');
         }
         if (this.key === 32 && this.go) {
             let stopPresent = window.performance.now();

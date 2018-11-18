@@ -75,7 +75,7 @@ class Graphics{
     renderBottomArea(speed, frames, obstacleSize){
         if (frames === 0) {
             gm.createStart();
-            console.log('start!');
+            //console.log('start!');
         }
         if (speed !== 0) {
             gm.levelTime += 1;
@@ -89,7 +89,7 @@ class Graphics{
 
         if (frames >= gm.currentFramesArray.length && !gm.finish) {
             gm.createFinishLine();
-            console.log(this.objects["finishline"]);
+            //console.log(this.objects["finishline"]);
             gm.finish = true;
         }
 
@@ -142,7 +142,7 @@ class Graphics{
 
     createObjectHLine(array, color, canvas, size, context, x1, x2){
         this.createArrayInObjects(array);
-        console.log("line!");
+        //console.log("line!");
 
         let colorCounter = 0;
         let currentColor;

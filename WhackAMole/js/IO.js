@@ -20,9 +20,9 @@ class IO{
                 } else if (this.go && gm.game && !gm.ready && this.keysSet) {
                     if (e.keyCode !== 49 && e.keyCode !== 48 && e.keyCode !== 78) {
                         if (!this.leftIndex) {
-                            console.log('left!');
+                            //console.log('left!');
                             this.setLeftIndex(e.keyCode);
-                            document.getElementById('button-mapping-text').innerHTML = 'Place your MIDDLE finger of your RIGHT hand on the 0 (zero) key and your INDEX finger of your RIGHT hand on the indicated key below. Press down your right index finger. <img src="../misc/gamedata/game2img/kb_o.png">'
+                            document.getElementById('button-mapping-text').innerHTML = 'Place your MIDDLE finger of your RIGHT hand on the 0 (zero) key and your INDEX finger of your RIGHT hand on the indicated key below. Press down your right index finger. <br/><img src="../misc/gamedata/game2img/kb_i.png">'
                         } else if (e.keyCode !== this.leftIndex) {
                             this.setRightIndex(e.keyCode);
                             gm.overlayToggle(false, "button-mapping-text");
@@ -57,16 +57,12 @@ class IO{
         switch (key) {
             case 49:
                 return "Upper Left";
-                break;
             case 48:
                 return "Upper Right";
-                break;
             case this.leftIndex:
                 return "Lower Left";
-                break;
             case this.rightIndex:
                 return "Lower Right";
-                break;
         }
     }
 
@@ -75,7 +71,7 @@ class IO{
         this.rt = this.stopTime - this.startTime;
         if (rdr.blue) {
             rdr.makeMole = 'Dead';
-            console.log(this.rt);
+            //console.log(this.rt);
             rdr.displayReactionTime(Math.round(this.rt));
             score.writeScore(Math.round(this.rt));
             gm.logData(this.response(key), "correct", this.rt);
@@ -118,7 +114,7 @@ class IO{
     };
 
     tooSoon(){
-        console.log("Too soon!");
+        //console.log("Too soon!");
         this.go = false;
     };
 }
