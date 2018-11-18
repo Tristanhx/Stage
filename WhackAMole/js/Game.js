@@ -22,7 +22,7 @@ class Game {
         this.game = true;
         this.ready = false;
         this.overlay = false;
-        this.noticed_sequence = true;
+        this.noticed_sequence = "nvt";
 
         this.countDownSecondsSetting = 5;
         this.countDownSeconds = this.countDownSecondsSetting;
