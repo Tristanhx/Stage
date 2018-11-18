@@ -50,7 +50,9 @@ class IO{
                     gm.revertTimer = 3000;
                     gm.target.color = 'red';
                     gm.colorTimer = this.colorTimerTime;
-                    gm.logData(tmpWord, "non-target", stopPresent-present, this.calculateDisplacement());
+                    if (!gm.practice) {
+                        gm.logData(tmpWord, "non-target", stopPresent - present, this.calculateDisplacement());
+                    }
                 } else {
                     gm.addedScore = this.calculateScore();
                     gm.score += gm.addedScore;
@@ -59,7 +61,9 @@ class IO{
                     gm.target.color = 'green';
                     gm.colorTimer = this.colorTimerTime;
                     gfx.displayAddedScore(gameArea.context);
-                    gm.logData(tmpWord, "target", stopPresent-present, this.calculateDisplacement());
+                    if (!gm.practice) {
+                        gm.logData(tmpWord, "target", stopPresent - present, this.calculateDisplacement());
+                    }
                 }
                 this.lastResponse = tmpWord;
             }

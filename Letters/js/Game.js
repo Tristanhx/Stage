@@ -372,7 +372,7 @@ Good luck!<br/>(Press N to continue)`;
                         return;
                     }
                 } else {
-                    if (this.letters.length <= 0) {
+                    if (this.letters.length <= 0 && this.game) {
                         this.saveScore();
                         this.game = false;
                         this.endGame = true;
