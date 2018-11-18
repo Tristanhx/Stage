@@ -6,15 +6,15 @@ $(function(){
         startGame();
     });
 
-    $("#yes").click(function(){
-        gm.noticed_sequence = "yes";
-        gm.overlayToggle(false, "follow-up");
-    });
-
-    $("#no").click(function(){
-        gm.noticed_sequence = "no";
-        gm.overlayToggle(false, "follow-up");
-    });
+    // $("#yes").click(function(){
+    //     gm.noticed_sequence = "yes";
+    //     gm.overlayToggle(false, "follow-up");
+    // });
+    //
+    // $("#no").click(function(){
+    //     gm.noticed_sequence = "no";
+    //     gm.overlayToggle(false, "follow-up");
+    // });
 
     $("#myForm").submit(function(){
         return false;

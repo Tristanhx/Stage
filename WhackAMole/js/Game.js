@@ -22,7 +22,7 @@ class Game {
         this.game = true;
         this.ready = false;
         this.overlay = false;
-        this.noticed_sequence = null;
+        this.noticed_sequence = true;
 
         this.countDownSecondsSetting = 5;
         this.countDownSeconds = this.countDownSecondsSetting;
@@ -54,10 +54,10 @@ class Game {
             document.getElementById("button-mapping-text").style.display = "block";
             document.getElementById("follow-up-question").style.display = "none";
             document.getElementById("instructions").style.display = "none";
-        } else if(type === "follow-up"){
-            document.getElementById("follow-up-question").style.display = "block";
-            document.getElementById("button-mapping-text").style.display = "none";
-            document.getElementById("instructions").style.display = "none";
+        // } else if(type === "follow-up"){
+        //     document.getElementById("follow-up-question").style.display = "block";
+        //     document.getElementById("button-mapping-text").style.display = "none";
+        //     document.getElementById("instructions").style.display = "none";
         }
     }
 
