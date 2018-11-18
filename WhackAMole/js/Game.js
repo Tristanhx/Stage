@@ -20,6 +20,7 @@ class Game {
         this.cross.src = "../misc/gamedata/game1img/fout.png";
 
         this.game = true;
+        this.save = true;
         this.ready = false;
         this.overlay = false;
         this.noticed_sequence = "nvt";
@@ -70,8 +71,9 @@ class Game {
     }
 
     waitForInput(){
-        if(this.noticed_sequence){
+        if(this.noticed_sequence && this.save){
             score.saveScore();
+            this.save = false;
         } else{
             //console.log('waiting for input');
             setTimeout(()=>{this.waitForInput()}, 1000);

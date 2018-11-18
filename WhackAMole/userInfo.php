@@ -13,7 +13,7 @@
         die("Connection failed: " . $con->connect_error);
     }
 
-    $prep = $con->prepare("INSERT INTO thx_prototype_whackamole (name, score, data, ip_address,noticed_sequence, date) VALUES(?, ?, ?, ?, ?, NOW())");
+    $prep = $con->prepare("INSERT INTO thx_prototype_whackamole (name, score, data, ip_address, noticed_sequence, date) VALUES(?, ?, ?, ?, ?, NOW())");
     $prep->bind_param("sssss", $name, $score, $data, $ip_address, $noticed_sequence);
 
     $name = strip_tags($_POST['name']);
